@@ -13,6 +13,7 @@ namespace DoctorWebASP.Models
         public virtual Cita Evento { get; set; }
         public virtual CentroMedico CentroMedico { get; set; }
         public virtual ICollection<Tratamiento> Tratamientos { get; set; }
+        //Pruebagit
 
     }
 }
