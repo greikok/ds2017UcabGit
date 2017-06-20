@@ -212,6 +212,18 @@
     <Compile Include="Migrations\201706192310477_AgregarClaseEspecialidadMedicaYRelacionConMedico.Designer.cs">
       <DependentUpon>201706192310477_AgregarClaseEspecialidadMedicaYRelacionConMedico.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201706200214482_AddingGeneroFechaCreacionToPerson.cs" />
+    <Compile Include="Migrations\201706200214482_AddingGeneroFechaCreacionToPerson.Designer.cs">
+      <DependentUpon>201706200214482_AddingGeneroFechaCreacionToPerson.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201706200228295_ChangingSueldoDeletingEspecialidadToMedico.cs" />
+    <Compile Include="Migrations\201706200228295_ChangingSueldoDeletingEspecialidadToMedico.Designer.cs">
+      <DependentUpon>201706200228295_ChangingSueldoDeletingEspecialidadToMedico.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201706200231045_ChangingSueldoExtendFromPersonaToEmpleado.cs" />
+    <Compile Include="Migrations\201706200231045_ChangingSueldoExtendFromPersonaToEmpleado.Designer.cs">
+      <DependentUpon>201706200231045_ChangingSueldoExtendFromPersonaToEmpleado.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Calendario.cs" />
@@ -1342,6 +1354,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201706192310477_AgregarClaseEspecialidadMedicaYRelacionConMedico.resx">
       <DependentUpon>201706192310477_AgregarClaseEspecialidadMedicaYRelacionConMedico.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201706200214482_AddingGeneroFechaCreacionToPerson.resx">
+      <DependentUpon>201706200214482_AddingGeneroFechaCreacionToPerson.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201706200228295_ChangingSueldoDeletingEspecialidadToMedico.resx">
+      <DependentUpon>201706200228295_ChangingSueldoDeletingEspecialidadToMedico.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201706200231045_ChangingSueldoExtendFromPersonaToEmpleado.resx">
+      <DependentUpon>201706200231045_ChangingSueldoExtendFromPersonaToEmpleado.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
