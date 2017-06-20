@@ -224,6 +224,14 @@
     <Compile Include="Migrations\201706200231045_ChangingSueldoExtendFromPersonaToEmpleado.Designer.cs">
       <DependentUpon>201706200231045_ChangingSueldoExtendFromPersonaToEmpleado.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201706200242304_AddingListOfEmpleadosToCentroMedico.cs" />
+    <Compile Include="Migrations\201706200242304_AddingListOfEmpleadosToCentroMedico.Designer.cs">
+      <DependentUpon>201706200242304_AddingListOfEmpleadosToCentroMedico.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201706200301584_AddingAttributesToRecursoHospitalario.cs" />
+    <Compile Include="Migrations\201706200301584_AddingAttributesToRecursoHospitalario.Designer.cs">
+      <DependentUpon>201706200301584_AddingAttributesToRecursoHospitalario.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Calendario.cs" />
@@ -1363,6 +1371,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201706200231045_ChangingSueldoExtendFromPersonaToEmpleado.resx">
       <DependentUpon>201706200231045_ChangingSueldoExtendFromPersonaToEmpleado.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201706200242304_AddingListOfEmpleadosToCentroMedico.resx">
+      <DependentUpon>201706200242304_AddingListOfEmpleadosToCentroMedico.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201706200301584_AddingAttributesToRecursoHospitalario.resx">
+      <DependentUpon>201706200301584_AddingAttributesToRecursoHospitalario.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
