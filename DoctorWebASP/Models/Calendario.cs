@@ -13,6 +13,7 @@ namespace DoctorWebASP.Models
         public DateTime HoraInicio { get; set; }
         [Required]
         public DateTime HoraFin { get; set; }
+        public bool Cancelada { get; set; }
 
         public virtual Medico Medico { get; set; }
     }
