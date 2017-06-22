@@ -25,5 +25,14 @@ namespace DoctorWebASP.Models
         public string Email { get; set; }
         public string Direccion { get; set; }
         public virtual ApplicationUser ApplicationUser { get; set; }
+
+        public string ConcatUserName
+        {
+            get
+            {
+                return Nombre +" "+ Apellido;
+            }
+        }
+
     }
 }

@@ -55,21 +55,23 @@ namespace DoctorWebASP.Controllers
         // POST: Citas/SeleccionarEspecialidad
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult SeleccionarEspecialidad([Bind(Prefix = "EspecialidadMedica")] string espMedica,
+        public ActionResult SeleccionarEspecialidad([Bind(Prefix = "EspecialidadMedica")] int espMedica,
                                                     [Bind(Prefix = "CentroMedicoId")] int centroMedicoId)
         {
-
-            var espMd = int.Parse(espMedica);
-            return RedirectToAction("SeleccionarMedico","Citas",new {  });
+            //var espMd = int.Parse(espMedica);
+ 
+            return RedirectToAction("SeleccionarMedico","Citas", new { espMedica , centroMedicoId });
         }
 
         // GET: Citas/SeleccionarMedico
         public ActionResult SeleccionarMedico(int espMedica,int centroMedicoId)
         {
 
-            //var centroMedico = db.CentrosMedicos.Single(c => c.CentroMedicoId.ToString() == centroMedicoId);
-            //var medicos = new SelectList(db.Personas.OfType<Medico>().Where(m => m.EspecialidadMedica.Equals(espMedica) && m.CentroMedico == centroMedico));
-            //ViewBag.Medicos = medicos;
+            Console.WriteLine();
+            CentroMedico centroMedico = db.CentrosMedicos.Single(c => c.CentroMedicoId == centroMedicoId);
+            EspecialidadMedica especialidadMedica = db.EspecialidadesMedicas.Single(e => e.EspecialidadMedicaId == espMedica);
+            var medicos = new SelectList(db.Personas.OfType<Medico>().Where(p => p.CentroMedico.CentroMedicoId == centroMedicoId && p.EspecialidadMedica.EspecialidadMedicaId == espMedica).ToList(), "PersonaId", "ConcatUserName");
+            ViewBag.Medicos = medicos;
             return View();
         }
 
