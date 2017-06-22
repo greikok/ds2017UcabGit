@@ -25,6 +25,9 @@ namespace DoctorWebASP.Models
         public DbSet<Persona> Personas { get; set; }
         public DbSet<Cita> Citas { get; set; }
         public DbSet<Calendario> Calendarios { get; set; }
+        public DbSet<EspecialidadMedica> EspecialidadesMedicas { get; set; }
+        public DbSet<CentroMedico> CentrosMedicos { get; set; }
+
         public ApplicationDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)
 

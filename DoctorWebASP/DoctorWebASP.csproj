@@ -1323,6 +1323,9 @@
     <Content Include="Views\Citas\Details.cshtml" />
     <Content Include="Views\Citas\Edit.cshtml" />
     <Content Include="Views\Citas\Index.cshtml" />
+    <Content Include="Views\Citas\SolicitarCita.cshtml" />
+    <Content Include="Views\Citas\SeleccionarEspecialidad.cshtml" />
+    <Content Include="Views\Citas\SeleccionarMedico.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

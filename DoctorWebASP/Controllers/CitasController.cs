@@ -20,6 +20,59 @@ namespace DoctorWebASP.Controllers
             return View(db.Citas.ToList());
         }
 
+        // GET: Citas/SolicitarCita
+        public ActionResult SolicitarCita()
+        {
+            var centrosMedicos = new SelectList(db.CentrosMedicos.ToList(), "Rif", "Nombre");
+            ViewBag.CentrosMedicos = centrosMedicos;
+            return View();
+        }
+        
+        // POST: Citas/SolicitarCita
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult SolicitarCita([Bind(Prefix = "CentrosMedico")] string centroMedico)
+        {
+            CentroMedico cMedico = db.CentrosMedicos.Single(m => m.Rif == centroMedico);
+            //var especialidadesMedicas = new SelectList(db.Personas.OfType<Medico>().Where(m => m.CentroMedico.CentroMedicoId == cMedico.CentroMedicoId).Select(c => c.EspecialidadMedica).Distinct().ToList(), "EspecialidadMedicaId", "Nombre");
+
+            //ViewBag.EspecialidadesMedicas = especialidadesMedicas;
+            //ViewBag.CentroMedicoId = cMedico.CentroMedicoId.ToString();
+
+            return RedirectToAction("SeleccionarEspecialidad",cMedico);
+        }
+
+        // GET: Citas/SeleccionarEspecialidad
+        public ActionResult SeleccionarEspecialidad(CentroMedico cMedico)
+        {
+            var especialidadesMedicas = new SelectList(db.Personas.OfType<Medico>().Where(m => m.CentroMedico.CentroMedicoId == cMedico.CentroMedicoId).Select(c => c.EspecialidadMedica).Distinct().ToList(), "EspecialidadMedicaId", "Nombre");
+
+            ViewBag.EspecialidadesMedicas = especialidadesMedicas;
+            ViewBag.CentroMedicoId = cMedico.CentroMedicoId;
+            return View();
+        }
+
+        // POST: Citas/SeleccionarEspecialidad
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult SeleccionarEspecialidad([Bind(Prefix = "EspecialidadMedica")] string espMedica,
+                                                    [Bind(Prefix = "CentroMedicoId")] int centroMedicoId)
+        {
+
+            var espMd = int.Parse(espMedica);
+            return RedirectToAction("SeleccionarMedico","Citas",new {  });
+        }
+
+        // GET: Citas/SeleccionarMedico
+        public ActionResult SeleccionarMedico(int espMedica,int centroMedicoId)
+        {
+
+            //var centroMedico = db.CentrosMedicos.Single(c => c.CentroMedicoId.ToString() == centroMedicoId);
+            //var medicos = new SelectList(db.Personas.OfType<Medico>().Where(m => m.EspecialidadMedica.Equals(espMedica) && m.CentroMedico == centroMedico));
+            //ViewBag.Medicos = medicos;
+            return View();
+        }
+
         // GET: Citas/Details/5
         public ActionResult Details(int? id)
         {
