@@ -29,7 +29,7 @@ namespace DoctorWebServiciosWCF.Services
 
                 if (respuesta.SinProblemas)
                 {
-                    respuesta.Contenido.Enviar("rasc.19@gmail.com");
+                    respuesta.Contenido.Enviar(correo);
                     resultado.SinProblemas = true;
                 }
                 else
@@ -54,7 +54,7 @@ namespace DoctorWebServiciosWCF.Services
 
                 if (respuesta.SinProblemas)
                 {
-                    respuesta.Contenido.Enviar("rasc.19@gmail.com", new { nombre = nombre });
+                    respuesta.Contenido.Enviar(correo, new { nombre = nombre });
                     resultado.SinProblemas = true;
                 }
                 else

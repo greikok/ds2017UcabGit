@@ -49,54 +49,56 @@ namespace DoctorWebServiciosWCF.Model
 
         private void Enviar(MailAddress[] destinatarios, object parametros = null)
         {
-            ThreadPool.QueueUserWorkItem(new WaitCallback((obj) =>
-            {
-                try
+            if (Estado == NotificacionEstado.Disponible)
+                ThreadPool.QueueUserWorkItem(new WaitCallback((obj) =>
                 {
-                    var host = Utilidades.ObtenerClave("SMTPServerHost");
-                    var port = Utilidades.ObtenerClave("SMTPServerPost");
-                    var fromName = Utilidades.ObtenerClave("SMTPFromName");
-                    var user = Utilidades.ObtenerClave("SMTPUserId");
-                    var pass = Utilidades.ObtenerClave("SMTPUserPassword");
-
-                    if (!String.IsNullOrEmpty(host) &&
-                        !String.IsNullOrEmpty(port) &&
-                        !String.IsNullOrEmpty(fromName) &&
-                        !String.IsNullOrEmpty(user) &&
-                        !String.IsNullOrEmpty(pass))
+                    try
                     {
+                        var host = Utilidades.ObtenerClave("SMTPServerHost");
+                        var port = Utilidades.ObtenerClave("SMTPServerPost");
+                        var fromName = Utilidades.ObtenerClave("SMTPFromName");
+                        var user = Utilidades.ObtenerClave("SMTPUserId");
+                        var pass = Utilidades.ObtenerClave("SMTPUserPassword");
 
-                        using (SmtpClient client = new SmtpClient(host: host, port: int.Parse(port)))
+                        if (!String.IsNullOrEmpty(host) &&
+                            !String.IsNullOrEmpty(port) &&
+                            !String.IsNullOrEmpty(fromName) &&
+                            !String.IsNullOrEmpty(user) &&
+                            !String.IsNullOrEmpty(pass))
                         {
-                            var credential = new NetworkCredential(userName: user, password: pass);
-                            client.UseDefaultCredentials = false;
-                            client.Credentials = credential;
-                            client.DeliveryMethod = SmtpDeliveryMethod.Network;
-                            client.EnableSsl = true;
 
-                            var from = new MailAddress(address: user, displayName: fromName);
-                            
-                            var message = new MailMessage();
-                            message.From = from;
-                            foreach(var destinatario in destinatarios) { 
-                                message.To.Add(destinatario);
+                            using (SmtpClient client = new SmtpClient(host: host, port: int.Parse(port)))
+                            {
+                                var credential = new NetworkCredential(userName: user, password: pass);
+                                client.UseDefaultCredentials = false;
+                                client.Credentials = credential;
+                                client.DeliveryMethod = SmtpDeliveryMethod.Network;
+                                client.EnableSsl = true;
+
+                                var from = new MailAddress(address: user, displayName: fromName);
+
+                                var message = new MailMessage();
+                                message.From = from;
+                                foreach (var destinatario in destinatarios)
+                                {
+                                    message.To.Add(destinatario);
+                                }
+                                message.Subject = Asunto;
+
+                                var contenido = Contenido.ColocarParametros(parametros);
+
+                                message.Body = contenido;
+                                message.IsBodyHtml = true;
+
+                                client.Send(message);
                             }
-                            message.Subject = Asunto;
-
-                            var contenido = Contenido.ColocarParametros(parametros);
-
-                            message.Body = contenido;
-                            message.IsBodyHtml = true;
-
-                            client.Send(message);
                         }
                     }
-                }
-                catch (Exception ex)
-                {
-                    File.AppendAllLines("notificaciones.log", new[] { ex.Message, ex.StackTrace });
-                }
-            }));
+                    catch (Exception ex)
+                    {
+                        File.AppendAllLines("notificaciones.log", new[] { ex.Message, ex.StackTrace });
+                    }
+                }));
         }
     }
 
