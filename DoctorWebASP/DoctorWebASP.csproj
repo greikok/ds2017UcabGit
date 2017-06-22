@@ -77,6 +77,9 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="RestSharp, Version=105.2.3.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\RestSharp.105.2.3\lib\net452\RestSharp.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -197,9 +200,13 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\CitasController.cs" />
+    <Compile Include="Controllers\Helpers\Dominios.cs" />
+    <Compile Include="Controllers\Helpers\Extensiones.cs" />
+    <Compile Include="Controllers\Helpers\Utilidades.cs" />
     <Compile Include="Controllers\HistoriaMedicasController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\NotificacionesController.cs" />
     <Compile Include="Controllers\PersonasController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -251,6 +258,9 @@
     <Compile Include="Models\Paciente.cs" />
     <Compile Include="Models\Persona.cs" />
     <Compile Include="Models\RecursoHospitalario.cs" />
+    <Compile Include="Models\Service\ResultadoProceso.cs" />
+    <Compile Include="Models\Service\ResultadoServicio.cs" />
+    <Compile Include="Models\Service\ResultadoServicioPaginado.cs" />
     <Compile Include="Models\Tratamiento.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
@@ -267,6 +277,7 @@
     <Content Include="Content\bootstrap\js\npm.js" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\dist\js\NotificacionDetails.js" />
     <Content Include="Content\font-awesome.css" />
     <Content Include="Content\font-awesome.min.css" />
     <Content Include="Content\dist\css\AdminLTE.css" />
@@ -338,6 +349,10 @@
     <Content Include="Content\dist\js\demo.js" />
     <Content Include="Content\dist\js\pages\dashboard.js" />
     <Content Include="Content\dist\js\pages\dashboard2.js" />
+    <Content Include="Content\plugins\ckeditor\plugins\divarea\plugin.js" />
+    <Content Include="Content\plugins\ckeditor\plugins\divarea\samples\divarea.html" />
+    <Content Include="Content\plugins\taggedText\TaggedText.css" />
+    <Content Include="Content\plugins\taggedText\TaggedText.js" />
     <Content Include="favicon.ico" />
     <Content Include="Content\fonts\fontawesome-webfont.svg" />
     <Content Include="Content\fonts\glyphicons-halflings-regular.svg" />
@@ -1347,6 +1362,9 @@
     <Content Include="Views\Citas\Details.cshtml" />
     <Content Include="Views\Citas\Edit.cshtml" />
     <Content Include="Views\Citas\Index.cshtml" />
+    <Content Include="Views\Notificaciones\Delete.cshtml" />
+    <Content Include="Views\Notificaciones\Detail.cshtml" />
+    <Content Include="Views\Notificaciones\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
