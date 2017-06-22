@@ -39,7 +39,7 @@
                         <span class="info-box-icon bg-blue"><i class="fa fa-bar-chart"></i></span>
 
                         <div class="info-box-content">
-                            <span class="info-box-text">Promedio de edad<br/> de los pacientes.</span>
+                            <span class="info-box-text">Promedio de edad<br /> de los pacientes.</span>
                             <span class="info-box-number">30 <small>años</small></span>
                         </div>
                         <!-- /.info-box-content -->
@@ -108,11 +108,63 @@
                         </div>
                         <!-- /.box-body -->
                         <div class="box-footer clearfix">
-                            <a href="javascript:void(0)" class="btn btn-sm btn-info btn-flat pull-right">Ver todos los médicos</a>
+                            <a class="btn btn-sm btn-info btn-flat pull-right" data-toggle="modal" data-target="#CitasPorMedico">Ver todos los médicos</a>
                         </div>
                         <!-- /.box-footer -->
                     </div>
                     <!-- /.box -->
+                </div>
+
+                @*Modal #1: CitasPorMedico*@
+                <div id="CitasPorMedico" class="modal">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                                <h4 class="modal-title"><i class="fa fa-stethoscope"></i> Promedio de citas por médico.</h4>
+                            </div>
+                            <div class="modal-body">
+                                <div class="box-body">
+                                    <div class="table-responsive">
+                                        <table class="table no-margin">
+                                            <thead>
+                                                <tr>
+                                                    <th>ID</th>
+                                                    <th>Médico</th>
+                                                    <th>Promedio</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>1</td>
+                                                    <td>Médico1 Médico1</td>
+                                                    <td>50</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>2</td>
+                                                    <td>Médico2 Médico2</td>
+                                                    <td>80</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>3</td>
+                                                    <td>Médico3 Médico3</td>
+                                                    <td>20</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-primary" data-dismiss="modal">Cerrar</button>
+                                </div>
+                            </div>
+                            <!-- /.modal-content -->
+                        </div>
+                        <!-- /.modal-dialog -->
+                    </div>
+                    <!-- /.modal -->
                 </div>
 
                 @*Reporte #4: Promedio de recursos disponibles en un tiempo determinado.*@
@@ -162,11 +214,63 @@
                         </div>
                         <!-- /.box-body -->
                         <div class="box-footer clearfix">
-                            <a href="javascript:void(0)" class="btn btn-sm btn-info btn-flat pull-right">Ver todos los recursos</a>
+                            <a class="btn btn-sm btn-info btn-flat pull-right" data-toggle="modal" data-target="#RecursosDisponibles">Ver todos los recursos</a>
                         </div>
                         <!-- /.box-footer -->
                     </div>
                     <!-- /.box -->
+                </div>
+
+                @*Modal #2: RecursosDisponibles*@
+                <div id="RecursosDisponibles" class="modal">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                                <h4 class="modal-title"><i class="fa fa-medkit"></i> Disponibilidad mensual de recursos.</h4>
+                            </div>
+                            <div class="modal-body">
+                                <div class="box-body">
+                                    <div class="table-responsive">
+                                        <table class="table no-margin">
+                                            <thead>
+                                                <tr>
+                                                    <th>ID</th>
+                                                    <th>Recurso</th>
+                                                    <th>Disponibilidad</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>1</td>
+                                                    <td>Recurso1</td>
+                                                    <td>50</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>2</td>
+                                                    <td>Recurso2</td>
+                                                    <td>80</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>3</td>
+                                                    <td>Recurso3</td>
+                                                    <td>20</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-primary" data-dismiss="modal">Cerrar</button>
+                                </div>
+                            </div>
+                            <!-- /.modal-content -->
+                        </div>
+                        <!-- /.modal-dialog -->
+                    </div>
+                    <!-- /.modal -->
                 </div>
 
                 @*Reporte #6: Promedio de citas canceladas por médico en un tiempo determinado.*@
@@ -216,11 +320,63 @@
                         </div>
                         <!-- /.box-body -->
                         <div class="box-footer clearfix">
-                            <a href="javascript:void(0)" class="btn btn-sm btn-info btn-flat pull-right">Ver todos los médicos</a>
+                            <a class="btn btn-sm btn-info btn-flat pull-right" data-toggle="modal" data-target="#CitasCanceladas">Ver todos los médicos</a>
                         </div>
                         <!-- /.box-footer -->
                     </div>
                     <!-- /.box -->
+                </div>
+
+                @*Modal #3: CitasCanceladas*@
+                <div id="CitasCanceladas" class="modal">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                                <h4 class="modal-title"><i class="fa fa-window-close"></i> Citas canceladas mensualmente.</h4>
+                            </div>
+                            <div class="modal-body">
+                                <div class="box-body">
+                                    <div class="table-responsive">
+                                        <table class="table no-margin">
+                                            <thead>
+                                                <tr>
+                                                    <th>ID</th>
+                                                    <th>Médico</th>
+                                                    <th>Promedio</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>1</td>
+                                                    <td>Médico1 Médico1</td>
+                                                    <td>50</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>2</td>
+                                                    <td>Médico2 Médico2</td>
+                                                    <td>80</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>3</td>
+                                                    <td>Médico3 Médico3</td>
+                                                    <td>20</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-primary" data-dismiss="modal">Cerrar</button>
+                                </div>
+                            </div>
+                            <!-- /.modal-content -->
+                        </div>
+                        <!-- /.modal-dialog -->
+                    </div>
+                    <!-- /.modal -->
                 </div>
 
             </div>
