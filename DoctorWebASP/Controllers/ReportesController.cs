@@ -69,7 +69,7 @@ namespace DoctorWebASP.Controllers
             return total/result.Count();
         }
 
-        public ActionResult getPersonas()
+        public ActionResult getPersonasByReport()
         {
             getPersonasDS ds = new getPersonasDS();
             ReportViewer reportViewer = new ReportViewer();
@@ -85,7 +85,7 @@ namespace DoctorWebASP.Controllers
 
             adp.Fill(ds, "Personas");
 
-            reportViewer.LocalReport.ReportPath = Request.MapPath(Request.ApplicationPath) + @"Reportes\R0Personas.rdlc";
+            reportViewer.LocalReport.ReportPath = Request.MapPath(Request.ApplicationPath) + @"Reportes2\R0Personas.rdlc";
             reportViewer.LocalReport.DataSources.Add(new ReportDataSource("getPersonasDS", ds.Tables[0]));
 
 

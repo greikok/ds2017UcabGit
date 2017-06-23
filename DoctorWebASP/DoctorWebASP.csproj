@@ -1405,10 +1405,10 @@
     <Content Include="Views\Citas\Edit.cshtml" />
     <Content Include="Views\Citas\Index.cshtml" />
     <Content Include="Views\Reportes\Index.cshtml" />
-    <Content Include="Views\Reportes\getPersonas.cshtml" />
     <Content Include="Views\Notificaciones\Delete.cshtml" />
     <Content Include="Views\Notificaciones\Detail.cshtml" />
     <Content Include="Views\Notificaciones\Index.cshtml" />
+    <Content Include="Views\Reportes\getPersonasByReport.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="fonts\" />
