@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using DoctorWebASP.Models;
+using DoctorWebASP.ViewModels;
 
 namespace DoctorWebASP.Controllers
 {
@@ -21,35 +22,69 @@ namespace DoctorWebASP.Controllers
         }
 
         // GET: Citas/SolicitarCita
-        public ActionResult SolicitarCita()
+        public ActionResult SolicitarCita(int? i)
         {
-            var centrosMedicos = new SelectList(db.CentrosMedicos.ToList(), "Rif", "Nombre");
-            ViewBag.CentrosMedicos = centrosMedicos;
-            return View();
+            var centrosMedicos = new SelectList("");
+            try
+            {
+                centrosMedicos = new SelectList(db.CentrosMedicos.ToList(), "Rif", "Nombre");
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                return new HttpNotFoundResult("La base de datos no ha podido ser contactada");
+            }
+
+            var viewModel = new CentrosMedicosViewModel
+            {
+                CentrosMedicos = centrosMedicos
+            };
+
+            return View("SolicitarCita", viewModel);
         }
-        
+
         // POST: Citas/SolicitarCita
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult SolicitarCita([Bind(Prefix = "CentrosMedico")] string centroMedico)
+        public ActionResult SolicitarCita([Bind(Prefix = "CentroMedico")] string centroMedico)
         {
-            CentroMedico cMedico = db.CentrosMedicos.Single(m => m.Rif == centroMedico);
-            //var especialidadesMedicas = new SelectList(db.Personas.OfType<Medico>().Where(m => m.CentroMedico.CentroMedicoId == cMedico.CentroMedicoId).Select(c => c.EspecialidadMedica).Distinct().ToList(), "EspecialidadMedicaId", "Nombre");
+            CentroMedico cMedico = new CentroMedico();
+            try
+            {
+                cMedico = db.CentrosMedicos.Single(m => m.Rif == centroMedico);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                return new HttpNotFoundResult("La base de datos no ha podido ser contactada");
+            }
 
-            //ViewBag.EspecialidadesMedicas = especialidadesMedicas;
-            //ViewBag.CentroMedicoId = cMedico.CentroMedicoId.ToString();
-
-            return RedirectToAction("SeleccionarEspecialidad",cMedico);
+            return RedirectToAction("SeleccionarEspecialidad", cMedico);
         }
 
         // GET: Citas/SeleccionarEspecialidad
         public ActionResult SeleccionarEspecialidad(CentroMedico cMedico)
         {
-            var especialidadesMedicas = new SelectList(db.Personas.OfType<Medico>().Where(m => m.CentroMedico.CentroMedicoId == cMedico.CentroMedicoId).Select(c => c.EspecialidadMedica).Distinct().ToList(), "EspecialidadMedicaId", "Nombre");
+            var especialidadesMedicas = new SelectList("");
+            try
+            {
+                especialidadesMedicas = new SelectList(db.Personas.OfType<Medico>().Where(m => m.CentroMedico.CentroMedicoId == cMedico.CentroMedicoId).Select(c => c.EspecialidadMedica).Distinct().ToList(), "EspecialidadMedicaId", "Nombre");
 
-            ViewBag.EspecialidadesMedicas = especialidadesMedicas;
-            ViewBag.CentroMedicoId = cMedico.CentroMedicoId;
-            return View();
+            }
+            catch(Exception e)
+            {
+                Console.WriteLine(e);
+                return new HttpNotFoundResult("La base de datos no ha podido ser contactada");
+            }
+            
+            var viewModel = new EspecialidadViewModel
+            {
+                EspecialidadesMedicas = especialidadesMedicas,
+                CentroMedicoId = cMedico.CentroMedicoId,
+                
+            };
+
+            return View("SeleccionarEspecialidad",viewModel);
         }
 
         // POST: Citas/SeleccionarEspecialidad
@@ -58,21 +93,32 @@ namespace DoctorWebASP.Controllers
         public ActionResult SeleccionarEspecialidad([Bind(Prefix = "EspecialidadMedica")] int espMedica,
                                                     [Bind(Prefix = "CentroMedicoId")] int centroMedicoId)
         {
-            //var espMd = int.Parse(espMedica);
- 
-            return RedirectToAction("SeleccionarMedico","Citas", new { espMedica , centroMedicoId });
+            return RedirectToAction("SeleccionarMedico", "Citas", new { espMedica, centroMedicoId });
         }
 
         // GET: Citas/SeleccionarMedico
-        public ActionResult SeleccionarMedico(int espMedica,int centroMedicoId)
+        public ActionResult SeleccionarMedico(int espMedica, int centroMedicoId)
         {
+            var medicos = new SelectList("");
+            try
+            {
+                CentroMedico centroMedico = db.CentrosMedicos.Single(c => c.CentroMedicoId == centroMedicoId);
+                EspecialidadMedica especialidadMedica = db.EspecialidadesMedicas.Single(e => e.EspecialidadMedicaId == espMedica);
+                medicos = new SelectList(db.Personas.OfType<Medico>().Where(p => p.CentroMedico.CentroMedicoId == centroMedicoId && p.EspecialidadMedica.EspecialidadMedicaId == espMedica).ToList(), "PersonaId", "ConcatUserName");
+            }
+            catch(Exception e)
+            {
+                Console.WriteLine(e);
+                return new HttpNotFoundResult("La base de datos no ha podido ser contactada");
+            }
 
-            Console.WriteLine();
-            CentroMedico centroMedico = db.CentrosMedicos.Single(c => c.CentroMedicoId == centroMedicoId);
-            EspecialidadMedica especialidadMedica = db.EspecialidadesMedicas.Single(e => e.EspecialidadMedicaId == espMedica);
-            var medicos = new SelectList(db.Personas.OfType<Medico>().Where(p => p.CentroMedico.CentroMedicoId == centroMedicoId && p.EspecialidadMedica.EspecialidadMedicaId == espMedica).ToList(), "PersonaId", "ConcatUserName");
-            ViewBag.Medicos = medicos;
-            return View();
+
+            var viewModel = new MedicoViewModel
+            {
+                Medicos = medicos
+            };
+
+            return View("SeleccionarMedico",viewModel);
         }
 
         // GET: Citas/Details/5

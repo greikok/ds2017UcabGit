@@ -1,4 +1,4 @@
-﻿
+﻿@model DoctorWebASP.ViewModels.CentrosMedicosViewModel
 @{
     ViewBag.Title = "SolicitarCita";
 }
@@ -27,10 +27,14 @@
             <div class="form-horizontal">
                 <div class="box-body">
 
+                    @if(ViewBag.ErrorMessage != null){
+                        <p>@ViewBag.ErrorMessage</p>
+                    }
                     <div class="form-group">
                         @Html.Label("Centro Medico", htmlAttributes: new { @class = "control-label col-md-2" })
                         <div class="col-md-10">
-                            @Html.DropDownList("CentrosMedico", ViewBag.CentrosMedicos as SelectList, htmlAttributes: new { size = 7, @class = "form-control" })
+                            @Html.DropDownListFor(m => m.CentroMedico, Model.CentrosMedicos as SelectList, htmlAttributes: new { size = 7, @class = "form-control" })
+                            @Html.ValidationMessageFor(m => m.CentroMedico, "", new { @class = "text-danger" })
                         </div>
                     </div>
                     <div class="form-group">
@@ -44,7 +48,9 @@
     </div>
 </section>
 
-@section Scripts{
+@section Scripts {
+
+    @Scripts.Render("~/bundles/jqueryval")
 
 
 }
