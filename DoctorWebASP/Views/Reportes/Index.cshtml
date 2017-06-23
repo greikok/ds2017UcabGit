@@ -29,13 +29,12 @@
 
                         <div class="info-box-content">
                             <span class="info-box-text">Cantidad de usuarios<br /> registrados mensualmente.</span>
-                            <span class="info-box-number">@Model.Personas.Count() mmtotal @Model.total mmcount  @Model.count<small> usuarios</small></span>
+                            <span class="info-box-number">@Model.Personas.Count()<small> usuarios</small></span>
                         </div>
                         <!-- /.info-box-content -->
                     </div>
                     <!-- /.info-box -->
                 </div>
-
                 @*Reporte #2: Promedio de edad de los pacientes.*@
                 <div class="col-md-4 col-sm-6 col-xs-12">
                     <div class="info-box">
@@ -43,7 +42,7 @@
 
                         <div class="info-box-content">
                             <span class="info-box-text">Promedio de edad<br /> de los pacientes.</span>
-                            <span class="info-box-number">30 <small>años</small></span>
+                            <span class="info-box-number">@Model.promedioEdad <small>años</small></span>
                         </div>
                         <!-- /.info-box-content -->
                     </div>

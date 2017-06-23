@@ -63,8 +63,6 @@ namespace DoctorWebASP.Controllers
             foreach (var r in result.ToList())
             {
                 Age age = new Age(r, DateTime.Today.AddDays(1).AddTicks(-1));
-                Console.WriteLine(age.Years);
-                Trace.WriteLine(age.Years);
                 total = total + age.Years;
             }
 
