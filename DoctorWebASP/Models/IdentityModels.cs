@@ -28,6 +28,7 @@ namespace DoctorWebASP.Models
         public DbSet<EspecialidadMedica> EspecialidadesMedicas { get; set; }
         public DbSet<CentroMedico> CentrosMedicos { get; set; }
 
+
         public ApplicationDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)
 

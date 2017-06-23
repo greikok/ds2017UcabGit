@@ -12,6 +12,7 @@ namespace DoctorWebASP.ViewModels
     {
         public SelectList Medicos { get; set; }
         [Required(ErrorMessage = "Por favor seleccione un medico del listado")]
-        public int MedicoId { get; set; }
+        public int CentroMedicoId { get; set; }
+        public string MedicoId { get; set; }
     }
 }

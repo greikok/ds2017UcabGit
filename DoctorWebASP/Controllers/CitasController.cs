@@ -8,6 +8,9 @@ using System.Web;
 using System.Web.Mvc;
 using DoctorWebASP.Models;
 using DoctorWebASP.ViewModels;
+using PagedList;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace DoctorWebASP.Controllers
 {
@@ -115,10 +118,63 @@ namespace DoctorWebASP.Controllers
 
             var viewModel = new MedicoViewModel
             {
-                Medicos = medicos
+                Medicos = medicos,
+                CentroMedicoId = centroMedicoId
             };
 
             return View("SeleccionarMedico",viewModel);
+        }
+
+        // POST: Citas/SeleccionarMedico
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult SeleccionarMedico([Bind(Prefix = "MedicoId")] string medicoId,
+                                              [Bind(Prefix = "CentroMedicoId")] int centroMedicoId)
+        {
+            return RedirectToAction("SeleccionarHorario", "Citas", new { medicoId, centroMedicoId });
+        }
+
+        // GET: Citas/SeleccionarHorario
+        public ActionResult SeleccionarHorario(string medicoId, int centroMedicoId, int? page)
+        {
+            const int pagesize = 1; // Numero de items en una pagina
+            int pageNumber = (page ?? 1); // Pagina actual
+            int mdId = int.Parse(medicoId);
+
+            var viewModel = new CitaViewModel
+            {
+                ListaFechas = db.Calendarios.Where(m => m.Medico.PersonaId == mdId && m.Disponible == 1).OrderBy(m => m.HoraInicio).ToPagedList(pageNumber,pagesize),
+                MedicoId = medicoId,
+                CentroMedicoId = centroMedicoId,
+            };
+
+            return View("SeleccionarHorario",viewModel);
+        }
+
+        public ActionResult GenerarCita(int calendarioId, string medicoId, int centroMedicoId)
+        {
+            var cita = new Cita();
+            string userId = User.Identity.GetUserId();
+            cita.CentroMedico = db.CentrosMedicos.Single(m => m.CentroMedicoId == centroMedicoId);
+
+            cita.Paciente = db.Personas.OfType<Paciente>().Single(p => p.ApplicationUser.Id == userId);
+            var calendario = db.Calendarios.Single(c => c.CalendarioId == calendarioId);
+            cita.Evento = calendario;
+            cita.CitaId = 0;
+            
+            if (ModelState.IsValid)
+            {
+                db.Citas.Add(cita);
+                calendario.Disponible = 0;
+
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+
+            // Finalmente colocamos la Fecha Reservada como NO disponible
+
+
+            return View();
         }
 
         // GET: Citas/Details/5
