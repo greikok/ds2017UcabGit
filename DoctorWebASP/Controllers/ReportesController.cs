@@ -1,4 +1,6 @@
-﻿using Microsoft.Reporting.WebForms;
+﻿using DoctorWebASP.Models;
+using DoctorWebASP.ViewModels;
+using Microsoft.Reporting.WebForms;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -12,10 +14,38 @@ namespace DoctorWebASP.Controllers
 {
     public class ReportesController : Controller
     {
+        private ApplicationDbContext _context;
+
+        public ReportesController()
+        {
+            _context = new ApplicationDbContext();
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            _context.Dispose();
+        }
+
         // GET: Reportes
         public ActionResult Index()
         {
-            return View();
+            string dateString = "02-06-2017";
+            DateTime date = DateTime.Parse(dateString);
+
+            var indexViewModel = new ReportesIndexViewModel()
+            {
+                Personas = getPersonas(date)
+            };
+
+            return View(indexViewModel);
+        }
+
+        public IEnumerable<Persona> getPersonas(DateTime date)
+        {
+            var query = from p in _context.Personas
+                        where p.FechaCreacion <= DateTime.Now & p.FechaCreacion > date
+                        select p;
+            return query.ToList();
         }
 
         public ActionResult getPersonas()

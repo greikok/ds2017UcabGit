@@ -1,4 +1,5 @@
-﻿@{
+﻿@model DoctorWebASP.ViewModels.ReportesIndexViewModel
+@{
     ViewBag.Title = "Reportes";
 }
 
@@ -26,7 +27,7 @@
 
                         <div class="info-box-content">
                             <span class="info-box-text">Cantidad de usuarios<br /> registrados mensualmente.</span>
-                            <span class="info-box-number">100<small> usuarios</small></span>
+                            <span class="info-box-number">@Model.Personas.Count()<small> usuarios</small></span>
                         </div>
                         <!-- /.info-box-content -->
                     </div>
