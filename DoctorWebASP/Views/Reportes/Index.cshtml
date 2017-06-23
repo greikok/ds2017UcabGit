@@ -1,6 +1,8 @@
-﻿@model DoctorWebASP.ViewModels.ReportesIndexViewModel
+﻿@using DoctorWebASP.Controllers.Helpers
+@model DoctorWebASP.ViewModels.ReportesIndexViewModel
 @{
     ViewBag.Title = "Reportes";
+    ViewData.indicarPaginaActual(MenuPaginas.Reportes);
 }
 
 <!-- Content Header (Page header) -->
@@ -11,7 +13,7 @@
     <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Inicio</a></li>
         <li><a href="#">Reportes</a></li>
-        <li class="active">Reportes Preestablecidos</li>
+        <li class="active">Reportes Preestablecidos @Model.promedioEdad</li>
     </ol>
 </section>
 
@@ -27,7 +29,7 @@
 
                         <div class="info-box-content">
                             <span class="info-box-text">Cantidad de usuarios<br /> registrados mensualmente.</span>
-                            <span class="info-box-number">@Model.Personas.Count()<small> usuarios</small></span>
+                            <span class="info-box-number">@Model.Personas.Count() mmtotal @Model.total mmcount  @Model.count<small> usuarios</small></span>
                         </div>
                         <!-- /.info-box-content -->
                     </div>

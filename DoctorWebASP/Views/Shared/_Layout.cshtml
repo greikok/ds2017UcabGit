@@ -103,7 +103,7 @@
                                 <i class="fa fa-angle-left pull-right"></i>
                             </span>
                         </a>
-                    <li class="treeview">
+                    <li class="treeview @Html.AgregarClaseSi(ViewData.esPaginaActual(MenuPaginas.Reportes), "active")">
                         <a href="#">
                             <i class="fa fa-list-alt"></i> <span>Reportes</span>
                             <span class="pull-right-container">
@@ -111,12 +111,12 @@
                             </span>
                         </a>
                         <ul class="treeview-menu">
-                            <li class="active">
+                            <li class="@Html.AgregarClaseSi(ViewData.esPaginaActual(MenuPaginas.Reportes), "active")">
                                 <a href="@Url.Action("Index", "Reportes")">
                                     <i class="fa fa-table"></i> <span>Preestablecidos</span>
                                 </a>
                             </li>
-                            <li class="active">
+                            <li class="">
                                 <a href="#">
                                     <i class="fa fa-cog"></i> <span>Configurados</span>
                                 </a>
