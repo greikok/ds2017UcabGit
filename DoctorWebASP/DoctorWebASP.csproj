@@ -215,6 +215,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\CalendariosController.cs" />
     <Compile Include="Controllers\CitasController.cs" />
     <Compile Include="Controllers\Helpers\Dominios.cs" />
     <Compile Include="Controllers\Helpers\Extensiones.cs" />
@@ -267,6 +268,10 @@
     <Compile Include="Migrations\201706210131106_AddingCanceladaToCalendario.cs" />
     <Compile Include="Migrations\201706210131106_AddingCanceladaToCalendario.Designer.cs">
       <DependentUpon>201706210131106_AddingCanceladaToCalendario.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201706241835036_AgregarAtributoDisponible.cs" />
+    <Compile Include="Migrations\201706241835036_AgregarAtributoDisponible.Designer.cs">
+      <DependentUpon>201706241835036_AgregarAtributoDisponible.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -1409,6 +1414,11 @@
     <Content Include="Views\Notificaciones\Detail.cshtml" />
     <Content Include="Views\Notificaciones\Index.cshtml" />
     <Content Include="Views\Reportes\getPersonasByReport.cshtml" />
+    <Content Include="Views\Calendarios\Create.cshtml" />
+    <Content Include="Views\Calendarios\Delete.cshtml" />
+    <Content Include="Views\Calendarios\Details.cshtml" />
+    <Content Include="Views\Calendarios\Edit.cshtml" />
+    <Content Include="Views\Calendarios\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="fonts\" />
@@ -1445,6 +1455,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201706210131106_AddingCanceladaToCalendario.resx">
       <DependentUpon>201706210131106_AddingCanceladaToCalendario.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201706241835036_AgregarAtributoDisponible.resx">
+      <DependentUpon>201706241835036_AgregarAtributoDisponible.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Reportes2\R0Personas.rdlc" />
   </ItemGroup>
