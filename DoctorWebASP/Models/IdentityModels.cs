@@ -25,21 +25,19 @@ namespace DoctorWebASP.Models
         public DbSet<Persona> Personas { get; set; }
         public DbSet<Cita> Citas { get; set; }
         public DbSet<Calendario> Calendarios { get; set; }
-        public DbSet<CentroMedico> CentroMedicoes { get; set; }
-        public DbSet<RecursoHospitalario> RecursoHospitalarioes { get; set; }
-        public ApplicationDbContext()
-            : base("DefaultConnection", throwIfV1Schema: false)
+        public DbSet<CentroMedico> CentrosMedicos { get; set; }
+        public DbSet<RecursoHospitalario> RecursosHospitalarios { get; set; }
 
+        public ApplicationDbContext() : base("DefaultConnection", throwIfV1Schema: false)
         {
         }
+
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Entity<ApplicationUser>()
                 .HasOptional(p => p.PersonaId)
                 .WithRequired(d => d.ApplicationUser);
             base.OnModelCreating(modelBuilder);
-
-
         }
 
         public static ApplicationDbContext Create()
