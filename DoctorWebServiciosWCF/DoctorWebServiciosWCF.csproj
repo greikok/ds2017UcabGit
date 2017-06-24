@@ -75,6 +75,7 @@
   <ItemGroup>
     <Compile Include="Controllers\Helpers\Extensiones.cs" />
     <Compile Include="Controllers\Helpers\Utilidades.cs" />
+    <Compile Include="Controllers\ReporteController.cs" />
     <Compile Include="Migrations\201706220653104_Notificaciones.cs" />
     <Compile Include="Migrations\201706220653104_Notificaciones.Designer.cs">
       <DependentUpon>201706220653104_Notificaciones.cs</DependentUpon>
@@ -83,6 +84,7 @@
     <Compile Include="Models\Notificacion.cs" />
     <Compile Include="Controllers\NotificacionController.cs" />
     <Compile Include="Models\ORM\ContextoBD.cs" />
+    <Compile Include="Models\Reporte.cs" />
     <Compile Include="Models\Service\ResultadoProceso.cs" />
     <Compile Include="Models\Service\ResultadoServicioPaginado.cs" />
     <Compile Include="Models\Service\ResultadoServicio.cs" />

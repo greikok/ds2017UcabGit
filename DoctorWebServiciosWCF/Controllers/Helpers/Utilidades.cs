@@ -16,4 +16,22 @@ namespace DoctorWebServiciosWCF.Controllers.Helpers
             return path;
         }
     }
+
+    public class CustomException : Exception
+    {
+        public CustomException() : base()
+        {
+
+        }
+
+        public CustomException(string message) : base(message)
+        {
+
+        }
+
+        public CustomException(String message, Exception innerException) : base(message, innerException)
+        {
+
+        }
+    }
 }

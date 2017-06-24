@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DoctorWebServiciosWCF.Models.Service;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
@@ -15,5 +16,9 @@ namespace DoctorWebServiciosWCF.Services
         [OperationContract]
         [WebGet(UriTemplate = "/obtener/{codigo}", ResponseFormat = WebMessageFormat.Json, BodyStyle = WebMessageBodyStyle.Wrapped)]
         string DoWork(string codigo);
+
+        [OperationContract]
+        [WebGet(UriTemplate = "/reportes/{tipo}/{codigo}", ResponseFormat = WebMessageFormat.Json, BodyStyle = WebMessageBodyStyle.Wrapped)]
+        ResultadoProceso Reportes(string tipo, string codigo);
     }
 }
