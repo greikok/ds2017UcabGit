@@ -7,8 +7,9 @@
     <title>@ViewBag.Title - My ASP.NET Application</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/bootstrap")
     @Styles.Render("~/Content/font-awesome.css")
-
+    <link rel="stylesheet" href="../Content/plugins/fullcalendar/fullcalendar.print.css" media="print">
     @RenderSection("StyleContent", false)
 </head>
 <body class="hold-transition skin-red-light sidebar-mini">

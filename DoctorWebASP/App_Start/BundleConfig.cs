@@ -23,16 +23,22 @@ namespace DoctorWebASP
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
                       "~/Content/plugins/jQuery/jquery-2.2.3.min.js",
                       "~/Content/bootstrap/js/bootstrap.min.js",
+                      "~/Scripts/jquery-ui.min.js",
                       "~/Content/plugins/slimScroll/jquery.slimscroll.min.js",
                       "~/Content/plugins/fastclick/fastclick.js",
                       "~/Content/dist/js/app.min.js",
                       "~/Content/dist/js/demo.js",
-                      "~/Scripts/respond.js"));
+                      "~/Scripts/respond.js",
+                      "~/Scripts/moment.min.js",
+                      "~/Content/plugins/fullcalendar/fullcalendar.min.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap/css/bootstrap.min.css",
                       "~/Content/dist/css/skins/skin-red-light.css",
-                      "~/Content/dist/css/AdminLTE.min.css"));
+                      "~/Content/dist/css/AdminLTE.min.css",
+                      "~/Content/plugins/fullcalendar/fullcalendar.min.css",
+                      "~/Content/dist/css/skins/_all-skins.min.css"));
+            BundleTable.EnableOptimizations = true; 
         }
     }
 }
