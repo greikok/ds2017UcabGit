@@ -287,9 +287,9 @@
     <Compile Include="Migrations\201706250400261_AddingAlmacen.Designer.cs">
       <DependentUpon>201706250400261_AddingAlmacen.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201706250407561_AddingUsoRecurso.cs" />
-    <Compile Include="Migrations\201706250407561_AddingUsoRecurso.Designer.cs">
-      <DependentUpon>201706250407561_AddingUsoRecurso.cs</DependentUpon>
+    <Compile Include="Migrations\201706251704526_AddingUsoRecurso.cs" />
+    <Compile Include="Migrations\201706251704526_AddingUsoRecurso.Designer.cs">
+      <DependentUpon>201706251704526_AddingUsoRecurso.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -1487,8 +1487,8 @@
     <EmbeddedResource Include="Migrations\201706250400261_AddingAlmacen.resx">
       <DependentUpon>201706250400261_AddingAlmacen.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201706250407561_AddingUsoRecurso.resx">
-      <DependentUpon>201706250407561_AddingUsoRecurso.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201706251704526_AddingUsoRecurso.resx">
+      <DependentUpon>201706251704526_AddingUsoRecurso.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Reportes2\R0Personas.rdlc" />
   </ItemGroup>
