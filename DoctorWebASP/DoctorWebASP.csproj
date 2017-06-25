@@ -44,6 +44,14 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Microsoft.AI.Agent.Intercept, Version=2.0.6.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.ApplicationInsights.Agent.Intercept.2.0.6\lib\net45\Microsoft.AI.Agent.Intercept.dll</HintPath>
       <Private>True</Private>
@@ -162,12 +170,6 @@
     <Reference Include="Newtonsoft.Json">
       <HintPath>..\packages\Newtonsoft.Json.6.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
-    <Reference Include="EntityFramework">
-      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
-    </Reference>
-    <Reference Include="EntityFramework.SqlServer">
-      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
-    </Reference>
     <Reference Include="Microsoft.AspNet.Identity.Core">
       <HintPath>..\packages\Microsoft.AspNet.Identity.Core.2.2.1\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
     </Reference>
@@ -273,12 +275,19 @@
     <Compile Include="Migrations\201706241835036_AgregarAtributoDisponible.Designer.cs">
       <DependentUpon>201706241835036_AgregarAtributoDisponible.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201706250017499_RestartingModel.cs" />
+    <Compile Include="Migrations\201706250017499_RestartingModel.Designer.cs">
+      <DependentUpon>201706250017499_RestartingModel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201706250031164_InitialModelAfterRestart.cs" />
+    <Compile Include="Migrations\201706250031164_InitialModelAfterRestart.Designer.cs">
+      <DependentUpon>201706250031164_InitialModelAfterRestart.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Calendario.cs" />
     <Compile Include="Models\CentroMedico.cs" />
     <Compile Include="Models\Cita.cs" />
-    <Compile Include="Models\Empleado.cs" />
     <Compile Include="Models\EspecialidadMedica.cs" />
     <Compile Include="Models\HistoriaMedica.cs" />
     <Compile Include="Models\IdentityModels.cs" />
@@ -1458,6 +1467,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201706241835036_AgregarAtributoDisponible.resx">
       <DependentUpon>201706241835036_AgregarAtributoDisponible.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201706250017499_RestartingModel.resx">
+      <DependentUpon>201706250017499_RestartingModel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201706250031164_InitialModelAfterRestart.resx">
+      <DependentUpon>201706250031164_InitialModelAfterRestart.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Reportes2\R0Personas.rdlc" />
   </ItemGroup>

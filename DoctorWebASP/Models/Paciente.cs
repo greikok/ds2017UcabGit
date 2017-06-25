@@ -7,7 +7,6 @@ namespace DoctorWebASP.Models
 {
     public class Paciente : Persona
     {
-        //public int PacienteId { get; set; }
         public string TipoSangre { get; set; }
 
         public virtual ICollection<HistoriaMedica> HistoriasMedicas { get; set; }
