@@ -76,6 +76,13 @@
         m = date.getMonth(),
         y = date.getFullYear();
     $('#calendar').fullCalendar({
+        monthNames: ['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'],
+        monthNamesShort: ['Ene','Feb','Mar','Abr','May','Jun','Jul','Ago','Sep','Oct','Nov','Dic'],
+        dayNames: ['Domingo','Lunes','Martes','Miércoles','Jueves','Viernes','Sábado'],
+        dayNamesShort: ['Dom', 'Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb'],
+        allDayText: 'Todo el día',
+        weekNumberTitle: 'Sem',
+        firstDay: 1,
       header: {
         left: 'prev,next today',
         center: 'title',
@@ -85,7 +92,7 @@
         today: 'hoy',
         month: 'mes',
         week: 'semana',
-        day: 'día'
+        day: 'día',
       },
       //Random default events
       events: [
@@ -136,6 +143,9 @@
               borderColor: "#3c8dbc" //Primary (light-blue)
             }*/
       ],
+      weekNumbers: true,
+      weekNumbersWithinDays: true,
+      weekNumberCalculation: 'ISO',
       editable: true, // this allows thing to be editable in the calendar
       droppable: true, // this allows things to be dropped onto the calendar !!!
       drop: function (date, allDay) { // this function is called when something is dropped
