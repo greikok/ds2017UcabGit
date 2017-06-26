@@ -156,5 +156,11 @@ namespace DoctorWebASP.Controllers
 
             return Json(new { cantidad = cantidadCitasCanceladas/cantidadMedicos, fechaInicio = dtFechaInicio.ToString(), fechaFin = dtFechaFin.ToString() });
         }
+
+        public int pruebaunitaria()
+        {
+            var result = 2 + 2;
+            return result;
+        }
     }
 }
