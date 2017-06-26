@@ -46,7 +46,13 @@ namespace DoctorWebASP.Controllers
             // REPORTE #3 - Promedio de citas por médico
             indexViewModel.promedioCitasPorMedico = getPromedioCitasPorMedico();
 
-            // REPORTE #4 - Promedio de uso de la aplicación
+            // REPORTE #4 - Promedio de Promedio de recursos disponibles en un tiempo determinado.
+            String fechaInicio = "01-01-2017";
+            String fechaFin = "01-31-2017";
+
+            indexViewModel.promedioRecursosDisponibles = getPromedioRecursosDisponibles(fechaInicio,fechaFin);
+
+            // REPORTE #5 - Promedio de uso de la aplicación
 
             return View(indexViewModel);
         }
@@ -86,6 +92,42 @@ namespace DoctorWebASP.Controllers
                                    select p).Count();
 
             return cantidadCitas / cantidadMedicos;
+        }
+
+        public double getPromedioRecursosDisponibles(string fechaInicio, string fechaFin)
+        {
+            DateTime dtFechaInicio = DateTime.Parse(fechaInicio);
+            DateTime dtFechaFin = DateTime.Parse(fechaFin);
+
+            var result = from ur in db.UsoRecursos
+                         join ci in db.Citas on ur.Cita equals ci
+                         join ca in db.Calendarios on ci.Evento equals ca
+                         where ca.HoraInicio >= dtFechaInicio & ca.HoraInicio <= dtFechaFin & !ca.Cancelada
+                         select ur;
+
+            var almacen = (from a in db.Almacenes
+                           select a);
+
+            double cantidadRecursos = (from rh in db.RecursosHospitalarios
+                                       select rh).Count();
+
+            double totalCantidadRecursos = 0;
+
+            foreach (var a in almacen.ToList())
+            {
+                foreach (var ur in result.ToList())
+                {
+                    if (a.RecursoHospitalario == ur.RecursoHospitalario)
+                    {
+                        if (a.Disponible - ur.Cantidad >= 0)
+                        {
+                            totalCantidadRecursos = totalCantidadRecursos + (a.Disponible - ur.Cantidad);
+                        }
+                    }
+                }
+            }
+
+            return totalCantidadRecursos / cantidadRecursos;
         }
     }
 }
