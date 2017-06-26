@@ -104,6 +104,7 @@ namespace DoctorWebASP.Controllers
             return cantidadCitas / cantidadMedicos;
         }
 
+
         [HttpPost]
         public ActionResult getPromedioRecursosDisponibles(string fechaInicioStr, string fechaFinStr)
         {
@@ -140,5 +141,15 @@ namespace DoctorWebASP.Controllers
 
             return Json(new { cantidad = totalCantidadRecursos/cantidadRecursos, fechaInicio = dtFechaInicio.ToString(), fechaFin = dtFechaFin.ToString() });
         }
+
+
+        public int pruebaunitaria()
+        {
+            var result = 2 + 2;
+            return result;
+        }
+
     }
+
+
 }
