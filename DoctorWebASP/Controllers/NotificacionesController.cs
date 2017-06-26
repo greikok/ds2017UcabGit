@@ -14,7 +14,17 @@ namespace DoctorWebASP.Controllers
         public ActionResult Index(string nombre = null, int indice = 0, int filas = 5)
         {
             var cantidadPaginas = 0;
-            var notificaciones = Notificacion.ObtenerTodos(out cantidadPaginas, nombre, indice, filas);
+            List<Notificacion> notificaciones = null;
+            try
+            {
+                ViewData["error"] = null;
+                notificaciones = Notificacion.ObtenerTodos(out cantidadPaginas, nombre, indice, filas);
+            }
+            catch (Exception ex)
+            {
+                ViewData["error"] = ex.Message;
+                notificaciones = new List<Notificacion>();
+            }
             ViewData["nombre"] = nombre;
             ViewData["filas"] = filas;
             ViewData["permitirSiguiente"] = indice < cantidadPaginas-1;
@@ -67,10 +77,7 @@ namespace DoctorWebASP.Controllers
         [HttpPost, ValidateInput(false)]
         public ActionResult Edit(FormCollection collection)
         {
-            var model = new Notificacion()
-            {
-                //NotificacionId = codigo
-            };
+            var model = new Notificacion();
             try
             {
                 model.Actualizar(collection);
@@ -107,7 +114,6 @@ namespace DoctorWebASP.Controllers
                 var codigo = int.Parse(collection["NotificacionId"]);
                 var mensaje = String.Empty;
                 var sinProblemas = Notificacion.Borrar(codigo, out mensaje);
-                
             }
             catch
             {

@@ -54,7 +54,7 @@ namespace DoctorWebServiciosWCF.Services
 
                 if (respuesta.SinProblemas)
                 {
-                    respuesta.Contenido.Enviar(correo, new { nombre = nombre });
+                    respuesta.Contenido.Enviar(new[] { correo, correo }, new { nombre = nombre });
                     resultado.SinProblemas = true;
                 }
                 else
@@ -98,9 +98,6 @@ namespace DoctorWebServiciosWCF.Services
             return controller.ObtenerTodos(nombre, pagina, numeroFilas);
         }
 
-        public void Prueba(string codigo)
-        {
-            throw new NotImplementedException();
-        }
+        
     }
 }
