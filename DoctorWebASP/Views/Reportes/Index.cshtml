@@ -158,7 +158,24 @@
             },
                 function (start, end) {
                     $('#daterange-btn-1 span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
-                    
+                    var parameters = { fechaInicioStr: start.format('DD-MM-YYYY'), fechaFinStr: end.format('DD-MM-YYYY') }
+                    $.ajax({
+                        type: "POST",
+                        contentType: "application/json; charset=utf-8",
+                        url: "@Url.Action(actionName: "getCantidadUsuariosRegistrados", controllerName: "Reportes")",
+                        data: JSON.stringify(parameters),
+                        datatype: "application/json",
+                        success: function (result) {
+                            //do something
+                            console.log(result);
+                            $(dateRange1).parent().next().text("Hay un total de " + result.cantidad + " usuarios registrados durante este período de tiempo.");
+                        },
+                        error: function (xmlhttprequest, textstatus, errorthrown) {
+                            alert(" conection to the server failed ");
+                            console.log("error: " + errorthrown);
+                        }
+                    });
+                    //end of $.ajax()
                 }
             );
 
