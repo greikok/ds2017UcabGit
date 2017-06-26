@@ -68,6 +68,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Services\NotificacionService.svc" />
+    <Content Include="Services\ReportesService.svc" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -86,8 +87,12 @@
     <Compile Include="Models\Service\ResultadoServicio.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\INotificacionService.cs" />
+    <Compile Include="Services\IReportesService.cs" />
     <Compile Include="Services\NotificacionService.svc.cs">
       <DependentUpon>NotificacionService.svc</DependentUpon>
+    </Compile>
+    <Compile Include="Services\ReportesService.svc.cs">
+      <DependentUpon>ReportesService.svc</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>

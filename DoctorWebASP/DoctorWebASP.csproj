@@ -273,6 +273,7 @@
     <Compile Include="Models\Calendario.cs" />
     <Compile Include="Models\CentroMedico.cs" />
     <Compile Include="Models\Cita.cs" />
+    <Compile Include="Models\DoctorWebException.cs" />
     <Compile Include="Models\Empleado.cs" />
     <Compile Include="Models\EspecialidadMedica.cs" />
     <Compile Include="Models\HistoriaMedica.cs" />
@@ -1410,7 +1411,6 @@
     <Content Include="Views\Notificaciones\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="App_Data\" />
     <Folder Include="fonts\" />
   </ItemGroup>
   <ItemGroup>
