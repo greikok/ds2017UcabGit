@@ -309,6 +309,7 @@
     <Compile Include="Models\Service\ResultadoProceso.cs" />
     <Compile Include="Models\Service\ResultadoServicio.cs" />
     <Compile Include="Models\Service\ResultadoServicioPaginado.cs" />
+    <Compile Include="Models\Service\ResultConstruct.cs" />
     <Compile Include="Models\Tratamiento.cs" />
     <Compile Include="Models\UsoRecurso.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

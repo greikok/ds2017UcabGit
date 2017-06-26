@@ -36,13 +36,6 @@ namespace DoctorWebASP.Controllers
         // GET: Reportes
         public ActionResult Index()
         {
-            // REPORTE #1
-            /*string dateString = "02-06-2017";
-            DateTime date = DateTime.Parse(dateString);
-
-            var indexViewModel = new ReportesIndexViewModel();
-            indexViewModel.cantidadUsuariosRegistrados = getCantidadUsuariosRegistrados(date);*/
-
             var indexViewModel = new ReportesIndexViewModel();
 
             // REPORTE #2 - Promedio de edad de los pacientes
@@ -55,13 +48,7 @@ namespace DoctorWebASP.Controllers
 
             return View(indexViewModel);
         }
-
-        [HttpPost]
-        public ActionResult Prueba()
-        {
-            return Json(new { id = 1, value = "new" });
-        }
-
+        
         [HttpPost]
         public ActionResult getCantidadUsuariosRegistrados(string fechaInicioStr, string fechaFinStr)
         {
@@ -75,11 +62,11 @@ namespace DoctorWebASP.Controllers
             return Json(new { cantidad = result.Count(), fechaInicio = fechaInicio.ToString(), fechaFin = fechaFin.ToString() } );
         }
 
-        public double getPromedioEdadPaciente()
+        private double getPromedioEdadPaciente()
         {
             var result = from p in db.Personas
-                          where (p is Paciente)
-                          select p.FechaNacimiento;
+                         where (p is Paciente)
+                         select p.FechaNacimiento;
 
             int total = 0;
 
@@ -89,10 +76,11 @@ namespace DoctorWebASP.Controllers
                 total = total + age.Years;
             }
 
-            return total/result.Count();
+            return total / result.Count();
+
         }
 
-        public double getPromedioCitasPorMedico()
+        private double getPromedioCitasPorMedico()
         {
             double cantidadCitas = (from c in db.Calendarios
                                  where !c.Cancelada & c.Disponible == 0
