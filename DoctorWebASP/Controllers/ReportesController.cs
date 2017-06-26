@@ -19,6 +19,9 @@ namespace DoctorWebASP.Controllers
     public class ReportesController : Controller
     {
         private ApplicationDbContext db;
+        private string lastTimeOnDay = "11:59:59 PM";
+        private string firstTimeOnDay = "12:00:00 AM";
+
 
         public ReportesController()
         {
@@ -62,8 +65,8 @@ namespace DoctorWebASP.Controllers
         [HttpPost]
         public ActionResult getCantidadUsuariosRegistrados(string fechaInicioStr, string fechaFinStr)
         {
-            DateTime fechaInicio = DateTime.Parse(fechaInicioStr, CultureInfo.InvariantCulture);
-            DateTime fechaFin = DateTime.Parse(fechaFinStr, CultureInfo.InvariantCulture);
+            DateTime fechaInicio = DateTime.Parse(fechaInicioStr + " " + firstTimeOnDay, CultureInfo.InvariantCulture);
+            DateTime fechaFin = DateTime.Parse(fechaFinStr + " " + lastTimeOnDay, CultureInfo.InvariantCulture);
 
             var result = from p in db.Personas
                         where p.FechaCreacion >= fechaInicio & p.FechaCreacion <= fechaFin
@@ -104,8 +107,8 @@ namespace DoctorWebASP.Controllers
         [HttpPost]
         public ActionResult getPromedioRecursosDisponibles(string fechaInicioStr, string fechaFinStr)
         {
-            DateTime dtFechaInicio = DateTime.Parse(fechaInicioStr, CultureInfo.InvariantCulture);
-            DateTime dtFechaFin = DateTime.Parse(fechaFinStr, CultureInfo.InvariantCulture);
+            DateTime dtFechaInicio = DateTime.Parse(fechaInicioStr + " " + firstTimeOnDay, CultureInfo.InvariantCulture);
+            DateTime dtFechaFin = DateTime.Parse(fechaFinStr + " " + lastTimeOnDay, CultureInfo.InvariantCulture);
 
             var result = from ur in db.UsoRecursos
                          join ci in db.Citas on ur.Cita equals ci
