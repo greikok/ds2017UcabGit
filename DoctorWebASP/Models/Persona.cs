@@ -28,5 +28,13 @@ namespace DoctorWebASP.Models
         public string Direccion { get; set; }
 
         public virtual ApplicationUser ApplicationUser { get; set; }
+
+        public string NombreCompleto
+        {
+            get
+            {
+                return Nombre + " " + Apellido;
+            }
+        }
     }
 }

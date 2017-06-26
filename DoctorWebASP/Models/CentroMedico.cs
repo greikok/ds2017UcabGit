@@ -14,8 +14,6 @@ namespace DoctorWebASP.Models
         public string Telefono { get; set; }
 
         public virtual ICollection<Cita> Citas { get; set; }
-        public virtual ICollection<Empleado> Empleados { get; set; }
-        public virtual ICollection<RecursoHospitalario> RecursosHospitalarios { get; set; }
         public virtual ICollection<Medico> Medicos { get; set; }
     }
 }
