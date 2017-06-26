@@ -12,7 +12,10 @@ namespace DoctorWebASP.ViewModels
 
     public class ReportesIndexViewModel
     {
-        public IEnumerable<Persona> Personas { get; set; }
-        public double promedioEdad { get; set; }
+        public int cantidadUsuariosRegistrados { get; set; }
+        public double promedioEdadPacientes { get; set; }
+        public double promedioCitasPorMedico { get; set; }
+        public double promedioRecursosDisponibles { get; set; }
+
     }
 }
