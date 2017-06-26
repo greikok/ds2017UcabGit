@@ -10,6 +10,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Script.Serialization;
 using System.Web.UI.WebControls;
 
 namespace DoctorWebASP.Controllers
@@ -57,12 +58,23 @@ namespace DoctorWebASP.Controllers
             return View(indexViewModel);
         }
 
-        public int getCantidadUsuariosRegistrados(DateTime date)
+        [HttpPost]
+        public ActionResult Prueba()
         {
+            return Json(new { id = 1, value = "new" });
+        }
+
+        [HttpPost]
+        public ActionResult getCantidadUsuariosRegistrados(string fechaInicioStr, string fechaFinStr)
+        {
+            DateTime fechaInicio = DateTime.Parse(fechaInicioStr);
+            DateTime fechaFin = DateTime.Parse(fechaFinStr);
+
             var result = from p in db.Personas
-                        where p.FechaCreacion <= DateTime.Now & p.FechaCreacion > date
+                        where p.FechaCreacion >= fechaInicio & p.FechaCreacion <= fechaFin
                         select p;
-            return result.ToList().Count();
+
+            return Json(new { cantidad = result.Count(), fechaInicio = fechaInicio.ToString(), fechaFin = fechaFin.ToString() } );
         }
 
         public double getPromedioEdadPaciente()
