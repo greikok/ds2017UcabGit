@@ -7,8 +7,9 @@
     <title>@ViewBag.Title - My ASP.NET Application</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/bootstrap")
     @Styles.Render("~/Content/font-awesome.css")
-
+    <link rel="stylesheet" href="../Content/plugins/fullcalendar/fullcalendar.print.css" media="print">
     @RenderSection("StyleContent", false)
 </head>
 <body class="hold-transition skin-red-light sidebar-mini">
@@ -96,7 +97,30 @@
 
                         <!-- =============================================== -->
                         <!-- Aqui van las siguientes opciones del menu -->
-                    <li class="treeview">
+                    <li class="treeview @Html.AgregarClaseSi(ViewData.esPaginaActual(MenuPaginas.administracion), "active")">
+                        <a href="#">
+                            <i class="fa fa-list-alt"></i> <span>Admin de Usuarios</span>  <!-- cambiar el menu de pagina a admin de usuarios-->
+                            <span class="pull-right-container">
+                                <i class="fa fa-angle-left pull-right"></i>
+                            </span>
+                        </a>
+
+                        <ul class="treeview-menu">
+                            <li class="active">
+                                <a href="/Citas/Create">
+                                    <i class="fa fa-pencil-square-o"></i> <span>Gestionar Permiso</span>
+                                </a>
+                            </li>
+                            <li class="active">
+                                <a href="/Citas/Index">
+                                    <i class="fa fa-pencil-square-o"></i> <span>Gestionar Perfiles</span>
+                                </a>
+                            </li>
+                        </ul>
+
+
+
+                      <li class="treeview">
                         <a href="/People/Index">
                             <i class="fa fa-address-card"></i> <span>Perfil de Usuario</span>
                             <span class="pull-right-container">
@@ -162,8 +186,6 @@
     </div>
 
 
-
-    @Scripts.Render("~/bundles/bootstrap")
         @RenderSection("scripts", required: false)
         @RenderSection("ScriptContent", false)
 </body>

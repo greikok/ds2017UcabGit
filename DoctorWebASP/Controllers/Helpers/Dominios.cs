@@ -74,7 +74,9 @@ namespace DoctorWebASP.Controllers.Helpers
         #region Grupo 06
         #endregion
         #region Grupo 07
+        administracion,
         #endregion
+        
         #region Grupo 08
         Reportes,
         #endregion
