@@ -48,12 +48,6 @@ namespace DoctorWebASP.Controllers
             // REPORTE #3 - Promedio de citas por médico
             indexViewModel.promedioCitasPorMedico = getPromedioCitasPorMedico();
 
-            // REPORTE #4 - Promedio de Promedio de recursos disponibles en un tiempo determinado.
-            String fechaInicio = "01-01-2017";
-            String fechaFin = "01-31-2017";
-
-            indexViewModel.promedioRecursosDisponibles = getPromedioRecursosDisponibles(fechaInicio,fechaFin);
-
             // REPORTE #5 - Promedio de uso de la aplicación
 
             return View(indexViewModel);
@@ -107,10 +101,11 @@ namespace DoctorWebASP.Controllers
             return cantidadCitas / cantidadMedicos;
         }
 
-        public double getPromedioRecursosDisponibles(string fechaInicio, string fechaFin)
+        [HttpPost]
+        public ActionResult getPromedioRecursosDisponibles(string fechaInicioStr, string fechaFinStr)
         {
-            DateTime dtFechaInicio = DateTime.Parse(fechaInicio, CultureInfo.InvariantCulture);
-            DateTime dtFechaFin = DateTime.Parse(fechaFin, CultureInfo.InvariantCulture);
+            DateTime dtFechaInicio = DateTime.Parse(fechaInicioStr, CultureInfo.InvariantCulture);
+            DateTime dtFechaFin = DateTime.Parse(fechaFinStr, CultureInfo.InvariantCulture);
 
             var result = from ur in db.UsoRecursos
                          join ci in db.Citas on ur.Cita equals ci
@@ -140,7 +135,7 @@ namespace DoctorWebASP.Controllers
                 }
             }
 
-            return totalCantidadRecursos / cantidadRecursos;
+            return Json(new { cantidad = totalCantidadRecursos/cantidadRecursos, fechaInicio = dtFechaInicio.ToString(), fechaFin = dtFechaFin.ToString() });
         }
     }
 }
