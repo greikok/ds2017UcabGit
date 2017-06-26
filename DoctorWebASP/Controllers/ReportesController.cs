@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Data.SqlClient;
 using System.Diagnostics;
+using System.Globalization;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -67,8 +68,8 @@ namespace DoctorWebASP.Controllers
         [HttpPost]
         public ActionResult getCantidadUsuariosRegistrados(string fechaInicioStr, string fechaFinStr)
         {
-            DateTime fechaInicio = DateTime.Parse(fechaInicioStr);
-            DateTime fechaFin = DateTime.Parse(fechaFinStr);
+            DateTime fechaInicio = DateTime.Parse(fechaInicioStr, CultureInfo.InvariantCulture);
+            DateTime fechaFin = DateTime.Parse(fechaFinStr, CultureInfo.InvariantCulture);
 
             var result = from p in db.Personas
                         where p.FechaCreacion >= fechaInicio & p.FechaCreacion <= fechaFin
@@ -108,8 +109,8 @@ namespace DoctorWebASP.Controllers
 
         public double getPromedioRecursosDisponibles(string fechaInicio, string fechaFin)
         {
-            DateTime dtFechaInicio = DateTime.Parse(fechaInicio);
-            DateTime dtFechaFin = DateTime.Parse(fechaFin);
+            DateTime dtFechaInicio = DateTime.Parse(fechaInicio, CultureInfo.InvariantCulture);
+            DateTime dtFechaFin = DateTime.Parse(fechaFin, CultureInfo.InvariantCulture);
 
             var result = from ur in db.UsoRecursos
                          join ci in db.Citas on ur.Cita equals ci
