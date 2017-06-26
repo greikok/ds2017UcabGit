@@ -16,6 +16,6 @@ namespace DoctorWebASP.ViewModels
         public double promedioEdadPacientes { get; set; }
         public double promedioCitasPorMedico { get; set; }
         public double promedioRecursosDisponibles { get; set; }
-
+        public double promedioCitasCanceladasPorMedico { get; set; }
     }
 }

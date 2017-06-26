@@ -140,5 +140,21 @@ namespace DoctorWebASP.Controllers
 
             return Json(new { cantidad = totalCantidadRecursos/cantidadRecursos, fechaInicio = dtFechaInicio.ToString(), fechaFin = dtFechaFin.ToString() });
         }
+
+        [HttpPost]
+        public ActionResult getPromedioCitasCanceladasPorMedico(string fechaInicioStr, string fechaFinStr)
+        {
+            DateTime dtFechaInicio = DateTime.Parse(fechaInicioStr, CultureInfo.InvariantCulture);
+            DateTime dtFechaFin = DateTime.Parse(fechaFinStr, CultureInfo.InvariantCulture);
+
+            double cantidadCitasCanceladas = (from c in db.Calendarios
+                                    where c.Cancelada & c.Disponible == 1 & c.HoraInicio >= dtFechaInicio & c.HoraFin <= dtFechaFin
+                                    select c).Count();
+            double cantidadMedicos = (from p in db.Personas
+                                      where p is Medico
+                                      select p).Count();
+
+            return Json(new { cantidad = cantidadCitasCanceladas/cantidadMedicos, fechaInicio = dtFechaInicio.ToString(), fechaFin = dtFechaFin.ToString() });
+        }
     }
 }

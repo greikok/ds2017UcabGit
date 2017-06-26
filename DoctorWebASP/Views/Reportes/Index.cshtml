@@ -54,7 +54,7 @@
 
                         <div class="info-box-content">
                             <span class="info-box-text">Promedio uso a la aplicación.</span>
-                            <span class="info-box-number"><small>El promedio es de:</small> #</span>
+                            <span class="info-box-number"><small>El promedio es de:</small>#</span>
                         </div>
                     </div>
                 </div>
@@ -79,7 +79,7 @@
                                     <i class="fa fa-caret-down"></i>
                                 </button>
                             </div>
-                            <span class="info-box-number"><small>Hay un total de </small># <small> usuarios registrados durante este periodo</small></span>
+                            <span class="info-box-number"><small>Hay un total de </small>#<small> usuarios registrados durante este periodo</small></span>
                         </div>
                     </div>
                 </div>
@@ -104,7 +104,7 @@
                                     <i class="fa fa-caret-down"></i>
                                 </button>
                             </div>
-                            <span class="info-box-number"><small>Hay un promedio de </small># <small> recursos disponibles en este periodo.</small></span>
+                            <span class="info-box-number"><small>Hay un promedio de </small>#<small> recursos disponibles en este periodo.</small></span>
                         </div>
                     </div>
                 </div>
@@ -214,7 +214,7 @@
                     //end of $.ajax()
                 }
             );
-            $('#daterange-btn-3').daterangepicker(
+            var dateRange3 = $('#daterange-btn-3').daterangepicker(
             {
                 ranges: {
                     'Today': [moment(), moment()],
@@ -229,6 +229,24 @@
             },
                 function (start, end) {
                     $('#daterange-btn-3 span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
+                    var parameters = { fechaInicioStr: start.format('MM-DD-YYYY'), fechaFinStr: end.format('MM-DD-YYYY') }
+                    $.ajax({
+                        type: "POST",
+                        contentType: "application/json; charset=utf-8",
+                        url: "@Url.Action(actionName: "getPromedioCitasCanceladasPorMedico", controllerName: "Reportes")",
+                        data: JSON.stringify(parameters),
+                    datatype: "application/json",
+                    success: function (result) {
+                        //do something
+                        console.log(result);
+                        $(dateRange3).parent().next().text("Hay un promedio de " + result.cantidad + " citas canceladas por médico.");
+                    },
+                    error: function (xmlhttprequest, textstatus, errorthrown) {
+                        alert(" conection to the server failed ");
+                        console.log("error: " + errorthrown);
+                    }
+                });
+                //end of $.ajax()
                 }
             );
         });
