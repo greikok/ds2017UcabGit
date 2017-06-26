@@ -16,45 +16,52 @@ namespace DoctorWebASP.Controllers
 {
     public class ReportesController : Controller
     {
-        private ApplicationDbContext _context;
+        private ApplicationDbContext db;
 
         public ReportesController()
         {
-            _context = new ApplicationDbContext();
+            db = new ApplicationDbContext();
         }
 
         protected override void Dispose(bool disposing)
         {
-            _context.Dispose();
+            db.Dispose();
         }
 
         // GET: Reportes
         public ActionResult Index()
         {
             // REPORTE #1
-            string dateString = "02-06-2017";
+            /*string dateString = "02-06-2017";
             DateTime date = DateTime.Parse(dateString);
 
             var indexViewModel = new ReportesIndexViewModel();
-            indexViewModel.Personas = getPersonas(date);
+            indexViewModel.cantidadUsuariosRegistrados = getCantidadUsuariosRegistrados(date);*/
 
-            // REPORTE #2
-            indexViewModel.promedioEdad = getPromedioEdadPaciente();            
+            var indexViewModel = new ReportesIndexViewModel();
+
+            // REPORTE #2 - Promedio de edad de los pacientes
+            indexViewModel.promedioEdadPacientes = getPromedioEdadPaciente();
+
+            // REPORTE #3 - Promedio de citas por médico
+            indexViewModel.promedioCitasPorMedico = getPromedioCitasPorMedico();
+
+            // REPORTE #4 - Promedio de uso de la aplicación
 
             return View(indexViewModel);
         }
 
-        public IEnumerable<Persona> getPersonas(DateTime date)
+        public int getCantidadUsuariosRegistrados(DateTime date)
         {
-            var result = from p in _context.Personas
+            var result = from p in db.Personas
                         where p.FechaCreacion <= DateTime.Now & p.FechaCreacion > date
                         select p;
-            return result.ToList();
+            return result.ToList().Count();
         }
 
         public double getPromedioEdadPaciente()
         {
-            var result = from p in _context.Personas
+            var result = from p in db.Personas
                           where (p is Paciente)
                           select p.FechaNacimiento;
 
@@ -69,29 +76,16 @@ namespace DoctorWebASP.Controllers
             return total/result.Count();
         }
 
-        public ActionResult getPersonasByReport()
+        public double getPromedioCitasPorMedico()
         {
-            getPersonasDS ds = new getPersonasDS();
-            ReportViewer reportViewer = new ReportViewer();
-            reportViewer.ProcessingMode = ProcessingMode.Local;
-            reportViewer.SizeToReportContent = true;
-            reportViewer.Width = Unit.Percentage(1200);
-            reportViewer.Height = Unit.Percentage(1200);
+            double cantidadCitas = (from c in db.Calendarios
+                                 where !c.Cancelada & c.Disponible == 0
+                                 select c).Count();
+            double cantidadMedicos = (from p in db.Personas
+                                   where p is Medico
+                                   select p).Count();
 
-            var connectionString = ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
-
-
-            SqlConnection conx = new SqlConnection(connectionString); SqlDataAdapter adp = new SqlDataAdapter("SELECT * FROM Personas", conx);
-
-            adp.Fill(ds, "Personas");
-
-            reportViewer.LocalReport.ReportPath = Request.MapPath(Request.ApplicationPath) + @"Reportes2\R0Personas.rdlc";
-            reportViewer.LocalReport.DataSources.Add(new ReportDataSource("getPersonasDS", ds.Tables[0]));
-
-
-            ViewBag.ReportViewer = reportViewer;
-
-            return View();
+            return cantidadCitas / cantidadMedicos;
         }
     }
 }

@@ -30,7 +30,7 @@
 
                         <div class="info-box-content">
                             <span class="info-box-text">Promedio de edad<br />de los pacientes.</span>
-                            <span class="info-box-number"><small>El promedio es de:</small> # <small>años.</small></span>
+                            <span class="info-box-number"><small>El promedio es de:</small> @Model.promedioEdadPacientes <small>años.</small></span>
                         </div>
                     </div>
                 </div>
@@ -42,7 +42,7 @@
 
                         <div class="info-box-content">
                             <span class="info-box-text">Promedio de citas por médico.</span>
-                            <span class="info-box-number"><small>El promedio es de:</small> # <small>citas.</small></span>
+                            <span class="info-box-number"><small>El promedio es de:</small> @Model.promedioCitasPorMedico <small>citas.</small></span>
                         </div>
                     </div>
                 </div>
@@ -61,7 +61,7 @@
 
                 <!-- Reporte #1: Cantidad de usuarios registrados en un tiempo determinado. -->
                 <div class="col-md-4 col-sm-6 col-xs-12">
-                    <div class="box box-info">
+                    <div class="box box-info" style="min-height: 180px;">
                         <div class="box-header with-border">
                             <h3 class="box-title"><i class="fa fa-user-o"></i> <small style="font-size: medium">Cantidad de usuarios<br /> registrados en un periodo de tiempo </small></h3>
 
@@ -74,21 +74,19 @@
                         </div>
                         <div class="box-body">
                             <div class="form-group">
-                                <div class="input-group" style="">
-                                    <button type="button" class="btn btn-flat btn-primary pull-right" id="daterange-btn-1" style="width:317px">
-                                        <span><i class="fa fa-calendar"></i> Periodo de tiempo</span>
-                                        <i class="fa fa-caret-down"></i>
-                                    </button>
-                                </div>
+                                <button type="button" class="btn btn-block btn-flat btn-primary pull-right" id="daterange-btn-1">
+                                    <span><i class="fa fa-calendar"></i> Periodo de tiempo</span>
+                                    <i class="fa fa-caret-down"></i>
+                                </button>
                             </div>
-                            <span class="info-box-number"><small>Hay un total de </small>#<small> usuarios registrados durante este periodo</small></span>
+                            <span class="info-box-number"><small>Hay un total de </small># <small> usuarios registrados durante este periodo</small></span>
                         </div>
                     </div>
                 </div>
 
                 <!-- Reporte #4: Promedio de recursos disponibles en un tiempo determinado. -->
                 <div class="col-md-4 col-sm-6 col-xs-12">
-                    <div class="box box-info">
+                    <div class="box box-info" style="min-height: 180px;">
                         <div class="box-header with-border">
                             <h3 class="box-title"><i class="fa fa-medkit"></i> Disponibilidad de recursos.</h3>
 
@@ -101,12 +99,10 @@
                         </div>
                         <div class="box-body">
                             <div class="form-group">
-                                <div class="input-group">
-                                    <button type="button" class="btn btn-flat btn-primary pull-right" id="daterange-btn-2" style="width:317px">
-                                        <span><i class="fa fa-calendar"></i> Periodo de tiempo</span>
-                                        <i class="fa fa-caret-down"></i>
-                                    </button>
-                                </div>
+                                <button type="button" class="btn btn-block btn-flat btn-primary pull-right" id="daterange-btn-2">
+                                    <span><i class="fa fa-calendar"></i> Periodo de tiempo</span>
+                                    <i class="fa fa-caret-down"></i>
+                                </button>
                             </div>
                             <span class="info-box-number"><small>Hay un promedio de </small>#<small> recursos disponibles en este periodo.</small></span>
                         </div>
@@ -115,7 +111,7 @@
 
                 <!-- Reporte #6: Promedio de citas canceladas por médico en un tiempo determinado. -->
                 <div class="col-md-4 col-sm-6 col-xs-12">
-                    <div class="box box-info">
+                    <div class="box box-info" style="min-height: 180px;">
                         <div class="box-header with-border">
                             <h3 class="box-title"><i class="fa fa-stethoscope"></i> <small style="font-size:medium">Promedio de citas canceladas<br /> por médico.</small></h3>
 
@@ -128,12 +124,10 @@
                         </div>
                         <div class="box-body">
                             <div class="form-group">
-                                <div class="input-group">
-                                    <button type="button" class="btn btn-flat btn-primary pull-right" id="daterange-btn-3" style="width:317px">
-                                        <span><i class="fa fa-calendar"></i> Periodo de tiempo</span>
-                                        <i class="fa fa-caret-down"></i>
-                                    </button>
-                                </div>
+                                <button type="button" class="btn btn-block btn-flat btn-primary pull-right" id="daterange-btn-3">
+                                    <span><i class="fa fa-calendar"></i> Periodo de tiempo</span>
+                                    <i class="fa fa-caret-down"></i>
+                                </button>
                             </div>
                             <span class="info-box-number"><small>Hay un promedio de </small>#<small> citas canceladas por médico.</small></span>
                         </div>
@@ -149,7 +143,7 @@
 {
     <script>
         $(document).ready(function () {
-            $('#daterange-btn-1').daterangepicker(
+            var dateRange1 = $('#daterange-btn-1').daterangepicker(
             {
                 ranges: {
                     'Today': [moment(), moment()],
@@ -164,8 +158,10 @@
             },
                 function (start, end) {
                     $('#daterange-btn-1 span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
+                    
                 }
             );
+
             $('#daterange-btn-2').daterangepicker(
             {
                 ranges: {
