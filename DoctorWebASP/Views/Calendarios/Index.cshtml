@@ -8,25 +8,36 @@
     <section class="content">
         <div class="row">
             <div class="col-md-3">
-                <div class="box box-solid">
+                <div class="box box-solid box-primary">
                     <div class="box-header with-border">
-                        <h4 class="box-title">Eventos disponibles</h4>
+                        <h4 class="box-title">Nuevo espacio para citas</h4>
                     </div>
                     <div class="box-body">
                         <!-- the events -->
-                        <div id="external-events">
-                            <div class="external-event bg-green">Tiempo disponible para citas</div>
-                        </div>
+                        <form id="añadirCalendario">
+                            <h5>Fecha de inicio:</h5>
+                            <input type="datetime-local" name="fechaI" /><br/>
+                            <h5>Fecha de finalización:</h5>
+                            <input type="datetime-local" name="fechaF" /><br/><br/>
+                            <input class="btn btn-primary" type="submit" value="Añadir" />
+                        </form>
                     </div>
                     <!-- /.box-body -->
                 </div>
-                <div class="box box-solid" style="cursor:pointer" onmouseup="drop-event()">
+                <div class="box box-solid box-primary active" style="cursor:pointer" onmouseup="drop-event()">
                     <!-- Aqui se debe llamar la funcion eliminar -->
                     <div class="box-header with-border">
-                        <h3 class="box-title">Delete Event</h3>
+                        <h3 class="box-title">Liberar tiempo</h3>
                     </div>
                     <div class="box-body">
-                        <div class="input-group">
+                        <form id="borrarCalendario">
+                            <h5>Fecha de inicio:</h5>
+                            <input type="datetime-local" name="fechaI" /><br />
+                            <h5>Fecha de finalización:</h5>
+                            <input type="datetime-local" name="fechaF" /><br /><br />
+                            <input class="btn btn-primary" type="submit" value="Liberar" />
+                        </form>
+                        <!--<div class="input-group">
                             <div style="border:1px dotted red" align="center" class="input-group-btn">
 
                                 <img src="~/Content/Resources/basura.png" border="0" width="150" height="150">
@@ -43,6 +54,7 @@
                         <div class="input-group-btn">
                             <button id="add-new-event" type="button" class="btn btn-primary btn-flat">Delete</button>
                         </div>
+                    </div>-->
                     </div>
                 </div>
             </div>
@@ -115,7 +127,7 @@
         weekNumberTitle: 'Sem ',
         eventOverlap: false,
         firstDay: 1,
-
+        allDaySlot: false,
       header: {
         left: 'prev,next today',
         center: 'title',
