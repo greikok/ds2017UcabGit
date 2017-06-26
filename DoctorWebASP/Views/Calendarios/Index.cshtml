@@ -76,12 +76,14 @@
         m = date.getMonth(),
         y = date.getFullYear();
     $('#calendar').fullCalendar({
+        defaultView: 'agendaWeek',
         monthNames: ['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'],
         monthNamesShort: ['Ene','Feb','Mar','Abr','May','Jun','Jul','Ago','Sep','Oct','Nov','Dic'],
         dayNames: ['Domingo','Lunes','Martes','Miércoles','Jueves','Viernes','Sábado'],
         dayNamesShort: ['Dom', 'Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb'],
         allDayText: 'Todo el día',
         weekNumberTitle: 'Sem',
+
         firstDay: 1,
       header: {
         left: 'prev,next today',
