@@ -55,16 +55,19 @@ namespace DoctorWebASP.Controllers
             {
                 try
                 {
-                    var calendarios = new SelectList("");
+                    var calendarios = new SelectList(""); var calendarios2 = new SelectList("");
                     string userID = User.Identity.GetUserId();
+                    calendario.HoraFin = calendario.HoraInicio.AddHours(2);
                     calendario.Medico = db.Personas.OfType<Medico>().Single(p => p.ApplicationUser.Id == userID);
-                    calendarios = new SelectList(db.Calendarios.Where(c => c.Medico.PersonaId == calendario.Medico.PersonaId && c.HoraInicio == calendario.HoraInicio ));
-                    if ((calendarios.Count() == 0) && (calendario.HoraInicio >= System.DateTime.Now ))
+                    calendarios = new SelectList(db.Calendarios.Where(c => c.Medico.PersonaId == calendario.Medico.PersonaId && c.HoraInicio <= calendario.HoraInicio && c.HoraFin > calendario.HoraInicio));
+                    calendarios2 = new SelectList(db.Calendarios.Where(c => c.Medico.PersonaId == calendario.Medico.PersonaId && c.HoraInicio < calendario.HoraFin && c.HoraFin >= calendario.HoraFin));
+
+                    if (((calendarios.Count() == 0) && (calendarios2.Count() == 0)) && (calendario.HoraInicio >= System.DateTime.Now ))
                     {
                         try
                         {
                             calendario.Cancelada = false;
-                            calendario.HoraFin = calendario.HoraInicio.AddHours(2);
+                            //calendario.HoraFin = calendario.HoraInicio.AddHours(2);
                             calendario.Disponible = 1;
                             db.Calendarios.Add(calendario);
                             db.SaveChanges();
@@ -183,9 +186,12 @@ namespace DoctorWebASP.Controllers
             login = db.Personas.OfType<Medico>().Single(p => p.ApplicationUser.Id == userID);
             medicoid = login.PersonaId;
             // retrive the data from table  
-            var callist = db.Calendarios.Where(c => c.Medico.PersonaId == medicoid).ToList()
-                .Select(c => new {id = c.CalendarioId, title = "Tiempo de cita", start = c.HoraInicio.ToString("yyyy-MM-ddTHH:mm:ss.fffzzz"), end = c.HoraFin.ToString("yyyy-MM-ddTHH:mm:ss.fffzzz"), c.Disponible, c.Cancelada, backgroundColor = "#00a65a" });
+            var callist = db.Calendarios.Where(c => c.Medico.PersonaId == medicoid && c.Disponible == 1).ToList()
+                .Select(c => new {id = c.CalendarioId, title = "Tiempo de cita", start = c.HoraInicio.ToString("yyyy-MM-ddTHH:mm:ss.fffzzz"), end = c.HoraFin.ToString("yyyy-MM-ddTHH:mm:ss.fffzzz"), c.Disponible, c.Cancelada, backgroundColor = "#00a65a"});
+            /*var citist = db.Calendarios.Where(c => c.Medico.PersonaId == medicoid && c.Disponible == 0 &&  c.Cancelada == false).ToList()
+                .Select(c => new { id = c.CalendarioId, title = "Cita Medica", start = c.HoraInicio.ToString("yyyy-MM-ddTHH:mm:ss.fffzzz"), end = c.HoraFin.ToString("yyyy-MM-ddTHH:mm:ss.fffzzz"), c.Disponible, c.Cancelada, backgroundColor = "#f56954" });
             // Pass the "personlist" object for conversion object to JSON string
+            var eventlist = callist.Union(citist);*/
             JavaScriptSerializer serializer = new JavaScriptSerializer();
             serializer.MaxJsonLength = Int32.MaxValue;
             string jsondata = serializer.Serialize(callist);
