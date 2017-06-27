@@ -14,11 +14,7 @@ namespace DoctorWebASP.Controllers
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
-        // GET: HistoriaMedicas
-        //   public ActionResult Index()
-        //    {
-        //      return View(db.HistoriaMedicas.ToList());
-        //   }
+        
         public ActionResult Inicio()
         {
             return View();
@@ -27,7 +23,20 @@ namespace DoctorWebASP.Controllers
         
         public ActionResult Historial()
         {
+
+
+
             return View();
+
+
+
+
+
+
+
+
+
+
         }
 
         public ActionResult HistPersona()
