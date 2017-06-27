@@ -4,7 +4,7 @@ using DoctorWebASP.Controllers;
 
 namespace ReportesUnitTest
 {
-    [TestClass]
+    /*[TestClass]
     public class UnitTest1
     {
         [TestMethod]
@@ -53,6 +53,6 @@ namespace ReportesUnitTest
         }
 
 
-    }
+    }*/
 
 }
