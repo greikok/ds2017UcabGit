@@ -13,7 +13,7 @@ namespace DoctorWebASP.Migrations
         
         string IMigrationMetadata.Id
         {
-            get { return "201706151337574_Init"; }
+            get { return "201706262204233_Init"; }
         }
         
         string IMigrationMetadata.Source

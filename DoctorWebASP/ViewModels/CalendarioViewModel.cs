@@ -6,7 +6,7 @@ using System.Web;
 
 namespace DoctorWebASP.ViewModels
 {
-    public class CitaViewModel
+    public class CalendarioViewModel
     {
         public PagedList.IPagedList<Calendario> ListaFechas { get; set; }
         public string MedicoId { get; set; }

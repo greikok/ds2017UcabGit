@@ -41,6 +41,9 @@ namespace DoctorWebASP.Models
                 .WithRequired(d => d.ApplicationUser);
             base.OnModelCreating(modelBuilder);
 
+            modelBuilder.Entity<Calendario>()
+                .HasOptional(c => c.Cita)
+                .WithRequired(c => c.Calendario);
 
         }
 
