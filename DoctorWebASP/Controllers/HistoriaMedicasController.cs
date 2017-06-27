@@ -15,48 +15,12 @@ namespace DoctorWebASP.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: HistoriaMedicas
-        //   public ActionResult Index()
-        //    {
-        //      return View(db.HistoriaMedicas.ToList());
-        //   }
-        public ActionResult Inicio()
+        public ActionResult Index()
         {
-            return View();
+            return View(db.HistoriaMedicas.ToList());
         }
 
-        
-        public ActionResult Historial()
-        {
-            return View();
-        }
-
-        public ActionResult HistPersona()
-        {
-            return View();
-        }
-
-        public ActionResult AgregarHistorial()
-        {
-            return View();
-        }
-        public ActionResult RecipeLista()
-        {
-            return View();
-        }
-
-        public ActionResult RecPersona()
-        {
-            return View();
-        }
-
-        public ActionResult AgregarRecipe()
-        {
-            return View();
-        }
-
-
-
-
+        // GET: HistoriaMedicas/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)

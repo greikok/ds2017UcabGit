@@ -36,13 +36,11 @@ namespace DoctorWebASP.Models
                 {
                     var datos = (JObject)JsonConvert.DeserializeObject(response.Content);
                     var resultado = datos["ObtenerTodosResult"].ToObject<ResultadoServicioPaginado<Notificacion>>();
-                    if (resultado != null && resultado.SinProblemas)
+                    if (resultado != null)
                     {
                         cantidad = resultado.CantidadPaginas;
                         lista = resultado.Contenido.ToList();
                     }
-                    else
-                        throw new DoctorWebException(resultado.Mensaje);
                 }
 
             }
@@ -68,12 +66,11 @@ namespace DoctorWebASP.Models
                 {
                     var datos = (JObject)JsonConvert.DeserializeObject(response.Content);
                     var resultado = datos["ObtenerResult"].ToObject<ResultadoServicio<Notificacion>>();
-                    if (resultado != null && resultado.SinProblemas)
+                    if (resultado != null)
                     {
+                        
                         return resultado.Contenido;
                     }
-                    else
-                        throw new DoctorWebException(resultado.Mensaje);
                 }
             }
             catch (Exception ex)
@@ -102,13 +99,11 @@ namespace DoctorWebASP.Models
                 {
                     var datos = (JObject)JsonConvert.DeserializeObject(response.Content);
                     var resultado = datos["GuardarResult"].ToObject<ResultadoProceso>();
-                    if (resultado != null && resultado.SinProblemas)
+                    if (resultado != null)
                     {
                         mensaje = resultado.Mensaje;
                         return resultado.SinProblemas;
                     }
-                    else
-                        throw new DoctorWebException(resultado.Mensaje);
                 }
             }
             catch (Exception ex)
@@ -132,13 +127,11 @@ namespace DoctorWebASP.Models
                 {
                     var datos = (JObject)JsonConvert.DeserializeObject(response.Content);
                     var resultado = datos["BorrarResult"].ToObject<ResultadoProceso>();
-                    if (resultado != null && resultado.SinProblemas)
+                    if (resultado != null)
                     {
                         mensaje = resultado.Mensaje;
                         return resultado.SinProblemas;
                     }
-                    else
-                        throw new DoctorWebException(resultado.Mensaje);
                 }
             }
             catch (Exception ex)

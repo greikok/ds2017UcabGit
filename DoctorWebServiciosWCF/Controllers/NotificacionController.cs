@@ -111,9 +111,6 @@ namespace DoctorWebServiciosWCF.Model
 
                     var notificacion = notificaciones.ToList().First<Notificacion>();
 
-                    if (notificacion == null)
-                        throw new Exception("No se encontro el registro que busca");
-
                     resultado.Inicializar(
                         Contenido: notificacion
                     );
@@ -134,9 +131,6 @@ namespace DoctorWebServiciosWCF.Model
                 using (var db = new ContextoBD())
                 {
                     var notificacion = db.Notificaciones.Find(codigo);
-
-                    if (notificacion == null)
-                        throw new Exception("No se encontro el registro que busca");
 
                     resultado.Inicializar(
                         Contenido: notificacion

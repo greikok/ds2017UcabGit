@@ -29,7 +29,6 @@ namespace DoctorWebServiciosWCF.Migrations
             //
 
 
-
             #region Grupo 9
             context.Notificaciones.AddOrUpdate(
                 notificacion => notificacion.Nombre,
