@@ -14,7 +14,7 @@
                     </div>
                     <div class="box-body">
                         <a href="Create">
-                            Hola
+                            <input type="button" class="btn btn-primary" value="Crear"/>
                         </a>
                     </div>
                     <!-- /.box-body -->
@@ -72,7 +72,7 @@
 </div>
 <!-- /.content-wrapper -->
 <script>
-  $(function () {
+    $(function () {
 
     /* initialize the external events
      -----------------------------------------------------------------*/
@@ -107,7 +107,12 @@
     var d = date.getDate(),
         m = date.getMonth(),
         y = date.getFullYear();
+    $.ajax({
+        type: 'POST',
+        url: '@Url.Action("Json", "Calendarios")'
+    })
     $('#calendar').fullCalendar({
+        events: '/Content/calendario.json',
         defaultView: 'agendaWeek',
         columnFormat: {
             month: 'ddd',   
@@ -136,12 +141,13 @@
       },
 
 
-      //Random default events
+        //Random default events
+        /*
       events: [
-            
+
+            //REALIZAR FUNCION JSON EN CONTROLADOR
             /*
             {
-              title: 'All Day Event',
               start: new Date(y, m, 1),
               backgroundColor: "#f56954", //red
               borderColor: "#f56954" //red
@@ -183,8 +189,8 @@
               url: 'http://google.com/',
               backgroundColor: "#3c8dbc", //Primary (light-blue)
               borderColor: "#3c8dbc" //Primary (light-blue)
-            }*/
-      ],
+            }
+      ],*/
       weekNumbers: true,
       weekNumbersWithinDays: true,
       weekNumberCalculation: 'ISO',
