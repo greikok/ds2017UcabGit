@@ -67,7 +67,7 @@ namespace DoctorWebASP.Controllers
             return Json(new { cantidad = result.Count(), fechaInicio = fechaInicio.ToString(), fechaFin = fechaFin.ToString() } );
         }
 
-        private double getPromedioEdadPaciente()
+        public double getPromedioEdadPaciente()
         {
             var result = from p in db.Personas
                          where (p is Paciente)
@@ -85,7 +85,7 @@ namespace DoctorWebASP.Controllers
 
         }
 
-        private double getPromedioCitasPorMedico()
+        public double getPromedioCitasPorMedico()
         {
             double cantidadCitas = (from c in db.Calendarios
                                  where !c.Cancelada & c.Disponible == 0

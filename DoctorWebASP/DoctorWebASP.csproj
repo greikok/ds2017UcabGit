@@ -297,9 +297,14 @@
     <Compile Include="Migrations\201706251704526_AddingUsoRecurso.Designer.cs">
       <DependentUpon>201706251704526_AddingUsoRecurso.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201706270238105_AddingBitacora.cs" />
+    <Compile Include="Migrations\201706270238105_AddingBitacora.Designer.cs">
+      <DependentUpon>201706270238105_AddingBitacora.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Almacen.cs" />
+    <Compile Include="Models\Bitacora.cs" />
     <Compile Include="Models\Calendario.cs" />
     <Compile Include="Models\CentroMedico.cs" />
     <Compile Include="Models\Cita.cs" />
@@ -1414,6 +1419,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201706251704526_AddingUsoRecurso.resx">
       <DependentUpon>201706251704526_AddingUsoRecurso.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201706270238105_AddingBitacora.resx">
+      <DependentUpon>201706270238105_AddingBitacora.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Reportes2\R0Personas.rdlc" />
   </ItemGroup>
