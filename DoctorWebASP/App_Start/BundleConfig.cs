@@ -23,6 +23,7 @@ namespace DoctorWebASP
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
                       "~/Content/plugins/jQuery/jquery-2.2.3.min.js",
                       "~/Content/bootstrap/js/bootstrap.min.js",
+                      "~/Content/plugins/select2/select2.full.min.js",
                       "~/Scripts/jquery-ui.min.js",
                       "~/Scripts/moment.min.js",
                       "~/Content/plugins/daterangepicker/daterangepicker.js",
@@ -37,6 +38,7 @@ namespace DoctorWebASP
                       "~/Content/bootstrap/css/bootstrap.min.css",
                       "~/Content/dist/css/skins/skin-red-light.css",
                       "~/Content/plugins/daterangepicker/daterangepicker.css",
+                      "~/Content/plugins/select2/select2.min.css",
                       "~/Content/dist/css/AdminLTE.min.css",
                       "~/Content/plugins/fullcalendar/fullcalendar.min.css",
                       "~/Content/dist/css/skins/_all-skins.min.css"));

@@ -48,6 +48,11 @@ namespace DoctorWebASP.Controllers
 
             return View(indexViewModel);
         }
+
+        public ActionResult Configurados()
+        {
+            return View();
+        }
         
         [HttpPost]
         public ActionResult getCantidadUsuariosRegistrados(string fechaInicioStr, string fechaFinStr)

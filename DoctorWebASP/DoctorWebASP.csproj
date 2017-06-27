@@ -1362,6 +1362,7 @@
     <Content Include="Views\Calendarios\Edit.cshtml" />
     <Content Include="Views\Calendarios\Index.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\Reportes\Configurados.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="fonts\" />
