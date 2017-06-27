@@ -13,8 +13,8 @@ namespace DoctorWebASP.Controllers.Services
 
         Notificacion Obtener(int codigo);
 
-        bool Guardar(Notificacion notificacion, out string mensaje);
+        bool Guardar(out string mensaje, Notificacion notificacion);
         
-        bool Borrar(int codigo, out string mensaje);
+        bool Borrar(out string mensaje, int codigo);
     }
 }

@@ -82,7 +82,7 @@ namespace DoctorWebASP.Controllers.Services
             return null;
         }
 
-        bool IServicioNotificaciones.Guardar(Notificacion notificacion, out string mensaje)
+        bool IServicioNotificaciones.Guardar(out string mensaje, Notificacion notificacion)
         {
             var lista = new List<Notificacion>();
             var client = new RestClient(baseUrl: Utilidades.GetUrlBase("NotificacionService"));
@@ -118,7 +118,7 @@ namespace DoctorWebASP.Controllers.Services
             return false;
         }
 
-        bool IServicioNotificaciones.Borrar(int codigo, out string mensaje)
+        bool IServicioNotificaciones.Borrar(out string mensaje, int codigo)
         {
             var client = new RestClient(baseUrl: Utilidades.GetUrlBase("NotificacionService"));
             try

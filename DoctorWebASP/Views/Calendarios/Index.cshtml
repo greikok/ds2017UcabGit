@@ -8,17 +8,49 @@
     <section class="content">
         <div class="row">
             <div class="col-md-3">
-                <div class="box box-solid">
+                <div class="box box-solid box-primary">
                     <div class="box-header with-border">
-                        <h4 class="box-title">Eventos disponibles</h4>
+                        <h4 class="box-title">Nuevo espacio para citas</h4>
                     </div>
                     <div class="box-body">
-                        <!-- the events -->
-                        <div id="external-events">
-                            <div class="external-event bg-green">Tiempo disponible para citas</div>
-                        </div>
+                        <a href="Create">
+                            <input type="button" class="btn btn-primary" value="Crear"/>
+                        </a>
                     </div>
                     <!-- /.box-body -->
+                </div>
+                <div class="box box-solid box-primary active" style="cursor:pointer" onmouseup="drop-event()">
+                    <!-- Aqui se debe llamar la funcion eliminar -->
+                    <div class="box-header with-border">
+                        <h3 class="box-title">Liberar tiempo</h3>
+                    </div>
+                    <div class="box-body">
+                        <form id="borrarCalendario">
+                            <h5>Fecha de inicio:</h5>
+                            <input type="datetime-local" name="fechaI" /><br />
+                            <h5>Fecha de finalización:</h5>
+                            <input type="datetime-local" name="fechaF" /><br /><br />
+                            <input class="btn btn-primary" type="submit" value="Liberar" />
+                        </form>
+                        <!--<div class="input-group">
+                            <div style="border:1px dotted red" align="center" class="input-group-btn">
+
+                                <img src="~/Content/Resources/basura.png" border="0" width="150" height="150">
+
+                                <h5> <b> ... Coloque eventos aqui ... </b> </h5>
+
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="input-group">
+                        <p>Input event name to delete</p>
+                        <input id="new-event" type="text" class="form-control" placeholder="Event Title">
+                        <div class="input-group-btn">
+                            <button id="add-new-event" type="button" class="btn btn-primary btn-flat">Delete</button>
+                        </div>
+                    </div>-->
+                    </div>
                 </div>
             </div>
             <!-- /.col -->
@@ -40,7 +72,7 @@
 </div>
 <!-- /.content-wrapper -->
 <script>
-  $(function () {
+    $(function () {
 
     /* initialize the external events
      -----------------------------------------------------------------*/
@@ -75,7 +107,12 @@
     var d = date.getDate(),
         m = date.getMonth(),
         y = date.getFullYear();
+    $.ajax({
+        type: 'POST',
+        url: '@Url.Action("Json", "Calendarios")'
+    })
     $('#calendar').fullCalendar({
+        events: '/Content/calendario.json',
         defaultView: 'agendaWeek',
         columnFormat: {
             month: 'ddd',   
@@ -88,8 +125,9 @@
         dayNamesShort: ['Dom', 'Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb'],
         allDayText: 'Todo el día',
         weekNumberTitle: 'Sem ',
-
+        eventOverlap: false,
         firstDay: 1,
+        allDaySlot: false,
       header: {
         left: 'prev,next today',
         center: 'title',
@@ -101,12 +139,15 @@
         week: 'semana',
         day: 'día',
       },
-      //Random default events
+
+
+        //Random default events
+        /*
       events: [
-            
+
+            //REALIZAR FUNCION JSON EN CONTROLADOR
             /*
             {
-              title: 'All Day Event',
               start: new Date(y, m, 1),
               backgroundColor: "#f56954", //red
               borderColor: "#f56954" //red
@@ -148,8 +189,8 @@
               url: 'http://google.com/',
               backgroundColor: "#3c8dbc", //Primary (light-blue)
               borderColor: "#3c8dbc" //Primary (light-blue)
-            }*/
-      ],
+            }
+      ],*/
       weekNumbers: true,
       weekNumbersWithinDays: true,
       weekNumberCalculation: 'ISO',

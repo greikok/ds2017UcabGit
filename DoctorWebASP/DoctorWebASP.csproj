@@ -1246,6 +1246,7 @@
     <Content Include="getPersonasDS.xsc">
       <DependentUpon>getPersonasDS.xsd</DependentUpon>
     </Content>
+    <Content Include="Content\calendario.json" />
     <None Include="getPersonasDS.xsd">
       <Generator>MSDataSetGenerator</Generator>
       <LastGenOutput>getPersonasDS.Designer.cs</LastGenOutput>
