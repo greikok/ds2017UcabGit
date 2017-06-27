@@ -7,56 +7,72 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Data.SqlClient;
 using System.Diagnostics;
+using System.Globalization;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Script.Serialization;
 using System.Web.UI.WebControls;
 
 namespace DoctorWebASP.Controllers
 {
     public class ReportesController : Controller
     {
-        private ApplicationDbContext _context;
+        private ApplicationDbContext db;
+        private string lastTimeOnDay = "11:59:59 PM";
+        private string firstTimeOnDay = "12:00:00 AM";
+
 
         public ReportesController()
         {
-            _context = new ApplicationDbContext();
+            db = new ApplicationDbContext();
         }
 
         protected override void Dispose(bool disposing)
         {
-            _context.Dispose();
+            db.Dispose();
         }
 
         // GET: Reportes
         public ActionResult Index()
         {
-            // REPORTE #1
-            string dateString = "02-06-2017";
-            DateTime date = DateTime.Parse(dateString);
-
             var indexViewModel = new ReportesIndexViewModel();
-            indexViewModel.Personas = getPersonas(date);
 
-            // REPORTE #2
-            indexViewModel.promedioEdad = getPromedioEdadPaciente();            
+            // REPORTE #2 - Promedio de edad de los pacientes
+            indexViewModel.promedioEdadPacientes = getPromedioEdadPaciente();
+
+            // REPORTE #3 - Promedio de citas por médico
+            indexViewModel.promedioCitasPorMedico = getPromedioCitasPorMedico();
+
+            // REPORTE #5 - Promedio de uso de la aplicación
+            indexViewModel.promedioUsoApp = getPromedioUsoApp();
 
             return View(indexViewModel);
         }
 
-        public IEnumerable<Persona> getPersonas(DateTime date)
+        public ActionResult Configurados()
         {
-            var result = from p in _context.Personas
-                        where p.FechaCreacion <= DateTime.Now & p.FechaCreacion > date
+            return View();
+        }
+        
+        [HttpPost]
+        public ActionResult getCantidadUsuariosRegistrados(string fechaInicioStr, string fechaFinStr)
+        {
+            DateTime fechaInicio = DateTime.Parse(fechaInicioStr + " " + firstTimeOnDay, CultureInfo.InvariantCulture);
+            DateTime fechaFin = DateTime.Parse(fechaFinStr + " " + lastTimeOnDay, CultureInfo.InvariantCulture);
+
+            var result = from p in db.Personas
+                        where p.FechaCreacion >= fechaInicio & p.FechaCreacion <= fechaFin
                         select p;
-            return result.ToList();
+
+            return Json(new { cantidad = result.Count(), fechaInicio = fechaInicio.ToString(), fechaFin = fechaFin.ToString() } );
         }
 
         public double getPromedioEdadPaciente()
         {
-            var result = from p in _context.Personas
-                          where (p is Paciente)
-                          select p.FechaNacimiento;
+            var result = from p in db.Personas
+                         where (p is Paciente)
+                         select p.FechaNacimiento;
 
             int total = 0;
 
@@ -66,32 +82,90 @@ namespace DoctorWebASP.Controllers
                 total = total + age.Years;
             }
 
-            return total/result.Count();
+            return total / result.Count();
+
         }
 
-        public ActionResult getPersonasByReport()
+        public double getPromedioCitasPorMedico()
         {
-            getPersonasDS ds = new getPersonasDS();
-            ReportViewer reportViewer = new ReportViewer();
-            reportViewer.ProcessingMode = ProcessingMode.Local;
-            reportViewer.SizeToReportContent = true;
-            reportViewer.Width = Unit.Percentage(1200);
-            reportViewer.Height = Unit.Percentage(1200);
+            double cantidadCitas = (from c in db.Calendarios
+                                 where !c.Cancelada & c.Disponible == 0
+                                 select c).Count();
+            double cantidadMedicos = (from p in db.Personas
+                                   where p is Medico
+                                   select p).Count();
 
-            var connectionString = ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
+            return cantidadCitas / cantidadMedicos;
+        }
 
+        [HttpPost]
+        public ActionResult getPromedioRecursosDisponibles(string fechaInicioStr, string fechaFinStr)
+        {
+            DateTime dtFechaInicio = DateTime.Parse(fechaInicioStr + " " + firstTimeOnDay, CultureInfo.InvariantCulture);
+            DateTime dtFechaFin = DateTime.Parse(fechaFinStr + " " + lastTimeOnDay, CultureInfo.InvariantCulture);
 
-            SqlConnection conx = new SqlConnection(connectionString); SqlDataAdapter adp = new SqlDataAdapter("SELECT * FROM Personas", conx);
+            var result = from ur in db.UsoRecursos
+                         join ci in db.Citas on ur.Cita equals ci
+                         join ca in db.Calendarios on ci.Calendario equals ca
+                         where ca.HoraInicio >= dtFechaInicio & ca.HoraInicio <= dtFechaFin & !ca.Cancelada
+                         select ur;
 
-            adp.Fill(ds, "Personas");
+            var almacen = (from a in db.Almacenes
+                           select a);
 
-            reportViewer.LocalReport.ReportPath = Request.MapPath(Request.ApplicationPath) + @"Reportes2\R0Personas.rdlc";
-            reportViewer.LocalReport.DataSources.Add(new ReportDataSource("getPersonasDS", ds.Tables[0]));
+            double cantidadRecursos = (from rh in db.RecursosHospitalarios
+                                       select rh).Count();
 
+            double totalCantidadRecursos = 0;
 
-            ViewBag.ReportViewer = reportViewer;
+            foreach (var a in almacen.ToList())
+            {
+                foreach (var ur in result.ToList())
+                {
+                    if (a.RecursoHospitalario == ur.RecursoHospitalario)
+                    {
+                        if (a.Disponible - ur.Cantidad >= 0)
+                        {
+                            totalCantidadRecursos = totalCantidadRecursos + (a.Disponible - ur.Cantidad);
+                        }
+                    }
+                }
+            }
 
-            return View();
+            return Json(new { cantidad = totalCantidadRecursos/cantidadRecursos, fechaInicio = dtFechaInicio.ToString(), fechaFin = dtFechaFin.ToString() });
+        }
+
+        [HttpPost]
+        public ActionResult getPromedioCitasCanceladasPorMedico(string fechaInicioStr, string fechaFinStr)
+        {
+            DateTime dtFechaInicio = DateTime.Parse(fechaInicioStr, CultureInfo.InvariantCulture);
+            DateTime dtFechaFin = DateTime.Parse(fechaFinStr, CultureInfo.InvariantCulture);
+
+            double cantidadCitasCanceladas = (from c in db.Calendarios
+                                    where c.Cancelada & c.Disponible == 1 & c.HoraInicio >= dtFechaInicio & c.HoraFin <= dtFechaFin
+                                    select c).Count();
+            double cantidadMedicos = (from p in db.Personas
+                                      where p is Medico
+                                      select p).Count();
+
+            return Json(new { cantidad = cantidadCitasCanceladas/cantidadMedicos, fechaInicio = dtFechaInicio.ToString(), fechaFin = dtFechaFin.ToString() });
+        }
+
+        public double getPromedioUsoApp()
+        {
+            double bitacora = (from b in db.Bitacoras
+                            select b).Count();
+
+            double usuarios = (from u in db.Users
+                            select u).Count();
+
+            return bitacora/usuarios;
+        }
+
+        public int pruebaunitaria()
+        {
+            var result = 2 + 2;
+            return result;
         }
     }
 }

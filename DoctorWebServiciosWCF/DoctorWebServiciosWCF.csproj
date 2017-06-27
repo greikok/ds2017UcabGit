@@ -72,15 +72,17 @@
   <ItemGroup>
     <Content Include="Services\NotificacionService.svc" />
     <Content Include="Services\ReporteService.svc" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controllers\Helpers\Extensiones.cs" />
     <Compile Include="Controllers\Helpers\Utilidades.cs" />
     <Compile Include="Controllers\ReporteController.cs" />
-    <Compile Include="Migrations\201706220653104_Notificaciones.cs" />
-    <Compile Include="Migrations\201706220653104_Notificaciones.Designer.cs">
-      <DependentUpon>201706220653104_Notificaciones.cs</DependentUpon>
+    <Compile Include="Migrations\201706271539536_init.cs" />
+    <Compile Include="Migrations\201706271539536_init.Designer.cs">
+      <DependentUpon>201706271539536_init.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Notificacion.cs" />
@@ -105,6 +107,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
+    <None Include="Properties\PublishProfiles\PublicarEnLocalhostIIS.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -113,8 +116,8 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201706220653104_Notificaciones.resx">
-      <DependentUpon>201706220653104_Notificaciones.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201706271539536_init.resx">
+      <DependentUpon>201706271539536_init.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

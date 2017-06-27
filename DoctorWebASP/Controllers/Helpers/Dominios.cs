@@ -76,7 +76,7 @@ namespace DoctorWebASP.Controllers.Helpers
         #region Grupo 07
         #endregion
         #region Grupo 08
-        Reportes,
+        Reportes,Configurados,
         #endregion
         #region Grupo 09
         Notificaciones,
