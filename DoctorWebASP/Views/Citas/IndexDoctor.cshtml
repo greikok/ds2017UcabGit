@@ -1,7 +1,7 @@
-﻿@model IEnumerable<DoctorWebASP.Models.Cita>
+﻿@model DoctorWebASP.ViewModels.DoctorCitaViewModel
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "IndexDoctor";
 }
 
 <section class="content-header">
@@ -31,7 +31,7 @@
                     </th>
                     <th>
                         <div align="center">
-                            @Html.DisplayName("Nombre del Doctor")
+                            @Html.DisplayName("Nombre del Paciente")
                         </div>
                     </th>
                     <th>
@@ -51,17 +51,17 @@
                     </th>
                 </tr>
 
-                @foreach (var item in Model)
+                @foreach (var item in Model.Citas)
             {
                     <tr>
                         <td>
                             <div align="center">
                                 @Html.DisplayFor(modelItem => item.CentroMedico.Nombre)
-                             </div>
+                            </div>
                         </td>
                         <td>
                             <div align="center">
-                                @Html.DisplayFor(modelItem => (item.Calendario.Medico.ConcatUserName))
+                                @Html.DisplayFor(modelItem => (item.Paciente.ConcatUserName))
                             </div>
                         </td>
                         <td>
@@ -76,16 +76,16 @@
                         </td>
                         <td>
                             <div align="center">
-                                @Html.ActionLink("Detalles", "Details", new { id = item.CitaId }, new { @class = "btn btn-primary" })
+                                @Html.ActionLink("Detalles", "DetailsDoctor", new { id = item.CitaId }, new { @class = "btn btn-primary" })
                             </div>
                         </td>
                     </tr>
                 }
 
-                </table>
-            </div>
-
+            </table>
         </div>
+
+    </div>
 </section>
 
 @section Scripts {

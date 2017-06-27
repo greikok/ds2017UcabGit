@@ -86,6 +86,14 @@
     <Compile Include="Migrations\201706270010038_Notificaciones.Designer.cs">
       <DependentUpon>201706270010038_Notificaciones.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201706270320204_setup.cs" />
+    <Compile Include="Migrations\201706270320204_setup.Designer.cs">
+      <DependentUpon>201706270320204_setup.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201706270323433_Init.cs.cs" />
+    <Compile Include="Migrations\201706270323433_Init.cs.Designer.cs">
+      <DependentUpon>201706270323433_Init.cs.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Notificacion.cs" />
     <Compile Include="Controllers\NotificacionController.cs" />
@@ -119,6 +127,10 @@
     <EmbeddedResource Include="Migrations\201706270010038_Notificaciones.resx">
       <DependentUpon>201706270010038_Notificaciones.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201706270320204_setup.resx">
+      <DependentUpon>201706270320204_setup.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201706270323433_Init.cs.resx" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

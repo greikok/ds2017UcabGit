@@ -1,7 +1,7 @@
 ﻿@model DoctorWebASP.Models.Cita
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = "DetailsDoctor";
 }
 
 <section class="content-header">
@@ -21,18 +21,18 @@
         <div class="col-md-6">
             <div class="box box-info">
                 <div class="box-header with-border">
-                    <h3 class="box-title">Detalles de su cita medica registrada</h3>
+                    <h3 class="box-title">Detalles de su cita medica por atender</h3>
                 </div>
                 <div class="box-body">
                     <div class="row">
                         <div class="col-md-6">
                             <dl class="dl-horizontal">
                                 <dt>
-                                    @Html.DisplayName("Nombre del Doctor")
+                                    @Html.DisplayName("Nombre del Paciente")
                                 </dt>
 
                                 <dd>
-                                    @Html.DisplayFor(model => model.Calendario.Medico.ConcatUserName)
+                                    @Html.DisplayFor(model => model.Paciente.ConcatUserName)
                                 </dd>
                                 <dt>
                                     @Html.DisplayName("Telefono")
@@ -41,10 +41,10 @@
                                     @Html.DisplayFor(model => model.Calendario.Medico.Telefono)
                                 </dd>
                                 <dt>
-                                    @Html.DisplayName("Email del doctor")
+                                    @Html.DisplayName("Email del paciente")
                                 </dt>
                                 <dd>
-                                    @Html.DisplayFor(model => model.Calendario.Medico.Email)
+                                    @Html.DisplayFor(model => model.Paciente.Email)
                                 </dd>
                                 <dt>
                                     @Html.DisplayName("Centro medico")

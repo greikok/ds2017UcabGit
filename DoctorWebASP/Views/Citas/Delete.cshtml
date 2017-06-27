@@ -4,21 +4,90 @@
     ViewBag.Title = "Delete";
 }
 
-<h2>Delete</h2>
+<section class="content-header">
+    <h1>
+        Cita Medica
+        <small>Detalle de su cita</small>
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li><a href="#">Cita</a></li>
+        <li class="active">Cancelar cita</li>
+    </ol>
+</section>
 
-<h3>Are you sure you want to delete this?</h3>
-<div>
-    <h4>Cita</h4>
-    <hr />
-    <dl class="dl-horizontal">
-    </dl>
+<section class="content">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="box box-danger">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Esta seguro que desea cancelar esta cita?</h3>
+                </div>
+                <div class="box-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <dl class="dl-horizontal">
+                                <dt>
+                                    @Html.DisplayName("Nombre del Doctor")
+                                </dt>
 
-    @using (Html.BeginForm()) {
-        @Html.AntiForgeryToken()
+                                <dd>
+                                    @Html.DisplayFor(model => model.Calendario.Medico.ConcatUserName)
+                                </dd>
+                                <dt>
+                                    @Html.DisplayName("Telefono")
+                                </dt>
+                                <dd>
+                                    @Html.DisplayFor(model => model.Calendario.Medico.Telefono)
+                                </dd>
+                                <dt>
+                                    @Html.DisplayName("Email del doctor")
+                                </dt>
+                                <dd>
+                                    @Html.DisplayFor(model => model.Calendario.Medico.Email)
+                                </dd>
+                                <dt>
+                                    @Html.DisplayName("Centro medico")
+                                </dt>
+                                <dd>
+                                    @Html.DisplayFor(model => model.CentroMedico.Nombre)
+                                </dd>
+                                <dt>
+                                    @Html.DisplayName("Fecha Inicio")
+                                </dt>
+                                <dd>
+                                    @Html.DisplayFor(model => model.Calendario.HoraInicio)
+                                </dd>
+                                <dt>
+                                    @Html.DisplayName("Fecha Fin")
+                                </dt>
+                                <dd>
+                                    @Html.DisplayFor(model => model.Calendario.HoraFin)
+                                </dd>
 
-        <div class="form-actions no-color">
-            <input type="submit" value="Delete" class="btn btn-default" /> |
-            @Html.ActionLink("Back to List", "Index")
+                            </dl>
+                        </div>
+                        <div class="col-md-6" align="center">
+                            @using (Html.BeginForm())
+                            {
+                                @Html.AntiForgeryToken()
+
+                                <div class="form-actions no-color">
+                                    <input type="submit" value="Confirmar Cancelacion" class="btn btn-danger" /> &nbsp;
+                                    @Html.ActionLink("Volver al Listado", "Index", new { }, new { @class = "btn btn-primary"})
+                                </div>
+                            }
+                        </div>
+                    </div>
+                    <div class="row">
+
+
+                    </div>
+
+                </div>
+
+            </div>
         </div>
-    }
-</div>
+    </div>
+</section>
+
