@@ -1442,7 +1442,6 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Content\Resources\" />
     <Folder Include="fonts\" />
   </ItemGroup>
   <ItemGroup>
