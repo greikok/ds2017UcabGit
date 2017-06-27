@@ -54,7 +54,13 @@ namespace DoctorWebASP.Controllers
             Notificacion model = null;
             if (codigo != 0)
             {
-                model = Servicio.Obtener(codigo);
+                try {
+                    model = Servicio.Obtener(codigo);
+                }
+                catch (Exception ex)
+                {
+                    ViewData["error"] = ex.Message;
+                }
             }
             else
             {
@@ -78,7 +84,7 @@ namespace DoctorWebASP.Controllers
                 model.NotificacionId = 0;
                 model.Actualizar(collection);
                 var mensaje = String.Empty;
-                var sinProblemas = Servicio.Guardar(model, out mensaje);
+                var sinProblemas = Servicio.Guardar(out mensaje, model);
                 return RedirectToAction("Index");
             }
             catch (Exception exception)
@@ -97,7 +103,7 @@ namespace DoctorWebASP.Controllers
             {
                 model.Actualizar(collection);
                 var mensaje = String.Empty;
-                var sinProblemas = Servicio.Guardar(model, out mensaje);
+                var sinProblemas = Servicio.Guardar(out mensaje, model);
                 return RedirectToAction("Index");
             }
             catch (Exception exception)
@@ -128,7 +134,7 @@ namespace DoctorWebASP.Controllers
             {
                 var codigo = int.Parse(collection["NotificacionId"]);
                 var mensaje = String.Empty;
-                var sinProblemas = Servicio.Borrar(codigo, out mensaje);
+                var sinProblemas = Servicio.Borrar(out mensaje, codigo);
             }
             catch
             {

@@ -1,4 +1,5 @@
-﻿using DoctorWebServiciosWCF.Model.ORM;
+﻿using DoctorWebServiciosWCF.Model;
+using DoctorWebServiciosWCF.Model.ORM;
 using DoctorWebServiciosWCF.Models.Service;
 using System;
 using System.Collections.Generic;
@@ -6,7 +7,7 @@ using System.Data.Entity.Core.Objects;
 using System.Linq;
 using System.Web;
 
-namespace DoctorWebServiciosWCF.Model
+namespace DoctorWebServiciosWCF.Controllers
 {
     public class NotificacionController
     {

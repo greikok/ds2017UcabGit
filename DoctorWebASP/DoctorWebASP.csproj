@@ -1362,6 +1362,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Reportes2\R0Personas.rdlc" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DoctorWebServiciosWCF\DoctorWebServiciosWCF.csproj">
+      <Project>{3d0059c1-13fc-4b21-9316-182dc3743056}</Project>
+      <Name>DoctorWebServiciosWCF</Name>
+    </ProjectReference>
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

@@ -152,24 +152,132 @@ namespace DoctorWebPruebasUnitarias
             Assert.AreEqual(2, vista.ViewData["siguienteIndice"]);
             // En caso de poder paginar cual es el indice de la anterior pagina?
             Assert.AreEqual(0, vista.ViewData["anteriorIndice"]);
+
+        }
+
+        [TestMethod]
+        // El controlador recibe codigo de notificacion igual a 0.
+        public void ASPNotificacionCtrlDetailCaso1()
+        {
+            //Inicializar
+            int codigo = 0;
+            var respuestaServicio = new Notificacion() { NotificacionId = codigo };
+            servicio_mocked
+                .Setup(servicio => servicio.Obtener(codigo))
+                .Returns(() => { return respuestaServicio; });
+
+            var controlador = new NotificacionesController(servicio_mocked.Object);
+
+            //Ejecutar
+            var resultado = controlador.Detail(codigo);
+
+            //Evaluar
+
+            // El resultado del metodo es una Vista?
+            Assert.IsInstanceOfType(resultado, typeof(ViewResult));
+
+            ViewResult vista = (ViewResult)resultado;
+            // La vista tiene errores?
+            Assert.IsNull(vista.ViewData["error"]);            
+        }
+
+        [TestMethod]
+        // El controlador recibe un codigo de notificacion y el servicio le regresa el registro.
+        public void ASPNotificacionCtrlDetailCaso2()
+        {
+            //Inicializar
+            int codigo = 1;
+            var respuestaServicio = new Notificacion() { NotificacionId = codigo };
+            servicio_mocked
+                .Setup(servicio => servicio.Obtener(codigo))
+                .Returns(() => { return respuestaServicio; });
+
+            var controlador = new NotificacionesController(servicio_mocked.Object);
+
+            //Ejecutar
+            var resultado = controlador.Detail(codigo);
+
+            //Evaluar
+
+            // El resultado del metodo es una Vista?
+            Assert.IsInstanceOfType(resultado, typeof(ViewResult));
+
+            ViewResult vista = (ViewResult)resultado;
+            // La vista tiene errores?
+            Assert.IsNull(vista.ViewData["error"]);
             // El modelo de la vista no es la respuesta del servicio?
-            Assert.AreNotSame(respuestaServicio, vista.Model);
+            Assert.AreSame(respuestaServicio, vista.Model);
         }
 
         [TestMethod]
-        public void ASPNotificacionCtrlDetail()
+        // El controlador recibe un codigo de notificacion y el servicio encuentra el registro.
+        public void ASPNotificacionCtrlDetailCaso3()
         {
             //Inicializar
+            int codigo = 1;
+            Notificacion respuestaServicio = null;
+            servicio_mocked
+                .Setup(servicio => servicio.Obtener(codigo))
+                .Returns(() => { return respuestaServicio; });
+
+            var controlador = new NotificacionesController(servicio_mocked.Object);
+
             //Ejecutar
+            var resultado = controlador.Detail(codigo);
+
             //Evaluar
+            // El resultado es redireccionar al usuario?
+            Assert.IsInstanceOfType(resultado, typeof(RedirectToRouteResult));
         }
 
         [TestMethod]
-        public void ASPNotificacionCtrlPost()
+        // El controlador recibe un codigo de notificacion y falla el invocar el servicio.
+        public void ASPNotificacionCtrlDetailCaso4()
         {
             //Inicializar
+            int codigo = 1;
+            Notificacion respuestaServicio = null;
+            servicio_mocked
+                .Setup(servicio => servicio.Obtener(codigo))
+                .Returns(() => { throw new Exception("Falla del servicio"); });
+
+            var controlador = new NotificacionesController(servicio_mocked.Object);
+
             //Ejecutar
+            var resultado = controlador.Detail(codigo);
+
             //Evaluar
+            // El resultado es redireccionar al usuario?
+            Assert.IsInstanceOfType(resultado, typeof(RedirectToRouteResult));
+        }
+
+        [TestMethod]
+        public void ASPNotificacionCtrlCreate()
+        {
+            //Inicializar
+            FormCollection collection = new FormCollection();
+            collection.Add("NotificacionId", "0");
+            collection.Add("Estado", "1");
+            collection.Add("Nombre", "Prueba");
+            collection.Add("Descripcion", "Prueba Descripcion");
+            collection.Add("Contenido", "Prueba Contenido");
+            collection.Add("Asunto", "Prueba Asunto");
+            
+            Notificacion registro = new Notificacion();
+            string mensajeError = String.Empty;
+            servicio_mocked
+                .Setup(servicio => servicio.Guardar(out mensajeError, registro))
+                .OutCallback(new OutAction<string, Notificacion>((out string mensaje, Notificacion notificacion) => mensaje = String.Empty))
+                .Returns(() => { return true; });
+
+            var controlador = new NotificacionesController(servicio_mocked.Object);
+
+            //Ejecutar
+            var resultado = controlador.Create(collection);
+
+            //Evaluar
+            // El resultado es redireccionar al usuario?
+            Assert.IsInstanceOfType(resultado, typeof(RedirectToRouteResult));
         }
 
         [TestMethod]
