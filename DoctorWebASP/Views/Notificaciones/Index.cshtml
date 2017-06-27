@@ -1,0 +1,142 @@
+﻿@using DoctorWebASP.Controllers.Helpers
+@model IEnumerable<DoctorWebASP.Models.Notificacion>
+@{
+    ViewData.indicarPaginaActual(MenuPaginas.Notificaciones);
+}
+
+@* Opcional *@
+@section StyleContent {
+
+}
+
+@* Opcional *@
+@section ScriptContent {
+
+}
+
+@* Requerido *@
+@section TitleContent {
+    <h1>
+        Gestion de Notificaciones
+        <small>Conjunto de eventos disponibles en el sistema.</small>
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="/"><i class="fa fa-dashboard"></i>Inicio</a></li>
+        <li class="active">Notificaciones</li>
+    </ol>
+}
+
+<!-- Main content -->
+<section class="content">
+    <!-- Default box -->
+    <div class="box">
+        <div class="box-header with-border">
+            <h3 class="box-title">Lista de Eventos</h3>
+
+            <div class="box-tools pull-right">
+                <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse">
+                    <i class="fa fa-minus"></i>
+                </button>
+                <button type="button" class="btn btn-box-tool" data-widget="remove" data-toggle="tooltip" title="Remove">
+                    <i class="fa fa-times"></i>
+                </button>
+            </div>
+        </div>
+        <div class="box-body">
+            @if (Model.Count() > 0)
+            {
+                <p>
+                    @using (Html.BeginForm(actionName: "Index", controllerName: "Notificaciones", method: FormMethod.Get, htmlAttributes: new { @class = "form-horizontal" }))
+                {
+                        <div class="col-sm-4">
+                            @Html.Label("nombre", "Filtro")
+                            @Html.TextBox("nombre", ViewData["nombre"], new { @class = "form-control" })
+                        </div>
+
+                        <div class="col-sm-4">
+                            @Html.Label("filas", "Numero de Filas")
+                            @Html.DropDownList("filas", new List<SelectListItem>(new SelectListItem[] { new SelectListItem { Value = "5", Text = "5", Selected = ViewData["filas"].ToString() == "5" }, new SelectListItem { Value = "10", Text = "10", Selected = ViewData["filas"].ToString() == "10" }, new SelectListItem { Value = "15", Text = "15", Selected = ViewData["filas"].ToString() == "15" }, new SelectListItem { Value = "20", Text = "20", Selected = ViewData["filas"].ToString() == "20" } }), "Numero de Filas", new { @class = "form-control" })
+                        </div>
+
+                        <div class="col-sm-4" style="margin-top: 25px; margin-bottom: 18px;">
+                            <button class="btn btn-success btn-small" type="submit">
+                                <i class="fa fa-fw fa-search"></i>
+                            </button>
+
+                            <a class="btn btn-default @Html.AgregarClaseSi((ViewData["permitirAnterior"] != null && ViewData["permitirAnterior"] is bool && (bool)ViewData["permitirAnterior"]), "", "disabled")" href="@Url.Action("Index", new { nombre = ViewData["nombre"], indice = ViewData["anteriorIndice"], filas = ViewData["filas"] })">
+                                <i class="fa fa-fw fa-chevron-left"></i>
+                            </a>
+
+                            <a class="btn btn-default @Html.AgregarClaseSi((ViewData["permitirSiguiente"] != null && ViewData["permitirSiguiente"] is bool && (bool)ViewData["permitirSiguiente"]), "", "disabled")" href="@Url.Action("Index", new { nombre = ViewData["nombre"], indice = ViewData["siguienteIndice"], filas = ViewData["filas"] })">
+                                <i class="fa fa-fw fa-chevron-right"></i>
+                            </a>
+                            <a class="btn btn-primary btn-small" href="@Url.Action("Detail", new { codigo=0 })"><i class="fa fa-fw fa-plus"></i>Notificacion</a>
+                        </div>
+                    }
+                </p>
+                <table class="table table-bordered">
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Nombre)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Descripcion)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Estado)
+                        </th>
+                        <th style="width: 110px"></th>
+                    </tr>
+
+                    @foreach (var item in Model)
+                {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Nombre)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Descripcion)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Estado)
+                            </td>
+                            <td>
+                                <div class="btn-toolbar pull-right" role="toolbar">
+                                    <div class="btn-group" role="group">
+                                        <a class="btn btn-warning" href="@Url.Action("Detail", new { codigo = item.NotificacionId })">
+                                            <i class="fa fa-fw fa-edit"></i>
+                                        </a>
+                                    </div>
+                                    <div class="btn-group" role="group">
+                                        <a class="btn btn-danger" href="@Url.Action("Delete", new { codigo = item.NotificacionId })">
+                                            <i class="fa fa-fw fa-trash"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                </table>
+            }
+            else
+            {
+                <div class="col-sm-12" style="margin-bottom: 28px;">
+                    <a class="btn btn-primary btn-small pull-right" href="@Url.Action("Detail", new { codigo=0 })"><i class="fa fa-fw fa-plus"></i>Notificacion</a>
+                </div>
+                <p style="text-align: center;">
+                    No hay registros de notificaciones.
+                </p>
+            }
+        </div>
+        <!-- /.box-body -->
+        <div class="box-footer">
+            @if (Model.Count() > 0)
+            {
+                <p>Cantidad de elementos: @Model.Count() </p>
+            }
+        </div>
+        <!-- /.box-footer-->
+    </div>
+    <!-- /.box -->
+
+</section>

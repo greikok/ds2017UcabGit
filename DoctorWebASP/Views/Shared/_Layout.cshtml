@@ -1,0 +1,210 @@
+﻿@using DoctorWebASP.Controllers.Helpers
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - My ASP.NET Application</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    @Styles.Render("~/Content/font-awesome.css")
+
+    @RenderSection("StyleContent", false)
+</head>
+<body class="hold-transition skin-red-light sidebar-mini">
+    <!-- Site wrapper -->
+    <div class="wrapper">
+
+        <header class="main-header">
+            <!-- Logo -->
+            <a href="@Url.Action("Index", "Home")" class="logo">
+                <!-- mini logo for sidebar mini 50x50 pixels -->
+                <span class="logo-mini"><b>Doctor</b>Web</span>
+                <!-- logo for regular state and mobile devices -->
+                <span class="logo-lg"><b>Doctor</b>Web</span>
+            </a>
+            <!-- Header Navbar: style can be found in header.less -->
+            <nav class="navbar navbar-static-top">
+                <!-- Sidebar toggle button-->
+                <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </a>
+
+                <div class="navbar-custom-menu">
+                    <ul class="nav navbar-nav">
+
+
+                        <!-- User Account: style can be found in dropdown.less -->
+                        <li class="dropdown user user-menu">
+                            @Html.Partial("_LoginPartial")
+
+                        </li>
+                        <li class="divider">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</li>
+                    </ul>
+                </div>
+            </nav>
+        </header>
+
+        <!-- =============================================== -->
+        <!-- Left side column. contains the sidebar -->
+        <aside class="main-sidebar">
+            <!-- sidebar: style can be found in sidebar.less -->
+            <section class="sidebar">
+
+                <ul class="sidebar-menu">
+                    <li class="header">MENU PRINCIPAL</li>
+                    <!-- Cita Menu Section -->
+                    <li class="treeview">
+                        <a href="#">
+                            <i class="fa fa-calendar-check-o"></i> <span>Citas</span>
+                            <span class="pull-right-container">
+                                <i class="fa fa-angle-left pull-right"></i>
+                            </span>
+                        </a>
+                        <ul class="treeview-menu">
+                            <li class="active">
+                                <a href="/Citas/Create">
+                                    <i class="fa fa-pencil-square-o"></i> <span>Solicitar Cita</span>
+                                </a>
+                            </li>
+                            <li class="active">
+                                <a href="/Citas/Index">
+                                    <i class="fa fa-search"></i> <span>Consultar Citas</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <li class="treeviw @Html.AgregarClaseSi(ViewData.esPaginaActual(MenuPaginas.Notificaciones) || ViewData.esPaginaActual(MenuPaginas.NotificacionGuardar), "active")">
+                        <a href="@Url.Action(actionName: "Index", controllerName: "Notificaciones")">
+                            <i class="fa fa-bell"></i> <span>Notificaciones</span>
+                            <span class="pull-right-container">
+                                <i class="fa fa-angle-left pull-right"></i>
+                            </span>
+                        </a>
+                        <ul class="treeview-menu">
+                            <li class="@Html.AgregarClaseSi(ViewData.esPaginaActual(MenuPaginas.Notificaciones), "active")">
+                                <a href="@Url.Action(actionName: "Index", controllerName: "Notificaciones")"><i class="fa fa-list"></i> Mostrar</a>
+                            </li>
+                            <li class="@Html.AgregarClaseSi(ViewData.esPaginaActual(MenuPaginas.NotificacionGuardar), "active")">
+                                <a href="@Url.Action(actionName: "Detail", controllerName: "Notificaciones", routeValues: new { codigo = 0 })"><i class="fa fa-fw fa-save"></i> Guardar</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <!-- =============================================== -->
+                    <!-- Aqui van las  opciones del menu administracion de recursos -->
+                    <li class="treeview">
+                        <a href="/People/Index">
+                            <i class="fa fa-address-card"></i> <span>Perfil de Usuario</span>
+                            <span class="pull-right-container">
+                                <i class="fa fa-angle-left pull-right"></i>
+                            </span>
+                        </a>
+                    <li class="treeview @Html.AgregarClaseSi(ViewData.esPaginaActual(MenuPaginas.Reportes), "active")">
+                        <a href="#">
+                            <i class="fa fa-list-alt"></i> <span>Reportes</span>
+                            <span class="pull-right-container">
+                                <i class="fa fa-angle-left pull-right"></i>
+                            </span>
+                        </a>
+                        <ul class="treeview-menu">
+                            <li class="@Html.AgregarClaseSi(ViewData.esPaginaActual(MenuPaginas.Reportes), "active")">
+                                <a href="@Url.Action("Index", "Reportes")">
+                                    <i class="fa fa-table"></i> <span>Preestablecidos</span>
+                                </a>
+                            </li>
+                            <li class="">
+                                <a href="#">
+                                    <i class="fa fa-cog"></i> <span>Configurados</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="treeview">
+                        <a href="/Calendarios/Index">
+                            <i class="fa fa-calendar"></i> <span>Calendario</span>
+                        </a>
+                    </li>  
+                    <li class="treeview">
+                        <a href="#">
+                            <i class="fa fa-archive"></i> <span>Administracion de recursos</span>
+                            <span class="pull-right-container">
+                                <i class="fa fa-angle-left pull-right"></i>
+                            </span>
+                        </a>
+                        <ul class="treeview-menu">
+                            <li class="active">
+                                <a href="~/Areas/Index">
+                                    <i class="fa fa-search"></i> <span>Consulta de Areas </span>
+                                </a>
+                            </li>
+                           
+                            <li class="active">
+                                <a href="~/EquipoMedicoes/Index">
+                                    <i class="fa fa-search"></i> <span>Consulta de Equipo Medico </span>
+                                </a>
+                            </li>
+                        
+                            <li class="active">
+                                <a href="~/Utensilios/Index">
+                                    <i class="fa fa-search"></i> <span>Consulta de Material Medico </span>
+                                </a>
+                            </li>
+                     
+                            <li class="active">
+                                <a href="~/RecursoHospitalarios/Index">
+                                    <i class="fa fa-search"></i> <span>Consulta de Farmacos </span>
+                                </a>
+                            </li>
+                        
+                            <li class="active">
+                                <a href="~/Almacens/Index">
+                                    <i class="fa fa-search"></i> <span>Consulta de Almacenes </span>
+                                </a>
+                            </li>      
+                        </ul>
+                    </li>
+
+            </ul>
+            </section>
+            <!-- /.sidebar -->
+        </aside>
+
+        <!-- =============================================== -->
+        <!-- Content Wrapper. Contains page content -->
+        <div class="content-wrapper">
+            <!-- Content Header (Page header) -->
+
+            <section class="content-header">
+                @RenderSection("TitleContent", false)
+            </section>
+
+            <!-- Main content -->
+            <section class="content">
+                @RenderBody()
+
+            </section>
+            <!-- /.content -->
+        </div>
+        <!-- /.content-wrapper -->
+
+        <footer class="main-footer">
+            <div class="pull-right hidden-xs">
+                <b>Version</b> 2.3.8
+            </div>
+            <strong>Copyright &copy; 2017 <a href="http://www.ucabdoctorweb.com">DoctorWeb</a>.</strong> All rights
+            reserved.
+        </footer>
+
+    </div>
+
+
+
+    @Scripts.Render("~/bundles/bootstrap")
+        @RenderSection("scripts", required: false)
+        @RenderSection("ScriptContent", false)
+</body>
+</html>
