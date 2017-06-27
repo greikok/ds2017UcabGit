@@ -7,13 +7,13 @@ namespace DoctorWebASP.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class ChangingSueldoDeletingEspecialidadToMedico : IMigrationMetadata
+    public sealed partial class Init : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(ChangingSueldoDeletingEspecialidadToMedico));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(Init));
         
         string IMigrationMetadata.Id
         {
-            get { return "201706200228295_ChangingSueldoDeletingEspecialidadToMedico"; }
+            get { return "201706270328578_Init"; }
         }
         
         string IMigrationMetadata.Source
