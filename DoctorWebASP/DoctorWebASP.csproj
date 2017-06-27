@@ -44,14 +44,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL" />
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL" />
     <Reference Include="Microsoft.AI.Agent.Intercept, Version=2.0.6.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.ApplicationInsights.Agent.Intercept.2.0.6\lib\net45\Microsoft.AI.Agent.Intercept.dll</HintPath>
       <Private>True</Private>
@@ -85,6 +79,14 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="PagedList, Version=1.17.0.0, Culture=neutral, PublicKeyToken=abbb863e9397c5e1, processorArchitecture=MSIL">
+      <HintPath>..\packages\PagedList.1.17.0.0\lib\net40\PagedList.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="PagedList.Mvc, Version=4.5.0.0, Culture=neutral, PublicKeyToken=abbb863e9397c5e1, processorArchitecture=MSIL">
+      <HintPath>..\packages\PagedList.Mvc.4.5.0.0\lib\net40\PagedList.Mvc.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Microsoft.ReportViewer.Common, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Report.Viewer.11.0.0.0\lib\net\Microsoft.ReportViewer.Common.dll</HintPath>
       <Private>True</Private>
@@ -170,6 +172,12 @@
     <Reference Include="Newtonsoft.Json">
       <HintPath>..\packages\Newtonsoft.Json.6.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
+    <Reference Include="EntityFramework">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.AspNet.Identity.Core">
       <HintPath>..\packages\Microsoft.AspNet.Identity.Core.2.2.1\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
     </Reference>
@@ -217,7 +225,6 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
-    <Compile Include="Controllers\AdmUsuarioController.cs" />
     <Compile Include="Controllers\CalendariosController.cs" />
     <Compile Include="Controllers\CitasController.cs" />
     <Compile Include="Controllers\Helpers\Dominios.cs" />
@@ -229,6 +236,7 @@
     <Compile Include="Controllers\NotificacionesController.cs" />
     <Compile Include="Controllers\PersonasController.cs" />
     <Compile Include="Controllers\ReportesController.cs" />
+    <Compile Include="Controllers\Services\IServicioNotificaciones.cs" />
     <Compile Include="getPersonasDS.cs">
       <DependentUpon>getPersonasDS.xsd</DependentUpon>
     </Compile>
@@ -240,65 +248,22 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201706151337574_Init.cs" />
-    <Compile Include="Migrations\201706151337574_Init.Designer.cs">
-      <DependentUpon>201706151337574_Init.cs</DependentUpon>
+    <Compile Include="Migrations\201706270328578_Init.cs" />
+    <Compile Include="Migrations\201706270328578_Init.Designer.cs">
+      <DependentUpon>201706270328578_Init.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201706192310477_AgregarClaseEspecialidadMedicaYRelacionConMedico.cs" />
-    <Compile Include="Migrations\201706192310477_AgregarClaseEspecialidadMedicaYRelacionConMedico.Designer.cs">
-      <DependentUpon>201706192310477_AgregarClaseEspecialidadMedicaYRelacionConMedico.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201706200214482_AddingGeneroFechaCreacionToPerson.cs" />
-    <Compile Include="Migrations\201706200214482_AddingGeneroFechaCreacionToPerson.Designer.cs">
-      <DependentUpon>201706200214482_AddingGeneroFechaCreacionToPerson.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201706200228295_ChangingSueldoDeletingEspecialidadToMedico.cs" />
-    <Compile Include="Migrations\201706200228295_ChangingSueldoDeletingEspecialidadToMedico.Designer.cs">
-      <DependentUpon>201706200228295_ChangingSueldoDeletingEspecialidadToMedico.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201706200231045_ChangingSueldoExtendFromPersonaToEmpleado.cs" />
-    <Compile Include="Migrations\201706200231045_ChangingSueldoExtendFromPersonaToEmpleado.Designer.cs">
-      <DependentUpon>201706200231045_ChangingSueldoExtendFromPersonaToEmpleado.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201706200242304_AddingListOfEmpleadosToCentroMedico.cs" />
-    <Compile Include="Migrations\201706200242304_AddingListOfEmpleadosToCentroMedico.Designer.cs">
-      <DependentUpon>201706200242304_AddingListOfEmpleadosToCentroMedico.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201706200301584_AddingAttributesToRecursoHospitalario.cs" />
-    <Compile Include="Migrations\201706200301584_AddingAttributesToRecursoHospitalario.Designer.cs">
-      <DependentUpon>201706200301584_AddingAttributesToRecursoHospitalario.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201706210131106_AddingCanceladaToCalendario.cs" />
-    <Compile Include="Migrations\201706210131106_AddingCanceladaToCalendario.Designer.cs">
-      <DependentUpon>201706210131106_AddingCanceladaToCalendario.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201706241835036_AgregarAtributoDisponible.cs" />
-    <Compile Include="Migrations\201706241835036_AgregarAtributoDisponible.Designer.cs">
-      <DependentUpon>201706241835036_AgregarAtributoDisponible.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201706250017499_RestartingModel.cs" />
-    <Compile Include="Migrations\201706250017499_RestartingModel.Designer.cs">
-      <DependentUpon>201706250017499_RestartingModel.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201706250031164_InitialModelAfterRestart.cs" />
-    <Compile Include="Migrations\201706250031164_InitialModelAfterRestart.Designer.cs">
-      <DependentUpon>201706250031164_InitialModelAfterRestart.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201706250400261_AddingAlmacen.cs" />
-    <Compile Include="Migrations\201706250400261_AddingAlmacen.Designer.cs">
-      <DependentUpon>201706250400261_AddingAlmacen.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201706251704526_AddingUsoRecurso.cs" />
-    <Compile Include="Migrations\201706251704526_AddingUsoRecurso.Designer.cs">
-      <DependentUpon>201706251704526_AddingUsoRecurso.cs</DependentUpon>
+    <Compile Include="Migrations\201706270433122_AddingBitacora.cs" />
+    <Compile Include="Migrations\201706270433122_AddingBitacora.Designer.cs">
+      <DependentUpon>201706270433122_AddingBitacora.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
-    <Compile Include="Models\AdmUsuario.cs" />
     <Compile Include="Models\Almacen.cs" />
+    <Compile Include="Models\Bitacora.cs" />
     <Compile Include="Models\Calendario.cs" />
     <Compile Include="Models\CentroMedico.cs" />
     <Compile Include="Models\Cita.cs" />
+    <Compile Include="Models\DoctorWebException.cs" />
     <Compile Include="Models\EspecialidadMedica.cs" />
     <Compile Include="Models\HistoriaMedica.cs" />
     <Compile Include="Models\IdentityModels.cs" />
@@ -314,15 +279,18 @@
     <Compile Include="Models\Tratamiento.cs" />
     <Compile Include="Models\UsoRecurso.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Controllers\Services\ServicioNotificaciones.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="ViewModels\CentrosMedicosViewModel.cs" />
+    <Compile Include="ViewModels\CalendarioViewModel.cs" />
+    <Compile Include="ViewModels\DoctorCitaViewModel.cs" />
+    <Compile Include="ViewModels\EspecialidadViewModel.cs" />
+    <Compile Include="ViewModels\MedicoViewModel.cs" />
+    <Compile Include="ViewModels\SadFaceViewModel.cs" />
     <Compile Include="ViewModels\ReportesViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include=".gitignore" />
-    <Content Include="App_Data\aspnet-DoctorWebASP-20170614091701.mdf" />
-    <Content Include="App_Data\aspnet-DoctorWebASP-20170614091701_log.ldf">
-      <DependentUpon>aspnet-DoctorWebASP-20170614091701.mdf</DependentUpon>
-    </Content>
     <Content Include="Content\bootstrap\css\bootstrap-theme.css" />
     <Content Include="Content\bootstrap\css\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap\css\bootstrap.css" />
@@ -405,6 +373,7 @@
     <Content Include="Content\dist\js\demo.js" />
     <Content Include="Content\dist\js\pages\dashboard.js" />
     <Content Include="Content\dist\js\pages\dashboard2.js" />
+    <Content Include="Content\PagedList.css" />
     <Content Include="Content\plugins\ckeditor\plugins\divarea\plugin.js" />
     <Content Include="Content\plugins\ckeditor\plugins\divarea\samples\divarea.html" />
     <Content Include="Content\plugins\taggedText\TaggedText.css" />
@@ -1238,92 +1207,6 @@
     <Content Include="Content\bootstrap\fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="Content\bootstrap\fonts\glyphicons-halflings-regular.woff" />
     <Content Include="Content\bootstrap\fonts\glyphicons-halflings-regular.woff2" />
-    <Content Include="Content\build\bootstrap-less\mixins.less" />
-    <Content Include="Content\build\bootstrap-less\mixins\alerts.less" />
-    <Content Include="Content\build\bootstrap-less\mixins\background-variant.less" />
-    <Content Include="Content\build\bootstrap-less\mixins\border-radius.less" />
-    <Content Include="Content\build\bootstrap-less\mixins\buttons.less" />
-    <Content Include="Content\build\bootstrap-less\mixins\center-block.less" />
-    <Content Include="Content\build\bootstrap-less\mixins\clearfix.less" />
-    <Content Include="Content\build\bootstrap-less\mixins\forms.less" />
-    <Content Include="Content\build\bootstrap-less\mixins\gradients.less" />
-    <Content Include="Content\build\bootstrap-less\mixins\grid-framework.less" />
-    <Content Include="Content\build\bootstrap-less\mixins\grid.less" />
-    <Content Include="Content\build\bootstrap-less\mixins\hide-text.less" />
-    <Content Include="Content\build\bootstrap-less\mixins\image.less" />
-    <Content Include="Content\build\bootstrap-less\mixins\labels.less" />
-    <Content Include="Content\build\bootstrap-less\mixins\list-group.less" />
-    <Content Include="Content\build\bootstrap-less\mixins\nav-divider.less" />
-    <Content Include="Content\build\bootstrap-less\mixins\nav-vertical-align.less" />
-    <Content Include="Content\build\bootstrap-less\mixins\opacity.less" />
-    <Content Include="Content\build\bootstrap-less\mixins\pagination.less" />
-    <Content Include="Content\build\bootstrap-less\mixins\panels.less" />
-    <Content Include="Content\build\bootstrap-less\mixins\progress-bar.less" />
-    <Content Include="Content\build\bootstrap-less\mixins\reset-filter.less" />
-    <Content Include="Content\build\bootstrap-less\mixins\reset-text.less" />
-    <Content Include="Content\build\bootstrap-less\mixins\resize.less" />
-    <Content Include="Content\build\bootstrap-less\mixins\responsive-visibility.less" />
-    <Content Include="Content\build\bootstrap-less\mixins\size.less" />
-    <Content Include="Content\build\bootstrap-less\mixins\tab-focus.less" />
-    <Content Include="Content\build\bootstrap-less\mixins\table-row.less" />
-    <Content Include="Content\build\bootstrap-less\mixins\text-emphasis.less" />
-    <Content Include="Content\build\bootstrap-less\mixins\text-overflow.less" />
-    <Content Include="Content\build\bootstrap-less\mixins\vendor-prefixes.less" />
-    <Content Include="Content\build\bootstrap-less\variables.less" />
-    <Content Include="Content\build\less\.csslintrc" />
-    <Content Include="Content\build\less\404_500_errors.less" />
-    <Content Include="Content\build\less\AdminLTE-without-plugins.less" />
-    <Content Include="Content\build\less\AdminLTE.less" />
-    <Content Include="Content\build\less\alerts.less" />
-    <Content Include="Content\build\less\bootstrap-social.less" />
-    <Content Include="Content\build\less\boxes.less" />
-    <Content Include="Content\build\less\buttons.less" />
-    <Content Include="Content\build\less\callout.less" />
-    <Content Include="Content\build\less\carousel.less" />
-    <Content Include="Content\build\less\control-sidebar.less" />
-    <Content Include="Content\build\less\core.less" />
-    <Content Include="Content\build\less\direct-chat.less" />
-    <Content Include="Content\build\less\dropdown.less" />
-    <Content Include="Content\build\less\forms.less" />
-    <Content Include="Content\build\less\fullcalendar.less" />
-    <Content Include="Content\build\less\header.less" />
-    <Content Include="Content\build\less\info-box.less" />
-    <Content Include="Content\build\less\invoice.less" />
-    <Content Include="Content\build\less\labels.less" />
-    <Content Include="Content\build\less\lockscreen.less" />
-    <Content Include="Content\build\less\login_and_register.less" />
-    <Content Include="Content\build\less\mailbox.less" />
-    <Content Include="Content\build\less\miscellaneous.less" />
-    <Content Include="Content\build\less\mixins.less" />
-    <Content Include="Content\build\less\modal.less" />
-    <Content Include="Content\build\less\navs.less" />
-    <Content Include="Content\build\less\plugins.less" />
-    <Content Include="Content\build\less\print.less" />
-    <Content Include="Content\build\less\products.less" />
-    <Content Include="Content\build\less\profile.less" />
-    <Content Include="Content\build\less\progress-bars.less" />
-    <Content Include="Content\build\less\select2.less" />
-    <Content Include="Content\build\less\sidebar-mini.less" />
-    <Content Include="Content\build\less\sidebar.less" />
-    <Content Include="Content\build\less\skins\skin-black-light.less" />
-    <Content Include="Content\build\less\skins\skin-black.less" />
-    <Content Include="Content\build\less\skins\skin-blue-light.less" />
-    <Content Include="Content\build\less\skins\skin-blue.less" />
-    <Content Include="Content\build\less\skins\skin-green-light.less" />
-    <Content Include="Content\build\less\skins\skin-green.less" />
-    <Content Include="Content\build\less\skins\skin-purple-light.less" />
-    <Content Include="Content\build\less\skins\skin-purple.less" />
-    <Content Include="Content\build\less\skins\skin-red-light.less" />
-    <Content Include="Content\build\less\skins\skin-red.less" />
-    <Content Include="Content\build\less\skins\skin-yellow-light.less" />
-    <Content Include="Content\build\less\skins\skin-yellow.less" />
-    <Content Include="Content\build\less\skins\_all-skins.less" />
-    <Content Include="Content\build\less\small-box.less" />
-    <Content Include="Content\build\less\social-widgets.less" />
-    <Content Include="Content\build\less\table.less" />
-    <Content Include="Content\build\less\timeline.less" />
-    <Content Include="Content\build\less\users-list.less" />
-    <Content Include="Content\build\less\variables.less" />
     <Content Include="Content\plugins\ckeditor\CHANGES.md" />
     <Content Include="Content\plugins\ckeditor\LICENSE.md" />
     <Content Include="Content\plugins\ckeditor\plugins\scayt\CHANGELOG.md" />
@@ -1367,6 +1250,7 @@
     <Content Include="getPersonasDS.xss">
       <DependentUpon>getPersonasDS.xsd</DependentUpon>
     </Content>
+    <None Include="Properties\PublishProfiles\PublicarEnLocalhostIIS.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -1432,6 +1316,13 @@
     <Content Include="Views\Citas\Details.cshtml" />
     <Content Include="Views\Citas\Edit.cshtml" />
     <Content Include="Views\Citas\Index.cshtml" />
+    <Content Include="Views\Citas\SolicitarCita.cshtml" />
+    <Content Include="Views\Citas\SeleccionarEspecialidad.cshtml" />
+    <Content Include="Views\Citas\SeleccionarMedico.cshtml" />
+    <Content Include="Views\Citas\SeleccionarHorario.cshtml" />
+    <Content Include="Views\Citas\SadFace.cshtml" />
+    <Content Include="Views\Citas\IndexDoctor.cshtml" />
+    <Content Include="Views\Citas\DetailsDoctor.cshtml" />
     <Content Include="Views\Reportes\Index.cshtml" />
     <Content Include="Views\Notificaciones\Delete.cshtml" />
     <Content Include="Views\Notificaciones\Detail.cshtml" />
@@ -1442,17 +1333,11 @@
     <Content Include="Views\Calendarios\Details.cshtml" />
     <Content Include="Views\Calendarios\Edit.cshtml" />
     <Content Include="Views\Calendarios\Index.cshtml" />
-    <Content Include="Views\AdmUsuario\admperfil.cshtml" />
-    <Content Include="Views\AdmUsuario\admrol.cshtml" />
-    <Content Include="Views\AdmUsuario\Crearp.cshtml" />
-    <Content Include="Views\AdmUsuario\Asignarp.cshtml" />
-    <Content Include="Views\AdmUsuario\Eliminarp.cshtml" />
-    <Content Include="Views\AdmUsuario\CrearUsuario.cshtml" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="App_Data\" />
     <Folder Include="fonts\" />
-    <Folder Include="Views\Perfil\" />
-    <Folder Include="Views\Usuario\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\fonts\glyphicons-halflings-regular.woff" />
@@ -1463,44 +1348,11 @@
     <Content Include="Scripts\jquery-1.10.2.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201706151337574_Init.resx">
-      <DependentUpon>201706151337574_Init.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201706270328578_Init.resx">
+      <DependentUpon>201706270328578_Init.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201706192310477_AgregarClaseEspecialidadMedicaYRelacionConMedico.resx">
-      <DependentUpon>201706192310477_AgregarClaseEspecialidadMedicaYRelacionConMedico.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201706200214482_AddingGeneroFechaCreacionToPerson.resx">
-      <DependentUpon>201706200214482_AddingGeneroFechaCreacionToPerson.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201706200228295_ChangingSueldoDeletingEspecialidadToMedico.resx">
-      <DependentUpon>201706200228295_ChangingSueldoDeletingEspecialidadToMedico.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201706200231045_ChangingSueldoExtendFromPersonaToEmpleado.resx">
-      <DependentUpon>201706200231045_ChangingSueldoExtendFromPersonaToEmpleado.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201706200242304_AddingListOfEmpleadosToCentroMedico.resx">
-      <DependentUpon>201706200242304_AddingListOfEmpleadosToCentroMedico.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201706200301584_AddingAttributesToRecursoHospitalario.resx">
-      <DependentUpon>201706200301584_AddingAttributesToRecursoHospitalario.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201706210131106_AddingCanceladaToCalendario.resx">
-      <DependentUpon>201706210131106_AddingCanceladaToCalendario.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201706241835036_AgregarAtributoDisponible.resx">
-      <DependentUpon>201706241835036_AgregarAtributoDisponible.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201706250017499_RestartingModel.resx">
-      <DependentUpon>201706250017499_RestartingModel.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201706250031164_InitialModelAfterRestart.resx">
-      <DependentUpon>201706250031164_InitialModelAfterRestart.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201706250400261_AddingAlmacen.resx">
-      <DependentUpon>201706250400261_AddingAlmacen.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201706251704526_AddingUsoRecurso.resx">
-      <DependentUpon>201706251704526_AddingUsoRecurso.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201706270433122_AddingBitacora.resx">
+      <DependentUpon>201706270433122_AddingBitacora.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Reportes2\R0Personas.rdlc" />
   </ItemGroup>

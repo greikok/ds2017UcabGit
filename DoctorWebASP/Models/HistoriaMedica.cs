@@ -7,8 +7,13 @@ namespace DoctorWebASP.Models
 {
     public class HistoriaMedica
     {
+
+        
         public int HistoriaMedicaId { get; set; }
 
         public virtual Paciente Paciente { get; set; }
+
+
+
     }
 }

@@ -1,0 +1,111 @@
+﻿@model DoctorWebASP.ViewModels.DoctorCitaViewModel
+
+@{
+    ViewBag.Title = "IndexDoctor";
+}
+
+<section class="content-header">
+    <h1>
+        Cita Medica
+        <small>Consulta de Citas</small>
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li><a href="#">Cita</a></li>
+        <li class="active">Consulta de Citas</li>
+    </ol>
+</section>
+
+<section class="content">
+    <div class="box box-primary">
+        <div class="box-header with-border">
+            <h3 class="box-title">Consulte sus citas medicas registradas aqui</h3>
+        </div>
+        <div class="box-body">
+            <table id="dataTable" class="table table-bordered table-hover">
+                <tr>
+                    <th>
+                        <div align="center">
+                            @Html.DisplayName("Centro Medico")
+                        </div>
+                    </th>
+                    <th>
+                        <div align="center">
+                            @Html.DisplayName("Nombre del Paciente")
+                        </div>
+                    </th>
+                    <th>
+                        <div align="center">
+                            @Html.DisplayName("Fecha y Hora de Inicio de Consulta")
+                        </div>
+                    </th>
+                    <th>
+                        <div align="center">
+                            @Html.DisplayName("Fecha y Hora de Finalizacion")
+                        </div>
+                    </th>
+                    <th>
+                        <div align="center">
+                            @Html.DisplayName("Accion")
+                        </div>
+                    </th>
+                </tr>
+
+                @foreach (var item in Model.Citas)
+            {
+                    <tr>
+                        <td>
+                            <div align="center">
+                                @Html.DisplayFor(modelItem => item.CentroMedico.Nombre)
+                            </div>
+                        </td>
+                        <td>
+                            <div align="center">
+                                @Html.DisplayFor(modelItem => (item.Paciente.ConcatUserName))
+                            </div>
+                        </td>
+                        <td>
+                            <div align="center">
+                                @Html.DisplayFor(modelItem => item.Calendario.HoraInicio)
+                            </div>
+                        </td>
+                        <td>
+                            <div align="center">
+                                @Html.DisplayFor(modelItem => item.Calendario.HoraFin)
+                            </div>
+                        </td>
+                        <td>
+                            <div align="center">
+                                @Html.ActionLink("Detalles", "DetailsDoctor", new { id = item.CitaId }, new { @class = "btn btn-primary" })
+                            </div>
+                        </td>
+                    </tr>
+                }
+
+            </table>
+        </div>
+
+    </div>
+</section>
+
+@section Scripts {
+
+    <script>
+      $(function () {
+        $('#dataTable').DataTable({
+          "paging": true,
+          "lengthChange": false,
+          "searching": false,
+          "ordering": true,
+          "info": true,
+          "autoWidth": false
+        });
+      });
+    </script>
+
+
+
+
+    @Scripts.Render("~/Content/plugins/datatables/jquery.dataTables.min.js")
+    @Scripts.Render("~/Content/plugins/datatables/dataTables.bootstrap.min.js")
+}

@@ -1,17 +1,17 @@
 namespace DoctorWebASP.Migrations
 {
+    using Microsoft.AspNet.Identity;
+    using Models;
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Migrations;
     using System.Linq;
-    using DoctorWebASP.Models;
-    using Microsoft.AspNet.Identity;
 
     internal sealed class Configuration : DbMigrationsConfiguration<DoctorWebASP.Models.ApplicationDbContext>
     {
         public Configuration()
         {
-            AutomaticMigrationsEnabled = true;
+            AutomaticMigrationsEnabled = false;
         }
 
         protected override void Seed(DoctorWebASP.Models.ApplicationDbContext context)
