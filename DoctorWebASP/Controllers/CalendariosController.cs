@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using DoctorWebASP.Models;
+using Microsoft.AspNet.Identity;
 
 namespace DoctorWebASP.Controllers
 {
@@ -50,6 +51,10 @@ namespace DoctorWebASP.Controllers
         {
             if (ModelState.IsValid)
             {
+                string userID = User.Identity.GetUserId();
+                calendario.Cancelada = false;
+                calendario.HoraFin = calendario.HoraInicio.AddHours(2);
+                calendario.Disponible = 1;
                 db.Calendarios.Add(calendario);
                 db.SaveChanges();
                 return RedirectToAction("Index");

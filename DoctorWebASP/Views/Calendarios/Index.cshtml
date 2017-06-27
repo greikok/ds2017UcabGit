@@ -13,17 +13,9 @@
                         <h4 class="box-title">Nuevo espacio para citas</h4>
                     </div>
                     <div class="box-body">
-                        <!-- the events -->
-                        @using (Html.BeginForm("Create","Calendarios", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
-                        {
-                        <form id="añadirCalendario">
-                            <h5>Fecha de inicio:</h5>
-                            <input type="datetime-local" name="fechaI" /><br/>
-                            <h5>Fecha de finalización:</h5>
-                            <input type="datetime-local" name="fechaF" /><br/><br/>
-                            <input class="btn btn-primary" type="submit" value="Añadir" />
-                        </form>
-                        }
+                        <a href="Create">
+                            Hola
+                        </a>
                     </div>
                     <!-- /.box-body -->
                 </div>
