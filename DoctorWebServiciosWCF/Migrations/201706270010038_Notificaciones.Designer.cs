@@ -13,7 +13,7 @@ namespace DoctorWebServiciosWCF.Migrations
         
         string IMigrationMetadata.Id
         {
-            get { return "201706220653104_Notificaciones"; }
+            get { return "201706270010038_Notificaciones"; }
         }
         
         string IMigrationMetadata.Source
