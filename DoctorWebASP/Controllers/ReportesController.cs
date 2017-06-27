@@ -105,7 +105,7 @@ namespace DoctorWebASP.Controllers
 
             var result = from ur in db.UsoRecursos
                          join ci in db.Citas on ur.Cita equals ci
-                         join ca in db.Calendarios on ci.Evento equals ca
+                         join ca in db.Calendarios on ci.Calendario equals ca
                          where ca.HoraInicio >= dtFechaInicio & ca.HoraInicio <= dtFechaFin & !ca.Cancelada
                          select ur;
 

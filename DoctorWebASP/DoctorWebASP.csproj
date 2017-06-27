@@ -253,53 +253,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201706262204233_Init.cs" />
-    <Compile Include="Migrations\201706262204233_Init.Designer.cs">
-      <DependentUpon>201706262204233_Init.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201706200214482_AddingGeneroFechaCreacionToPerson.cs" />
-    <Compile Include="Migrations\201706200214482_AddingGeneroFechaCreacionToPerson.Designer.cs">
-      <DependentUpon>201706200214482_AddingGeneroFechaCreacionToPerson.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201706200228295_ChangingSueldoDeletingEspecialidadToMedico.cs" />
-    <Compile Include="Migrations\201706200228295_ChangingSueldoDeletingEspecialidadToMedico.Designer.cs">
-      <DependentUpon>201706200228295_ChangingSueldoDeletingEspecialidadToMedico.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201706200231045_ChangingSueldoExtendFromPersonaToEmpleado.cs" />
-    <Compile Include="Migrations\201706200231045_ChangingSueldoExtendFromPersonaToEmpleado.Designer.cs">
-      <DependentUpon>201706200231045_ChangingSueldoExtendFromPersonaToEmpleado.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201706200242304_AddingListOfEmpleadosToCentroMedico.cs" />
-    <Compile Include="Migrations\201706200242304_AddingListOfEmpleadosToCentroMedico.Designer.cs">
-      <DependentUpon>201706200242304_AddingListOfEmpleadosToCentroMedico.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201706200301584_AddingAttributesToRecursoHospitalario.cs" />
-    <Compile Include="Migrations\201706200301584_AddingAttributesToRecursoHospitalario.Designer.cs">
-      <DependentUpon>201706200301584_AddingAttributesToRecursoHospitalario.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201706210131106_AddingCanceladaToCalendario.cs" />
-    <Compile Include="Migrations\201706210131106_AddingCanceladaToCalendario.Designer.cs">
-      <DependentUpon>201706210131106_AddingCanceladaToCalendario.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201706241835036_AgregarAtributoDisponible.cs" />
-    <Compile Include="Migrations\201706241835036_AgregarAtributoDisponible.Designer.cs">
-      <DependentUpon>201706241835036_AgregarAtributoDisponible.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201706250017499_RestartingModel.cs" />
-    <Compile Include="Migrations\201706250017499_RestartingModel.Designer.cs">
-      <DependentUpon>201706250017499_RestartingModel.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201706250031164_InitialModelAfterRestart.cs" />
-    <Compile Include="Migrations\201706250031164_InitialModelAfterRestart.Designer.cs">
-      <DependentUpon>201706250031164_InitialModelAfterRestart.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201706250400261_AddingAlmacen.cs" />
-    <Compile Include="Migrations\201706250400261_AddingAlmacen.Designer.cs">
-      <DependentUpon>201706250400261_AddingAlmacen.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201706251704526_AddingUsoRecurso.cs" />
-    <Compile Include="Migrations\201706251704526_AddingUsoRecurso.Designer.cs">
-      <DependentUpon>201706251704526_AddingUsoRecurso.cs</DependentUpon>
+    <Compile Include="Migrations\201706270328578_Init.cs" />
+    <Compile Include="Migrations\201706270328578_Init.Designer.cs">
+      <DependentUpon>201706270328578_Init.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -335,8 +291,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include=".gitignore" />
-    <Content Include="App_Data\aspnet-DoctorWebASP-20170614091701.mdf" />
-    <Content Include="App_Data\aspnet-DoctorWebASP-20170614091701_log.ldf" />
     <Content Include="Content\bootstrap\css\bootstrap-theme.css" />
     <Content Include="Content\bootstrap\css\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap\css\bootstrap.css" />
@@ -1383,6 +1337,7 @@
     <Content Include="Views\Reportes\Configurados.cshtml" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="App_Data\" />
     <Folder Include="fonts\" />
   </ItemGroup>
   <ItemGroup>
@@ -1394,41 +1349,8 @@
     <Content Include="Scripts\jquery-1.10.2.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201706262204233_Init.resx">
-      <DependentUpon>201706262204233_Init.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201706200214482_AddingGeneroFechaCreacionToPerson.resx">
-      <DependentUpon>201706200214482_AddingGeneroFechaCreacionToPerson.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201706200228295_ChangingSueldoDeletingEspecialidadToMedico.resx">
-      <DependentUpon>201706200228295_ChangingSueldoDeletingEspecialidadToMedico.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201706200231045_ChangingSueldoExtendFromPersonaToEmpleado.resx">
-      <DependentUpon>201706200231045_ChangingSueldoExtendFromPersonaToEmpleado.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201706200242304_AddingListOfEmpleadosToCentroMedico.resx">
-      <DependentUpon>201706200242304_AddingListOfEmpleadosToCentroMedico.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201706200301584_AddingAttributesToRecursoHospitalario.resx">
-      <DependentUpon>201706200301584_AddingAttributesToRecursoHospitalario.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201706210131106_AddingCanceladaToCalendario.resx">
-      <DependentUpon>201706210131106_AddingCanceladaToCalendario.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201706241835036_AgregarAtributoDisponible.resx">
-      <DependentUpon>201706241835036_AgregarAtributoDisponible.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201706250017499_RestartingModel.resx">
-      <DependentUpon>201706250017499_RestartingModel.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201706250031164_InitialModelAfterRestart.resx">
-      <DependentUpon>201706250031164_InitialModelAfterRestart.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201706250400261_AddingAlmacen.resx">
-      <DependentUpon>201706250400261_AddingAlmacen.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201706251704526_AddingUsoRecurso.resx">
-      <DependentUpon>201706251704526_AddingUsoRecurso.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201706270328578_Init.resx">
+      <DependentUpon>201706270328578_Init.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Reportes2\R0Personas.rdlc" />
   </ItemGroup>
