@@ -70,29 +70,19 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Data\DoctorWebBD.mdf" />
-    <Content Include="App_Data\DoctorWebBD_log.ldf">
-      <DependentUpon>DoctorWebBD.mdf</DependentUpon>
-    </Content>
     <Content Include="Services\NotificacionService.svc" />
     <Content Include="Services\ReporteService.svc" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controllers\Helpers\Extensiones.cs" />
     <Compile Include="Controllers\Helpers\Utilidades.cs" />
     <Compile Include="Controllers\ReporteController.cs" />
-    <Compile Include="Migrations\201706270010038_Notificaciones.cs" />
-    <Compile Include="Migrations\201706270010038_Notificaciones.Designer.cs">
-      <DependentUpon>201706270010038_Notificaciones.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201706270320204_setup.cs" />
-    <Compile Include="Migrations\201706270320204_setup.Designer.cs">
-      <DependentUpon>201706270320204_setup.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201706270323433_Init.cs.cs" />
-    <Compile Include="Migrations\201706270323433_Init.cs.Designer.cs">
-      <DependentUpon>201706270323433_Init.cs.cs</DependentUpon>
+    <Compile Include="Migrations\201706271539536_init.cs" />
+    <Compile Include="Migrations\201706271539536_init.Designer.cs">
+      <DependentUpon>201706271539536_init.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Notificacion.cs" />
@@ -112,7 +102,9 @@
       <DependentUpon>ReporteService.svc</DependentUpon>
     </Compile>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="App_Data\" />
+  </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
     <None Include="Properties\PublishProfiles\PublicarEnLocalhostIIS.pubxml" />
@@ -124,13 +116,9 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201706270010038_Notificaciones.resx">
-      <DependentUpon>201706270010038_Notificaciones.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201706271539536_init.resx">
+      <DependentUpon>201706271539536_init.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201706270320204_setup.resx">
-      <DependentUpon>201706270320204_setup.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201706270323433_Init.cs.resx" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

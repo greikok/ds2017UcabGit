@@ -11,12 +11,21 @@ using DoctorWebASP.ViewModels;
 using PagedList;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
+using System.Data.SqlClient;
 
 namespace DoctorWebASP.Controllers
 {
     public class CitasController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
+        public ICitasConsultas consulta { get; set; }
+        public CitasController(): this(new CitasConsultas()) {
+            }
+
+        public CitasController(ICitasConsultas db)
+        {
+            this.consulta = db;
+        }
 
         // GET: Citas
         /// <summary>
@@ -27,10 +36,10 @@ namespace DoctorWebASP.Controllers
         [Authorize]
         public ActionResult Index()
         {
-            string userId = User.Identity.GetUserId();
+            string userId = consulta.ObtenerUsuarioLoggedIn(this);
             try
             {
-                var medico = db.Personas.OfType<Medico>().Single(p => p.ApplicationUser.Id == userId);
+                var medico = consulta.ObtenerMedico(userId);
                 if (medico != null)
                 {
                     return RedirectToAction("IndexDoctor", "Citas", new { userId });
@@ -38,7 +47,7 @@ namespace DoctorWebASP.Controllers
             }
             catch (Exception e) { Console.WriteLine(e); }
 
-            var citas = db.Citas.Where(c => c.Paciente.ApplicationUser.Id == userId).ToList();
+            var citas = consulta.ObtenerListaCitas(userId);
             if (citas.Count == 0)
             {
                 string mensaje = "Usted no ha registrado ninguna cita";
@@ -46,7 +55,7 @@ namespace DoctorWebASP.Controllers
             }
             else
             {
-                return View(db.Citas.Where(c => c.Paciente.ApplicationUser.Id == userId).ToList());
+                return View(citas);
 
             }
         }
@@ -60,7 +69,7 @@ namespace DoctorWebASP.Controllers
         /// <returns> Interfaz de consulta de citas de doctor </returns>
         public ActionResult IndexDoctor(string userId)
         {
-            var citas = db.Citas.Where(c => c.Calendario.Medico.ApplicationUser.Id == userId).ToList();
+            var citas = consulta.ObtenerCitasDoctor(userId);
             if (citas.Count == 0)
             {
                 string mensaje = "Usted no tiene citas por atender";
@@ -91,19 +100,24 @@ namespace DoctorWebASP.Controllers
             var centrosMedicos = new SelectList("");
             try
             {
-                centrosMedicos = new SelectList(db.CentrosMedicos.ToList(), "Rif", "Nombre");
+                centrosMedicos = consulta.ObtenerSelectListCentrosMedicos();
             }
             catch (Exception e)
             {
                 Console.WriteLine(e);
-                return new HttpNotFoundResult("La base de datos no ha podido ser contactada");
+                string mensaje = "Ha ocurrido un error con la base de datos de la aplicacion";
+                return RedirectToAction("SadFace", "Citas", new { mensaje });
             }
 
             var viewModel = new CentrosMedicosViewModel
             {
                 CentrosMedicos = centrosMedicos
             };
-
+            if (centrosMedicos.Count() == 0)
+            {
+                string mensaje = "La aplicacion no cuenta con consultas medicas habilitadas por los momentos";
+                return RedirectToAction("SadFace","Citas",new { mensaje });
+            }
             return View("SolicitarCita", viewModel);
         }
 
@@ -122,12 +136,13 @@ namespace DoctorWebASP.Controllers
             CentroMedico cMedico = new CentroMedico();
             try
             {
-                cMedico = db.CentrosMedicos.Single(m => m.Rif == centroMedico);
+                cMedico = consulta.ObtenerSingleCentroMedico(centroMedico);
             }
             catch (Exception e)
             {
                 Console.WriteLine(e);
-                return new HttpNotFoundResult("La base de datos no ha podido ser contactada");
+                string mensaje = "Ha ocurrido un error con la base de datos de la aplicacion";
+                return RedirectToAction("SadFace", "Citas", new { mensaje });
             }
 
             return RedirectToAction("SeleccionarEspecialidad", cMedico);
@@ -147,13 +162,14 @@ namespace DoctorWebASP.Controllers
             var especialidadesMedicas = new SelectList("");
             try
             {
-                especialidadesMedicas = new SelectList(db.Personas.OfType<Medico>().Where(m => m.CentroMedico.CentroMedicoId == cMedico.CentroMedicoId).Select(c => c.EspecialidadMedica).Distinct().ToList(), "EspecialidadMedicaId", "Nombre");
+                especialidadesMedicas = consulta.ObtenerEsMedicasPorMedicosEnCentroMedico(cMedico);
 
             }
             catch (Exception e)
             {
                 Console.WriteLine(e);
-                return new HttpNotFoundResult("La base de datos no ha podido ser contactada");
+                string mensaje = "Ha ocurrido un error con la base de datos de la aplicacion";
+                return RedirectToAction("SadFace", "Citas", new { mensaje });
             }
 
             var viewModel = new EspecialidadViewModel
@@ -162,7 +178,11 @@ namespace DoctorWebASP.Controllers
                 CentroMedicoId = cMedico.CentroMedicoId,
 
             };
-
+            if(especialidadesMedicas.Count() == 0)
+            {
+                string mensaje = "Actualmente no contamos con medicos de ninguna especialidad para generar consultas";
+                return RedirectToAction("SadFace", "Citas", new { mensaje });
+            }
             return View("SeleccionarEspecialidad", viewModel);
         }
 
@@ -197,9 +217,9 @@ namespace DoctorWebASP.Controllers
             var medicos = new SelectList("");
             try
             {
-                CentroMedico centroMedico = db.CentrosMedicos.Single(c => c.CentroMedicoId == centroMedicoId);
-                EspecialidadMedica especialidadMedica = db.EspecialidadesMedicas.Single(e => e.EspecialidadMedicaId == espMedica);
-                medicos = new SelectList(db.Personas.OfType<Medico>().Where(p => p.CentroMedico.CentroMedicoId == centroMedicoId && p.EspecialidadMedica.EspecialidadMedicaId == espMedica).ToList(), "PersonaId", "ConcatUserName");
+                CentroMedico centroMedico = consulta.ObtenerSingleCentroMedico(centroMedicoId);
+                EspecialidadMedica especialidadMedica = consulta.ObtenerEspecialidadMedica(espMedica);
+                medicos = consulta.ObtenerSelectListMedicosQueTrabajanEnCentroMedico(centroMedicoId,espMedica);
             }
             catch (Exception e)
             {
@@ -244,6 +264,8 @@ namespace DoctorWebASP.Controllers
         {
             const int pagesize = 10; // Numero de items en una pagina
             int pageNumber = (page ?? 1); // Pagina actual
+
+            // Validar en ViewModel
             int mdId = int.Parse(medicoId);
 
             var viewModel = new CalendarioViewModel
@@ -276,33 +298,34 @@ namespace DoctorWebASP.Controllers
         [Authorize]
         public ActionResult GenerarCita(int calendarioId, string medicoId, int centroMedicoId)
         {
+            string mensaje = "";
             try
             {
                 var cita = new Cita();
-                string userId = User.Identity.GetUserId();
-                cita.CentroMedico = db.CentrosMedicos.Single(m => m.CentroMedicoId == centroMedicoId);
+                string userId = consulta.ObtenerUsuarioLoggedIn(this);
+                
+                cita.CentroMedico = consulta.ObtenerCentroMedico(centroMedicoId);
 
-                cita.Paciente = db.Personas.OfType<Paciente>().Single(p => p.ApplicationUser.Id == userId);
-                var calendario = db.Calendarios.Single(c => c.CalendarioId == calendarioId);
+                cita.Paciente = consulta.ObtenerPaciente(userId);
+                var calendario = consulta.ObtenerCalendario(calendarioId);
                 cita.Calendario = calendario;
                 cita.CitaId = 0;
 
                 if (ModelState.IsValid)
                 {
-                    db.Citas.Add(cita);
-                    // Finalmente colocamos la Fecha Reservada como NO disponible
-                    calendario.Disponible = 0;
-                    db.SaveChanges();
+                    consulta.GuardarCita(cita,calendario);
                     return RedirectToAction("Index");
                 }
             }
             catch (Exception e)
             {
                 Console.WriteLine(e);
-                return new HttpNotFoundResult("La base de datos no ha podido ser contactada");
+                mensaje = "Ha ocurrido un error con la base de datos de la aplicacion";
+                return RedirectToAction("SadFace", "Citas", new { mensaje });
             }
 
-            return View();
+            mensaje = "No ha sido posible almacenar su cita";
+            return View("SadFace","Citas",new { mensaje });
         }
 
         // GET: Citas/Consultarcitas
@@ -389,17 +412,15 @@ namespace DoctorWebASP.Controllers
         {
             try
             {
-                Cita cita = db.Citas.Find(id);
-                var calendario = db.Calendarios.Single(c => c.CalendarioId == cita.Calendario.CalendarioId);
-                calendario.Disponible = 1;
-                db.Citas.Remove(cita);
-                db.SaveChanges();
-
+                Cita cita = consulta.ObtenerCita(id);
+                var calendario = consulta.ObtenerCalendario(cita.Calendario.CalendarioId);
+                consulta.EliminarCita(cita,calendario);
             }
             catch (Exception e)
             {
                 Console.WriteLine(e);
-                return new HttpNotFoundResult("La base de datos no ha podido ser contactada");
+                string mensaje = "Ha ocurrido un error con la base de datos de la aplicacion";
+                return RedirectToAction("SadFace", "Citas", new { mensaje });
             }
             return RedirectToAction("Index");
         }

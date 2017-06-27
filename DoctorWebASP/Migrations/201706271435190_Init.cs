@@ -198,6 +198,18 @@ namespace DoctorWebASP.Migrations
                 .PrimaryKey(t => t.RecursoHospitalarioId);
             
             CreateTable(
+                "dbo.Bitacoras",
+                c => new
+                    {
+                        Id = c.Byte(nullable: false),
+                        Usuario = c.String(nullable: false),
+                        Fecha = c.DateTime(nullable: false),
+                        Accion = c.String(nullable: false),
+                        Status = c.Boolean(nullable: false),
+                    })
+                .PrimaryKey(t => t.Id);
+            
+            CreateTable(
                 "dbo.AspNetRoles",
                 c => new
                     {
@@ -264,6 +276,7 @@ namespace DoctorWebASP.Migrations
             DropIndex("dbo.Almacens", new[] { "CentroMedico_CentroMedicoId" });
             DropTable("dbo.UsoRecursoes");
             DropTable("dbo.AspNetRoles");
+            DropTable("dbo.Bitacoras");
             DropTable("dbo.RecursoHospitalarios");
             DropTable("dbo.Tratamientoes");
             DropTable("dbo.EspecialidadMedicas");

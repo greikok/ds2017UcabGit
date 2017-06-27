@@ -9,8 +9,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DoctorWebServiciosWCF", "Do
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReportesUnitTest", "ReportesUnitTest\ReportesUnitTest.csproj", "{0229834E-C65C-4DEC-93D1-4E6E17A84D00}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DoctorWebServiciosWCF", "DoctorWebServiciosWCF\DoctorWebServiciosWCF.csproj", "{3D0059C1-13FC-4B21-9316-182DC3743056}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DoctorWebPruebasUnitarias", "DoctorWebPruebasUnitarias\DoctorWebPruebasUnitarias.csproj", "{F6CB6A6F-589C-4404-8D21-D06DF77426CF}"
 EndProject
 Global
@@ -31,10 +29,6 @@ Global
 		{0229834E-C65C-4DEC-93D1-4E6E17A84D00}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0229834E-C65C-4DEC-93D1-4E6E17A84D00}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0229834E-C65C-4DEC-93D1-4E6E17A84D00}.Release|Any CPU.Build.0 = Release|Any CPU
-		{3D0059C1-13FC-4B21-9316-182DC3743056}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{3D0059C1-13FC-4B21-9316-182DC3743056}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{3D0059C1-13FC-4B21-9316-182DC3743056}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{3D0059C1-13FC-4B21-9316-182DC3743056}.Release|Any CPU.Build.0 = Release|Any CPU
 		{F6CB6A6F-589C-4404-8D21-D06DF77426CF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{F6CB6A6F-589C-4404-8D21-D06DF77426CF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F6CB6A6F-589C-4404-8D21-D06DF77426CF}.Release|Any CPU.ActiveCfg = Release|Any CPU

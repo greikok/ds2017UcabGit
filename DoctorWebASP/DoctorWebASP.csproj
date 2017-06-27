@@ -254,13 +254,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201706270328578_Init.cs" />
-    <Compile Include="Migrations\201706270328578_Init.Designer.cs">
-      <DependentUpon>201706270328578_Init.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201706270433122_AddingBitacora.cs" />
-    <Compile Include="Migrations\201706270433122_AddingBitacora.Designer.cs">
-      <DependentUpon>201706270433122_AddingBitacora.cs</DependentUpon>
+    <Compile Include="Migrations\201706271435190_Init.cs" />
+    <Compile Include="Migrations\201706271435190_Init.Designer.cs">
+      <DependentUpon>201706271435190_Init.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -269,9 +265,11 @@
     <Compile Include="Models\Calendario.cs" />
     <Compile Include="Models\CentroMedico.cs" />
     <Compile Include="Models\Cita.cs" />
+    <Compile Include="Models\CitasConsultas.cs" />
     <Compile Include="Models\DoctorWebException.cs" />
     <Compile Include="Models\EspecialidadMedica.cs" />
     <Compile Include="Models\HistoriaMedica.cs" />
+    <Compile Include="Models\ICitasConsultas.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Medico.cs" />
@@ -1354,13 +1352,16 @@
     <Content Include="Scripts\jquery-1.10.2.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201706270328578_Init.resx">
-      <DependentUpon>201706270328578_Init.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201706270433122_AddingBitacora.resx">
-      <DependentUpon>201706270433122_AddingBitacora.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201706271435190_Init.resx">
+      <DependentUpon>201706271435190_Init.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Reportes2\R0Personas.rdlc" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DoctorWebServiciosWCF\DoctorWebServiciosWCF.csproj">
+      <Project>{3d0059c1-13fc-4b21-9316-182dc3743056}</Project>
+      <Name>DoctorWebServiciosWCF</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

@@ -6,6 +6,7 @@ using System.ServiceModel;
 using System.Text;
 using DoctorWebServiciosWCF.Model;
 using DoctorWebServiciosWCF.Models.Service;
+using DoctorWebServiciosWCF.Controllers;
 
 namespace DoctorWebServiciosWCF.Services
 {
