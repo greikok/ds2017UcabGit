@@ -51,13 +51,35 @@ namespace DoctorWebASP.Controllers
         {
             if (ModelState.IsValid)
             {
-                string userID = User.Identity.GetUserId();
-                calendario.Cancelada = false;
-                calendario.HoraFin = calendario.HoraInicio.AddHours(2);
-                calendario.Disponible = 1;
-                db.Calendarios.Add(calendario);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                try
+                {
+                    var calendarios = new SelectList("");
+                    string userID = User.Identity.GetUserId();
+                    calendario.Medico = db.Personas.OfType<Medico>().Single(p => p.ApplicationUser.Id == userID);
+                    calendarios = new SelectList(db.Calendarios.Where(c => c.Medico.PersonaId == calendario.Medico.PersonaId && c.HoraInicio == calendario.HoraInicio ));
+                    if ((calendarios.Count() == 0) && (calendario.HoraInicio >= System.DateTime.Now ))
+                    {
+                        try
+                        {
+                            calendario.Cancelada = false;
+                            calendario.HoraFin = calendario.HoraInicio.AddHours(2);
+                            calendario.Disponible = 1;
+                            db.Calendarios.Add(calendario);
+                            db.SaveChanges();
+                            return RedirectToAction("Create");
+                        }
+                        catch (Exception e)
+                        {
+                            return new HttpNotFoundResult("Error al insertar");
+                        }
+                    }
+                    else
+                        return new HttpNotFoundResult("Fecha inválida!");
+                }
+                catch (Exception e)
+                {
+                    return new HttpNotFoundResult("Error al conectarse a la base de datos!");
+                }
             }
 
             return View(calendario);
