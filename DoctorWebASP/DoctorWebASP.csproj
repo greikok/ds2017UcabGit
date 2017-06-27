@@ -257,9 +257,9 @@
     <Compile Include="Migrations\201706270328578_Init.Designer.cs">
       <DependentUpon>201706270328578_Init.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201706270238105_AddingBitacora.cs" />
-    <Compile Include="Migrations\201706270238105_AddingBitacora.Designer.cs">
-      <DependentUpon>201706270238105_AddingBitacora.cs</DependentUpon>
+    <Compile Include="Migrations\201706270433122_AddingBitacora.cs" />
+    <Compile Include="Migrations\201706270433122_AddingBitacora.Designer.cs">
+      <DependentUpon>201706270433122_AddingBitacora.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -1357,8 +1357,8 @@
     <EmbeddedResource Include="Migrations\201706270328578_Init.resx">
       <DependentUpon>201706270328578_Init.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201706270238105_AddingBitacora.resx">
-      <DependentUpon>201706270238105_AddingBitacora.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201706270433122_AddingBitacora.resx">
+      <DependentUpon>201706270433122_AddingBitacora.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Reportes2\R0Personas.rdlc" />
   </ItemGroup>
