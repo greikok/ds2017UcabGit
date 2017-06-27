@@ -1,0 +1,39 @@
+﻿@model IEnumerable<DoctorWebASP.Models.Almacen>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Centromedico.Nombre)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Disponible)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Centromedico.Nombre)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Disponible)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.AlmacenId }) |
+            @Html.ActionLink("Details", "Details", new { id=item.AlmacenId }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.AlmacenId })
+        </td>
+    </tr>
+}
+
+</table>
