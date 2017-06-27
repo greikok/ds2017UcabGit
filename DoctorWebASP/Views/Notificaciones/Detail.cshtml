@@ -1,0 +1,134 @@
+﻿@using DoctorWebASP.Controllers.Helpers
+@model DoctorWebASP.Models.Notificacion
+
+@{
+    ViewData.indicarPaginaActual(MenuPaginas.NotificacionGuardar);
+}
+
+@* Opcional *@
+@section StyleContent {
+    <link href="~/Content/plugins/datatables/jquery.dataTables.css" rel="stylesheet" />
+    <link href="~/Content/plugins/datatables/dataTables.bootstrap.css" rel="stylesheet" />
+    <link href="~/Content/plugins/taggedText/TaggedText.css" rel="stylesheet" />
+    <link href="~/Content/plugins/taggedText/TaggedText.css" rel="stylesheet" />
+}
+
+@* Opcional *@
+@section ScriptContent {
+    <script src="~/Content/plugins/jquery-serialize-object/dist/jquery.serialize-object.min.js"></script>
+    <script src="~/Content/plugins/datatables/jquery.dataTables.min.js"></script>
+    <script src="~/Content/plugins/datatables/dataTables.bootstrap.min.js"></script>
+    <script src="~/Content/plugins/ckeditor/ckeditor.js"></script>
+    <script src="~/Content/plugins/taggedText/TaggedText.js"></script>
+    <script src="~/Content/dist/js/NotificacionDetails.js"></script>
+}
+
+@* Requerido *@
+@section TitleContent {
+    <h1>
+        Gestion de Notificaciones
+        <small>Conjunto de eventos disponibles en el sistema.</small>
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="/"><i class="fa fa-dashboard"></i>Inicio</a></li>
+        <li class="active">Notificaciones</li>
+    </ol>
+}
+
+<!-- Main content -->
+<section class="content">
+    <!-- Horizontal Form -->
+    <div class="box box-info">
+        <div class="box-header with-border">
+            <h3 class="box-title">Notificacion</h3>
+        </div>
+        <!-- /.box-header -->
+        <!-- form start -->
+        @using (Html.BeginForm(actionName: Model.NotificacionId == 0 ? "Create" : "Edit", controllerName: "Notificaciones", method: FormMethod.Post, htmlAttributes: new { @id = "FormNotificacion", @class = "form-horizontal" }))
+        {
+            @Html.AntiForgeryToken()
+            @Html.ValidationSummary(true)
+            @Html.HiddenFor(model => model.NotificacionId)
+            @Html.HiddenFor(model => model.Contenido)
+            <div class="box-body">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Nombre, new { @class = "col-sm-2 control-label" })
+                    <div class="col-sm-10">
+                        @Html.TextBoxFor(model => model.Nombre, new { @class = "form-control" })
+                        @if (ViewData.ModelState["Nombre"] != null && ViewData.ModelState["Nombre"].Errors.Count > 0)
+                        {
+                            @Html.ValidationMessageFor(model => model.Nombre)
+                        }
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Descripcion, new { @class = "col-sm-2 control-label" })
+                    <div class="col-sm-10">
+                        @Html.TextBoxFor(model => model.Descripcion, new { @class = "form-control" })
+                        @if (ViewData.ModelState["Descripcion"] != null && ViewData.ModelState["Descripcion"].Errors.Count > 0)
+                        {
+                            @Html.ValidationMessageFor(model => model.Descripcion)
+                        }
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Asunto, new { @class = "col-sm-2 control-label" })
+                    <div class="col-sm-10">
+                        @Html.TextBoxFor(model => model.Asunto, new { @class = "form-control" })
+                        @if (ViewData.ModelState["Asunto"] != null && ViewData.ModelState["Asunto"].Errors.Count > 0)
+                        {
+                            @Html.ValidationMessageFor(model => model.Asunto)
+                        }
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Contenido, new { @class = "col-sm-2 control-label" })
+                    <div class="col-sm-10">
+                        <p><strong>Nota: </strong>Puedes usar la siguiente estructura <code>{{NombreEtiquetas}}</code> para colocar etiquetas.</p>
+                        <textarea id="NotificacionContenido" class="form-control">
+                            @Model.Contenido
+                        </textarea>
+                        @if (ViewData.ModelState["Contenido"] != null && ViewData.ModelState["Contenido"].Errors.Count > 0)
+                        {
+                            @Html.ValidationMessageFor(model => model.Contenido)
+                        }
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Estado, new { @class = "col-sm-2 control-label" })
+                    <div class="col-sm-10">
+                        @Html.DropDownListFor(model => model.Estado, (SelectList)ViewData["NotificacionEstado"], new { @class = "form-control" })
+                        @if (ViewData.ModelState["Estado"] != null && ViewData.ModelState["Estado"].Errors.Count > 0)
+                        {
+                            @Html.ValidationMessageFor(model => model.Estado)
+                        }
+                    </div>
+                </div>
+                @if (ViewData.ModelState["Error"] != null && ViewData.ModelState["Error"].Errors.Count > 0)
+                {
+                    <div class="form-group">
+                        <div class="col-sm-offset-2 col-sm-10">
+                            @Html.ValidationMessage("Error")
+                        </div>
+                    </div>
+                }
+            </div>
+                <!-- /.box-body -->
+            <div class="box-footer">
+                <div class="pull-right">
+                    <button type="submit" class="btn btn-primary">                        
+                        <i class="fa fa-fw fa-edit"></i>Guardar
+                    </button>
+                    <a class="btn btn-default" href="@Url.Action("Index")">
+                        <i class="fa fa-fw fa-backward"></i>Regresar
+                    </a>
+                </div>
+            </div>
+                <!-- /.box-footer -->
+        }
+
+        <div>
+        </div>
+    </div>
+    <!-- /.box-body -->
+</section>

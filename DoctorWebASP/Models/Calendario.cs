@@ -13,10 +13,12 @@ namespace DoctorWebASP.Models
         public DateTime HoraInicio { get; set; }
         [Required]
         public DateTime HoraFin { get; set; }
-
-        public virtual Medico Medico { get; set; }
-    
+        public bool Cancelada { get; set; }
+        public virtual Medico Medico { get; set; }   
         public virtual Cita Cita { get; set; }
+        // El atributo disponible indica con 1 si esta fecha esta libre para ser tomada por una cita
+        // 0 indica que esta tomada
+
         // El atributo disponible indica con 1 si esta fecha esta libre para ser tomada por una cita
         // 0 indica que esta tomada
 

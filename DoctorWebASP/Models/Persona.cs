@@ -19,18 +19,32 @@ namespace DoctorWebASP.Models
         [Required]
         public string Cedula { get; set; }
         [Required]
+        public string Genero { get; set; }
+        [Required]
         public string Telefono { get; set; }
         public DateTime FechaNacimiento { get; set; }
+        public DateTime FechaCreacion { get; set; }
         [EmailAddress]
         public string Email { get; set; }
         public string Direccion { get; set; }
+
         public virtual ApplicationUser ApplicationUser { get; set; }
+
 
         public string ConcatUserName
         {
             get
             {
                 return Nombre +" "+ Apellido;
+            }
+        }
+
+
+        public string NombreCompleto
+        {
+            get
+            {
+                return Nombre + " " + Apellido;
             }
         }
 

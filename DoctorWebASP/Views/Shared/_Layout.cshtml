@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿@using DoctorWebASP.Controllers.Helpers
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
@@ -6,8 +7,10 @@
     <title>@ViewBag.Title - My ASP.NET Application</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/bootstrap")
     @Styles.Render("~/Content/font-awesome.css")
-
+    <link rel="stylesheet" href="../Content/plugins/fullcalendar/fullcalendar.print.css" media="print">
+    @RenderSection("StyleContent", false)
 </head>
 <body class="hold-transition skin-red-light sidebar-mini">
     <!-- Site wrapper -->
@@ -15,7 +18,7 @@
 
         <header class="main-header">
             <!-- Logo -->
-            <a href="../../index2.html" class="logo">
+            <a href="@Url.Action("Index", "Home")" class="logo">
                 <!-- mini logo for sidebar mini 50x50 pixels -->
                 <span class="logo-mini"><b>Doctor</b>Web</span>
                 <!-- logo for regular state and mobile devices -->
@@ -74,6 +77,24 @@
                                 </a>
                             </li>
                         </ul>
+                    </li>
+                    <li class="treeviw @Html.AgregarClaseSi(ViewData.esPaginaActual(MenuPaginas.Notificaciones) || ViewData.esPaginaActual(MenuPaginas.NotificacionGuardar), "active")">
+                        <a href="@Url.Action(actionName: "Index", controllerName: "Notificaciones")">
+                            <i class="fa fa-bell"></i> <span>Notificaciones</span>
+                            <span class="pull-right-container">
+                                <i class="fa fa-angle-left pull-right"></i>
+                            </span>
+                        </a>
+                        <ul class="treeview-menu">
+                            <li class="@Html.AgregarClaseSi(ViewData.esPaginaActual(MenuPaginas.Notificaciones), "active")">
+                                <a href="@Url.Action(actionName: "Index", controllerName: "Notificaciones")"><i class="fa fa-list"></i> Mostrar</a>
+                            </li>
+                            <li class="@Html.AgregarClaseSi(ViewData.esPaginaActual(MenuPaginas.NotificacionGuardar), "active")">
+                                <a href="@Url.Action(actionName: "Detail", controllerName: "Notificaciones", routeValues: new { codigo = 0 })"><i class="fa fa-fw fa-save"></i> Guardar</a>
+                            </li>
+                        </ul>
+                    </li>
+
                         <!-- =============================================== -->
                         <!-- Aqui van las siguientes opciones del menu -->
                     <li class="treeview">
@@ -83,6 +104,31 @@
                                 <i class="fa fa-angle-left pull-right"></i>
                             </span>
                         </a>
+                    <li class="treeview @Html.AgregarClaseSi(ViewData.esPaginaActual(MenuPaginas.Reportes) || ViewData.esPaginaActual(MenuPaginas.Configurados), "active")">
+                        <a href="#">
+                            <i class="fa fa-list-alt"></i> <span>Reportes</span>
+                            <span class="pull-right-container">
+                                <i class="fa fa-angle-left pull-right"></i>
+                            </span>
+                        </a>
+                        <ul class="treeview-menu">
+                            <li class="@Html.AgregarClaseSi(ViewData.esPaginaActual(MenuPaginas.Reportes), "active")">
+                                <a href="@Url.Action("Index", "Reportes")">
+                                    <i class="fa fa-table"></i> <span>Preestablecidos</span>
+                                </a>
+                            </li>
+                            <li class="@Html.AgregarClaseSi(ViewData.esPaginaActual(MenuPaginas.Configurados), "active")">
+                                <a href="@Url.Action("Configurados", "Reportes")">
+                                    <i class="fa fa-cog"></i> <span>Configurados</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="treeview">
+                        <a href="/Calendarios/Index">
+                            <i class="fa fa-calendar"></i> <span>Calendario</span>
+                        </a>
+                    </li>
                 </ul>
             </section>
             <!-- /.sidebar -->
@@ -91,7 +137,17 @@
         <!-- =============================================== -->
         <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper">
-            @RenderBody()
+            <!-- Content Header (Page header) -->
+
+            <section class="content-header">
+                @RenderSection("TitleContent", false)
+            </section>
+
+            <!-- Main content -->
+            <section class="content">
+                @RenderBody()
+
+            </section>
             <!-- /.content -->
         </div>
         <!-- /.content-wrapper -->
@@ -107,8 +163,7 @@
     </div>
 
 
-
-    @Scripts.Render("~/bundles/bootstrap")
-    @RenderSection("scripts", required: false)
+        @RenderSection("scripts", required: false)
+        @RenderSection("ScriptContent", false)
 </body>
 </html>

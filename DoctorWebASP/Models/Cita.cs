@@ -9,6 +9,7 @@ namespace DoctorWebASP.Models
     public class Cita
     {
         public int CitaId { get; set; }
+
         public virtual Paciente Paciente { get; set; }
         public virtual Calendario Calendario { get; set; }
         public virtual CentroMedico CentroMedico { get; set; }

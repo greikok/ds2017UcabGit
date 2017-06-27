@@ -1,0 +1,254 @@
+﻿@using DoctorWebASP.Controllers.Helpers
+@model DoctorWebASP.ViewModels.ReportesIndexViewModel
+@{
+    ViewBag.Title = "Reportes";
+    ViewData.indicarPaginaActual(MenuPaginas.Reportes);
+}
+
+<!-- Content Header (Page header) -->
+<section class="content-header">
+    <h1>
+        Reportes <small>Preestablecidos</small>
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="#"><i class="fa fa-dashboard"></i> Inicio</a></li>
+        <li><a href="#">Reportes</a></li>
+        <li class="active">Reportes Preestablecidos</li>
+    </ol>
+</section>
+
+<!-- Main content -->
+<section class="content">
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="row">
+
+                <!-- Reporte #2: Promedio de edad de los pacientes. -->
+                <div class="col-md-4 col-sm-6 col-xs-12">
+                    <div class="info-box">
+                        <span class="info-box-icon bg-blue"><i class="fa fa-bar-chart"></i></span>
+
+                        <div class="info-box-content">
+                            <span class="info-box-text">Promedio de edad<br />de los pacientes.</span>
+                            <span class="info-box-number"><small>El promedio es de:</small> @Model.promedioEdadPacientes <small>años.</small></span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Reporte #3: Promedio de citas por médico. -->
+                <div class="col-md-4 col-sm-6 col-xs-12">
+                    <div class="info-box">
+                        <span class="info-box-icon bg-blue"><i class="fa fa-stethoscope"></i></span>
+
+                        <div class="info-box-content">
+                            <span class="info-box-text">Promedio de citas por médico.</span>
+                            <span class="info-box-number"><small>El promedio es de:</small> @Model.promedioCitasPorMedico <small>citas.</small></span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Reporte #5: Promedio uso a la aplicación. -->
+                <div class="col-md-4 col-sm-6 col-xs-12">
+                    <div class="info-box">
+                        <span class="info-box-icon bg-blue"><i class="fa fa-area-chart"></i></span>
+
+                        <div class="info-box-content">
+                            <span class="info-box-text">Promedio uso a la aplicación.</span>
+                            <span class="info-box-number"><small>El promedio es de:</small>#</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Reporte #1: Cantidad de usuarios registrados en un tiempo determinado. -->
+                <div class="col-md-4 col-sm-6 col-xs-12">
+                    <div class="box box-info" style="min-height: 180px;">
+                        <div class="box-header with-border">
+                            <h3 class="box-title"><i class="fa fa-user-o"></i> <small style="font-size: medium">Cantidad de usuarios<br /> registrados en un periodo de tiempo </small></h3>
+
+                            <div class="box-tools pull-right">
+                                <button type="button" class="btn btn-box-tool" data-widget="collapse">
+                                    <i class="fa fa-minus"></i>
+                                </button>
+                                <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                            </div>
+                        </div>
+                        <div class="box-body">
+                            <div class="form-group">
+                                <button type="button" class="btn btn-block btn-flat btn-primary pull-right" id="daterange-btn-1">
+                                    <span><i class="fa fa-calendar"></i> Periodo de tiempo</span>
+                                    <i class="fa fa-caret-down"></i>
+                                </button>
+                            </div>
+                            <span class="info-box-number"><small>Hay un total de </small>#<small> usuarios registrados durante este periodo</small></span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Reporte #4: Promedio de recursos disponibles en un tiempo determinado. -->
+                <div class="col-md-4 col-sm-6 col-xs-12">
+                    <div class="box box-info" style="min-height: 180px;">
+                        <div class="box-header with-border">
+                            <h3 class="box-title"><i class="fa fa-medkit"></i> Disponibilidad de recursos.</h3>
+
+                            <div class="box-tools pull-right">
+                                <button type="button" class="btn btn-box-tool" data-widget="collapse">
+                                    <i class="fa fa-minus"></i>
+                                </button>
+                                <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                            </div>
+                        </div>
+                        <div class="box-body">
+                            <div class="form-group">
+                                <button type="button" class="btn btn-block btn-flat btn-primary pull-right" id="daterange-btn-2">
+                                    <span><i class="fa fa-calendar"></i> Periodo de tiempo</span>
+                                    <i class="fa fa-caret-down"></i>
+                                </button>
+                            </div>
+                            <span class="info-box-number"><small>Hay un promedio de </small>#<small> recursos disponibles en este periodo.</small></span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Reporte #6: Promedio de citas canceladas por médico en un tiempo determinado. -->
+                <div class="col-md-4 col-sm-6 col-xs-12">
+                    <div class="box box-info" style="min-height: 180px;">
+                        <div class="box-header with-border">
+                            <h3 class="box-title"><i class="fa fa-stethoscope"></i> <small style="font-size:medium">Promedio de citas canceladas<br /> por médico.</small></h3>
+
+                            <div class="box-tools pull-right">
+                                <button type="button" class="btn btn-box-tool" data-widget="collapse">
+                                    <i class="fa fa-minus"></i>
+                                </button>
+                                <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                            </div>
+                        </div>
+                        <div class="box-body">
+                            <div class="form-group">
+                                <button type="button" class="btn btn-block btn-flat btn-primary pull-right" id="daterange-btn-3">
+                                    <span><i class="fa fa-calendar"></i> Periodo de tiempo</span>
+                                    <i class="fa fa-caret-down"></i>
+                                </button>
+                            </div>
+                            <span class="info-box-number"><small>Hay un promedio de </small>#<small> citas canceladas por médico.</small></span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
+
+@section scripts
+{
+    <script>
+        $(document).ready(function () {
+            var dateRange1 = $('#daterange-btn-1').daterangepicker(
+            {
+                ranges: {
+                    'Today': [moment(), moment()],
+                    'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+                    'Last 7 Days': [moment().subtract(6, 'days'), moment()],
+                    'Last 30 Days': [moment().subtract(29, 'days'), moment()],
+                    'This Month': [moment().startOf('month'), moment().endOf('month')],
+                    'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+                },
+                startDate: moment().subtract(29, 'days'),
+                endDate: moment()
+            },
+                function (start, end) {
+                    $('#daterange-btn-1 span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
+                    var parameters = { fechaInicioStr: start.format('MM-DD-YYYY'), fechaFinStr: end.format('MM-DD-YYYY') }
+                    $.ajax({
+                        type: "POST",
+                        contentType: "application/json; charset=utf-8",
+                        url: "@Url.Action(actionName: "getCantidadUsuariosRegistrados", controllerName: "Reportes")",
+                        data: JSON.stringify(parameters),
+                        datatype: "application/json",
+                        success: function (result) {
+                            //do something
+                            console.log(result);
+                            $(dateRange1).parent().next().text("Hay un total de " + result.cantidad + " usuarios registrados durante este período de tiempo.");
+                        },
+                        error: function (xmlhttprequest, textstatus, errorthrown) {
+                            alert(" conection to the server failed ");
+                            console.log("error: " + errorthrown);
+                        }
+                    });
+                    //end of $.ajax()
+                }
+            );
+
+            var dateRange2 = $('#daterange-btn-2').daterangepicker(
+            {
+                ranges: {
+                    'Today': [moment(), moment()],
+                    'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+                    'Last 7 Days': [moment().subtract(6, 'days'), moment()],
+                    'Last 30 Days': [moment().subtract(29, 'days'), moment()],
+                    'This Month': [moment().startOf('month'), moment().endOf('month')],
+                    'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+                },
+                startDate: moment().subtract(29, 'days'),
+                endDate: moment()
+            },
+                function (start, end) {
+                    $('#daterange-btn-2 span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
+                    var parameters = { fechaInicioStr: start.format('MM-DD-YYYY'), fechaFinStr: end.format('MM-DD-YYYY') }
+                    $.ajax({
+                        type: "POST",
+                        contentType: "application/json; charset=utf-8",
+                        url: "@Url.Action(actionName: "getPromedioRecursosDisponibles", controllerName: "Reportes")",
+                        data: JSON.stringify(parameters),
+                        datatype: "application/json",
+                        success: function (result) {
+                            //do something
+                            console.log(result);
+                            $(dateRange2).parent().next().text("Hay un promedio de " + result.cantidad + " recursos disponibles durante este período de tiempo.");
+                        },
+                        error: function (xmlhttprequest, textstatus, errorthrown) {
+                            alert(" conection to the server failed ");
+                            console.log("error: " + errorthrown);
+                        }
+                    });
+                    //end of $.ajax()
+                }
+            );
+            var dateRange3 = $('#daterange-btn-3').daterangepicker(
+            {
+                ranges: {
+                    'Today': [moment(), moment()],
+                    'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+                    'Last 7 Days': [moment().subtract(6, 'days'), moment()],
+                    'Last 30 Days': [moment().subtract(29, 'days'), moment()],
+                    'This Month': [moment().startOf('month'), moment().endOf('month')],
+                    'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+                },
+                startDate: moment().subtract(29, 'days'),
+                endDate: moment()
+            },
+                function (start, end) {
+                    $('#daterange-btn-3 span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
+                    var parameters = { fechaInicioStr: start.format('MM-DD-YYYY'), fechaFinStr: end.format('MM-DD-YYYY') }
+                    $.ajax({
+                        type: "POST",
+                        contentType: "application/json; charset=utf-8",
+                        url: "@Url.Action(actionName: "getPromedioCitasCanceladasPorMedico", controllerName: "Reportes")",
+                        data: JSON.stringify(parameters),
+                    datatype: "application/json",
+                    success: function (result) {
+                        //do something
+                        console.log(result);
+                        $(dateRange3).parent().next().text("Hay un promedio de " + result.cantidad + " citas canceladas por médico.");
+                    },
+                    error: function (xmlhttprequest, textstatus, errorthrown) {
+                        alert(" conection to the server failed ");
+                        console.log("error: " + errorthrown);
+                    }
+                });
+                //end of $.ajax()
+                }
+            );
+        });
+    </script>
+}
