@@ -170,6 +170,12 @@
     <Reference Include="Newtonsoft.Json">
       <HintPath>..\packages\Newtonsoft.Json.6.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
+    <Reference Include="EntityFramework">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.AspNet.Identity.Core">
       <HintPath>..\packages\Microsoft.AspNet.Identity.Core.2.2.1\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
     </Reference>
@@ -297,6 +303,7 @@
     <Compile Include="Models\Calendario.cs" />
     <Compile Include="Models\CentroMedico.cs" />
     <Compile Include="Models\Cita.cs" />
+    <Compile Include="Models\DoctorWebException.cs" />
     <Compile Include="Models\EspecialidadMedica.cs" />
     <Compile Include="Models\HistoriaMedica.cs" />
     <Compile Include="Models\IdentityModels.cs" />
@@ -319,9 +326,7 @@
   <ItemGroup>
     <Content Include=".gitignore" />
     <Content Include="App_Data\aspnet-DoctorWebASP-20170614091701.mdf" />
-    <Content Include="App_Data\aspnet-DoctorWebASP-20170614091701_log.ldf">
-      <DependentUpon>aspnet-DoctorWebASP-20170614091701.mdf</DependentUpon>
-    </Content>
+    <Content Include="App_Data\aspnet-DoctorWebASP-20170614091701_log.ldf" />
     <Content Include="Content\bootstrap\css\bootstrap-theme.css" />
     <Content Include="Content\bootstrap\css\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap\css\bootstrap.css" />
@@ -1237,92 +1242,6 @@
     <Content Include="Content\bootstrap\fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="Content\bootstrap\fonts\glyphicons-halflings-regular.woff" />
     <Content Include="Content\bootstrap\fonts\glyphicons-halflings-regular.woff2" />
-    <Content Include="Content\build\bootstrap-less\mixins.less" />
-    <Content Include="Content\build\bootstrap-less\mixins\alerts.less" />
-    <Content Include="Content\build\bootstrap-less\mixins\background-variant.less" />
-    <Content Include="Content\build\bootstrap-less\mixins\border-radius.less" />
-    <Content Include="Content\build\bootstrap-less\mixins\buttons.less" />
-    <Content Include="Content\build\bootstrap-less\mixins\center-block.less" />
-    <Content Include="Content\build\bootstrap-less\mixins\clearfix.less" />
-    <Content Include="Content\build\bootstrap-less\mixins\forms.less" />
-    <Content Include="Content\build\bootstrap-less\mixins\gradients.less" />
-    <Content Include="Content\build\bootstrap-less\mixins\grid-framework.less" />
-    <Content Include="Content\build\bootstrap-less\mixins\grid.less" />
-    <Content Include="Content\build\bootstrap-less\mixins\hide-text.less" />
-    <Content Include="Content\build\bootstrap-less\mixins\image.less" />
-    <Content Include="Content\build\bootstrap-less\mixins\labels.less" />
-    <Content Include="Content\build\bootstrap-less\mixins\list-group.less" />
-    <Content Include="Content\build\bootstrap-less\mixins\nav-divider.less" />
-    <Content Include="Content\build\bootstrap-less\mixins\nav-vertical-align.less" />
-    <Content Include="Content\build\bootstrap-less\mixins\opacity.less" />
-    <Content Include="Content\build\bootstrap-less\mixins\pagination.less" />
-    <Content Include="Content\build\bootstrap-less\mixins\panels.less" />
-    <Content Include="Content\build\bootstrap-less\mixins\progress-bar.less" />
-    <Content Include="Content\build\bootstrap-less\mixins\reset-filter.less" />
-    <Content Include="Content\build\bootstrap-less\mixins\reset-text.less" />
-    <Content Include="Content\build\bootstrap-less\mixins\resize.less" />
-    <Content Include="Content\build\bootstrap-less\mixins\responsive-visibility.less" />
-    <Content Include="Content\build\bootstrap-less\mixins\size.less" />
-    <Content Include="Content\build\bootstrap-less\mixins\tab-focus.less" />
-    <Content Include="Content\build\bootstrap-less\mixins\table-row.less" />
-    <Content Include="Content\build\bootstrap-less\mixins\text-emphasis.less" />
-    <Content Include="Content\build\bootstrap-less\mixins\text-overflow.less" />
-    <Content Include="Content\build\bootstrap-less\mixins\vendor-prefixes.less" />
-    <Content Include="Content\build\bootstrap-less\variables.less" />
-    <Content Include="Content\build\less\.csslintrc" />
-    <Content Include="Content\build\less\404_500_errors.less" />
-    <Content Include="Content\build\less\AdminLTE-without-plugins.less" />
-    <Content Include="Content\build\less\AdminLTE.less" />
-    <Content Include="Content\build\less\alerts.less" />
-    <Content Include="Content\build\less\bootstrap-social.less" />
-    <Content Include="Content\build\less\boxes.less" />
-    <Content Include="Content\build\less\buttons.less" />
-    <Content Include="Content\build\less\callout.less" />
-    <Content Include="Content\build\less\carousel.less" />
-    <Content Include="Content\build\less\control-sidebar.less" />
-    <Content Include="Content\build\less\core.less" />
-    <Content Include="Content\build\less\direct-chat.less" />
-    <Content Include="Content\build\less\dropdown.less" />
-    <Content Include="Content\build\less\forms.less" />
-    <Content Include="Content\build\less\fullcalendar.less" />
-    <Content Include="Content\build\less\header.less" />
-    <Content Include="Content\build\less\info-box.less" />
-    <Content Include="Content\build\less\invoice.less" />
-    <Content Include="Content\build\less\labels.less" />
-    <Content Include="Content\build\less\lockscreen.less" />
-    <Content Include="Content\build\less\login_and_register.less" />
-    <Content Include="Content\build\less\mailbox.less" />
-    <Content Include="Content\build\less\miscellaneous.less" />
-    <Content Include="Content\build\less\mixins.less" />
-    <Content Include="Content\build\less\modal.less" />
-    <Content Include="Content\build\less\navs.less" />
-    <Content Include="Content\build\less\plugins.less" />
-    <Content Include="Content\build\less\print.less" />
-    <Content Include="Content\build\less\products.less" />
-    <Content Include="Content\build\less\profile.less" />
-    <Content Include="Content\build\less\progress-bars.less" />
-    <Content Include="Content\build\less\select2.less" />
-    <Content Include="Content\build\less\sidebar-mini.less" />
-    <Content Include="Content\build\less\sidebar.less" />
-    <Content Include="Content\build\less\skins\skin-black-light.less" />
-    <Content Include="Content\build\less\skins\skin-black.less" />
-    <Content Include="Content\build\less\skins\skin-blue-light.less" />
-    <Content Include="Content\build\less\skins\skin-blue.less" />
-    <Content Include="Content\build\less\skins\skin-green-light.less" />
-    <Content Include="Content\build\less\skins\skin-green.less" />
-    <Content Include="Content\build\less\skins\skin-purple-light.less" />
-    <Content Include="Content\build\less\skins\skin-purple.less" />
-    <Content Include="Content\build\less\skins\skin-red-light.less" />
-    <Content Include="Content\build\less\skins\skin-red.less" />
-    <Content Include="Content\build\less\skins\skin-yellow-light.less" />
-    <Content Include="Content\build\less\skins\skin-yellow.less" />
-    <Content Include="Content\build\less\skins\_all-skins.less" />
-    <Content Include="Content\build\less\small-box.less" />
-    <Content Include="Content\build\less\social-widgets.less" />
-    <Content Include="Content\build\less\table.less" />
-    <Content Include="Content\build\less\timeline.less" />
-    <Content Include="Content\build\less\users-list.less" />
-    <Content Include="Content\build\less\variables.less" />
     <Content Include="Content\plugins\ckeditor\CHANGES.md" />
     <Content Include="Content\plugins\ckeditor\LICENSE.md" />
     <Content Include="Content\plugins\ckeditor\plugins\scayt\CHANGELOG.md" />
@@ -1366,6 +1285,7 @@
     <Content Include="getPersonasDS.xss">
       <DependentUpon>getPersonasDS.xsd</DependentUpon>
     </Content>
+    <None Include="Properties\PublishProfiles\PublicarEnLocalhostIIS.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -1441,6 +1361,7 @@
     <Content Include="Views\Calendarios\Details.cshtml" />
     <Content Include="Views\Calendarios\Edit.cshtml" />
     <Content Include="Views\Calendarios\Index.cshtml" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="fonts\" />
