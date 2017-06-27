@@ -242,6 +242,7 @@
     <Compile Include="Controllers\NotificacionesController.cs" />
     <Compile Include="Controllers\PersonasController.cs" />
     <Compile Include="Controllers\ReportesController.cs" />
+    <Compile Include="Controllers\Services\IServicioNotificaciones.cs" />
     <Compile Include="getPersonasDS.cs">
       <DependentUpon>getPersonasDS.xsd</DependentUpon>
     </Compile>
@@ -281,10 +282,10 @@
     <Compile Include="Models\Service\ResultadoProceso.cs" />
     <Compile Include="Models\Service\ResultadoServicio.cs" />
     <Compile Include="Models\Service\ResultadoServicioPaginado.cs" />
-    <Compile Include="Models\Service\ResultConstruct.cs" />
     <Compile Include="Models\Tratamiento.cs" />
     <Compile Include="Models\UsoRecurso.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Controllers\Services\ServicioNotificaciones.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="ViewModels\CentrosMedicosViewModel.cs" />
     <Compile Include="ViewModels\CalendarioViewModel.cs" />
@@ -1339,7 +1340,6 @@
     <Content Include="Views\Calendarios\Edit.cshtml" />
     <Content Include="Views\Calendarios\Index.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Reportes\Configurados.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
