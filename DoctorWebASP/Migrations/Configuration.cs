@@ -1,18 +1,17 @@
 namespace DoctorWebASP.Migrations
 {
+    using Microsoft.AspNet.Identity;
+    using Models;
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Migrations;
     using System.Linq;
-    using DoctorWebASP.Models;
-    using Microsoft.AspNet.Identity;
- 
 
     internal sealed class Configuration : DbMigrationsConfiguration<DoctorWebASP.Models.ApplicationDbContext>
     {
         public Configuration()
         {
-            AutomaticMigrationsEnabled = true;
+            AutomaticMigrationsEnabled = false;
         }
 
         protected override void Seed(DoctorWebASP.Models.ApplicationDbContext context)
@@ -43,11 +42,6 @@ namespace DoctorWebASP.Migrations
                 new ApplicationUser() { Id = "8", Email = "usuario8@gmail.com", EmailConfirmed = true, PasswordHash = PasswordHash.HashPassword("Usuario8*"), UserName = "usuario8@gmail.com" },
                 new ApplicationUser() { Id = "9", Email = "usuario9@gmail.com", EmailConfirmed = true, PasswordHash = PasswordHash.HashPassword("Usuario9*"), UserName = "usuario9@gmail.com" },
                 new ApplicationUser() { Id = "10", Email = "usuario10@gmail.com", EmailConfirmed = true, PasswordHash = PasswordHash.HashPassword("Usuario10*"), UserName = "usuario10@gmail.com" });
-
-            context.CentrosMedicos.AddOrUpdate(x => x.CentroMedicoId,
-                new CentroMedico() { CentroMedicoId = 1, Nombre = "Centro medico 1", Rif = "1234567", Telefono = "0212-000001", Direccion = ""},
-                new CentroMedico() { CentroMedicoId = 2, Nombre = "Centro medico 2", Rif = "0987654", Telefono = "0424-000001", Direccion = ""}
-                );
         }
     }
 }

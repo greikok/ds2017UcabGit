@@ -6,6 +6,7 @@ using System.ServiceModel;
 using System.Text;
 using DoctorWebServiciosWCF.Model;
 using DoctorWebServiciosWCF.Models.Service;
+using DoctorWebServiciosWCF.Controllers;
 
 namespace DoctorWebServiciosWCF.Services
 {
@@ -55,6 +56,8 @@ namespace DoctorWebServiciosWCF.Services
                 if (respuesta.SinProblemas)
                 {
                     respuesta.Contenido.Enviar(correo, new { nombre = nombre });
+                    respuesta.Contenido.Enviar(correo, new { nombre = nombre, qweqw = 123 });
+                    respuesta.Contenido.Enviar(correo, new { nombre = nombre });
                     resultado.SinProblemas = true;
                 }
                 else
@@ -98,9 +101,6 @@ namespace DoctorWebServiciosWCF.Services
             return controller.ObtenerTodos(nombre, pagina, numeroFilas);
         }
 
-        public void Prueba(string codigo)
-        {
-            throw new NotImplementedException();
-        }
+        
     }
 }

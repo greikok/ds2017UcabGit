@@ -7,8 +7,9 @@
     <title>@ViewBag.Title - My ASP.NET Application</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/bootstrap")
     @Styles.Render("~/Content/font-awesome.css")
-
+    <link rel="stylesheet" href="../Content/plugins/fullcalendar/fullcalendar.print.css" media="print">
     @RenderSection("StyleContent", false)
 </head>
 <body class="hold-transition skin-red-light sidebar-mini">
@@ -66,7 +67,7 @@
                         </a>
                         <ul class="treeview-menu">
                             <li class="active">
-                                <a href="/Citas/Create">
+                                <a href="/Citas/SolicitarCita">
                                     <i class="fa fa-pencil-square-o"></i> <span>Solicitar Cita</span>
                                 </a>
                             </li>
@@ -77,7 +78,6 @@
                             </li>
                         </ul>
                     </li>
-
                     <li class="treeviw @Html.AgregarClaseSi(ViewData.esPaginaActual(MenuPaginas.Notificaciones) || ViewData.esPaginaActual(MenuPaginas.NotificacionGuardar), "active")">
                         <a href="@Url.Action(actionName: "Index", controllerName: "Notificaciones")">
                             <i class="fa fa-bell"></i> <span>Notificaciones</span>
@@ -94,8 +94,9 @@
                             </li>
                         </ul>
                     </li>
-                    <!-- =============================================== -->
-                    <!-- Aqui van las  opciones del menu administracion de recursos -->
+
+                        <!-- =============================================== -->
+                        <!-- Aqui van las siguientes opciones del menu -->
                     <li class="treeview">
                         <a href="/People/Index">
                             <i class="fa fa-address-card"></i> <span>Perfil de Usuario</span>
@@ -103,7 +104,7 @@
                                 <i class="fa fa-angle-left pull-right"></i>
                             </span>
                         </a>
-                    <li class="treeview @Html.AgregarClaseSi(ViewData.esPaginaActual(MenuPaginas.Reportes), "active")">
+                    <li class="treeview @Html.AgregarClaseSi(ViewData.esPaginaActual(MenuPaginas.Reportes) || ViewData.esPaginaActual(MenuPaginas.Configurados), "active")">
                         <a href="#">
                             <i class="fa fa-list-alt"></i> <span>Reportes</span>
                             <span class="pull-right-container">
@@ -116,59 +117,47 @@
                                     <i class="fa fa-table"></i> <span>Preestablecidos</span>
                                 </a>
                             </li>
-                            <li class="">
-                                <a href="#">
+                            <li class="@Html.AgregarClaseSi(ViewData.esPaginaActual(MenuPaginas.Configurados), "active")">
+                                <a href="@Url.Action("Configurados", "Reportes")">
                                     <i class="fa fa-cog"></i> <span>Configurados</span>
                                 </a>
                             </li>
                         </ul>
                     </li>
-                    <li class="treeview">
-                        <a href="/Calendarios/Index">
-                            <i class="fa fa-calendar"></i> <span>Calendario</span>
-                        </a>
-                    </li>  
+                    <!--Modulo de Historial Medico -->
                     <li class="treeview">
                         <a href="#">
-                            <i class="fa fa-archive"></i> <span>Administracion de recursos</span>
+                            <i class="fa fa-ambulance"></i> <span>Historial Medico</span>
                             <span class="pull-right-container">
                                 <i class="fa fa-angle-left pull-right"></i>
                             </span>
                         </a>
                         <ul class="treeview-menu">
                             <li class="active">
-                                <a href="~/Areas/Index">
-                                    <i class="fa fa-search"></i> <span>Consulta de Areas </span>
+                                <a href="/HistoriaMedicas/Inicio">
+                                    <i class="fa fa-arrow-circle-right"></i> <span>Entrar</span>
                                 </a>
                             </li>
                            
-                            <li class="active">
-                                <a href="~/EquipoMedicoes/Index">
-                                    <i class="fa fa-search"></i> <span>Consulta de Equipo Medico </span>
-                                </a>
-                            </li>
-                        
-                            <li class="active">
-                                <a href="~/Utensilios/Index">
-                                    <i class="fa fa-search"></i> <span>Consulta de Material Medico </span>
-                                </a>
-                            </li>
-                     
-                            <li class="active">
-                                <a href="~/RecursoHospitalarios/Index">
-                                    <i class="fa fa-search"></i> <span>Consulta de Farmacos </span>
-                                </a>
-                            </li>
-                        
-                            <li class="active">
-                                <a href="~/Almacens/Index">
-                                    <i class="fa fa-search"></i> <span>Consulta de Almacenes </span>
-                                </a>
-                            </li>      
                         </ul>
                     </li>
 
-            </ul>
+
+
+
+
+
+
+
+
+                    <!--Cierre de Modulo-->
+
+                    <li class="treeview">
+                        <a href="/Calendarios/Index">
+                            <i class="fa fa-calendar"></i> <span>Calendario</span>
+                        </a>
+                    </li>
+                </ul>
             </section>
             <!-- /.sidebar -->
         </aside>
@@ -202,8 +191,6 @@
     </div>
 
 
-
-    @Scripts.Render("~/bundles/bootstrap")
         @RenderSection("scripts", required: false)
         @RenderSection("ScriptContent", false)
 </body>
