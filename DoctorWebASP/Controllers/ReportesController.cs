@@ -45,6 +45,7 @@ namespace DoctorWebASP.Controllers
             indexViewModel.promedioCitasPorMedico = getPromedioCitasPorMedico();
 
             // REPORTE #5 - Promedio de uso de la aplicación
+            indexViewModel.promedioUsoApp = getPromedioUsoApp();
 
             return View(indexViewModel);
         }
@@ -67,7 +68,7 @@ namespace DoctorWebASP.Controllers
             return Json(new { cantidad = result.Count(), fechaInicio = fechaInicio.ToString(), fechaFin = fechaFin.ToString() } );
         }
 
-        private double getPromedioEdadPaciente()
+        public double getPromedioEdadPaciente()
         {
             var result = from p in db.Personas
                          where (p is Paciente)
@@ -85,7 +86,7 @@ namespace DoctorWebASP.Controllers
 
         }
 
-        private double getPromedioCitasPorMedico()
+        public double getPromedioCitasPorMedico()
         {
             double cantidadCitas = (from c in db.Calendarios
                                  where !c.Cancelada & c.Disponible == 0
@@ -148,6 +149,17 @@ namespace DoctorWebASP.Controllers
                                       select p).Count();
 
             return Json(new { cantidad = cantidadCitasCanceladas/cantidadMedicos, fechaInicio = dtFechaInicio.ToString(), fechaFin = dtFechaFin.ToString() });
+        }
+
+        public double getPromedioUsoApp()
+        {
+            double bitacora = (from b in db.Bitacoras
+                            select b).Count();
+
+            double usuarios = (from u in db.Users
+                            select u).Count();
+
+            return bitacora/usuarios;
         }
 
         public int pruebaunitaria()
