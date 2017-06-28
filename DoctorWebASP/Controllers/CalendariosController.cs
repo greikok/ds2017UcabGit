@@ -187,14 +187,14 @@ namespace DoctorWebASP.Controllers
             medicoid = login.PersonaId;
             // retrive the data from table  
             var callist = db.Calendarios.Where(c => c.Medico.PersonaId == medicoid && c.Disponible == 1).ToList()
-                .Select(c => new {id = c.CalendarioId, title = "Tiempo de cita", start = c.HoraInicio.ToString("yyyy-MM-ddTHH:mm:ss.fffzzz"), end = c.HoraFin.ToString("yyyy-MM-ddTHH:mm:ss.fffzzz"), c.Disponible, c.Cancelada, backgroundColor = "#00a65a"});
-            /*var citist = db.Calendarios.Where(c => c.Medico.PersonaId == medicoid && c.Disponible == 0 &&  c.Cancelada == false).ToList()
-                .Select(c => new { id = c.CalendarioId, title = "Cita Medica", start = c.HoraInicio.ToString("yyyy-MM-ddTHH:mm:ss.fffzzz"), end = c.HoraFin.ToString("yyyy-MM-ddTHH:mm:ss.fffzzz"), c.Disponible, c.Cancelada, backgroundColor = "#f56954" });
+                .Select(c => new {id = c.CalendarioId, title = c.CalendarioId + ". Tiempo agendado para cita ", start = c.HoraInicio.ToString("yyyy-MM-ddTHH:mm:ss.fffzzz"), end = c.HoraFin.ToString("yyyy-MM-ddTHH:mm:ss.fffzzz"), c.Disponible, c.Cancelada, backgroundColor = "#00a65a"});
+            var citlist = db.Calendarios.Where(c => c.Medico.PersonaId == medicoid && c.Disponible == 0 &&  c.Cancelada == false).ToList()
+                .Select(c => new { id = c.CalendarioId, title = "Cita Médica con " + c.Cita.Paciente.NombreCompleto, start = c.HoraInicio.ToString("yyyy-MM-ddTHH:mm:ss.fffzzz"), end = c.HoraFin.ToString("yyyy-MM-ddTHH:mm:ss.fffzzz"), c.Disponible, c.Cancelada, backgroundColor = "#f56954" });
             // Pass the "personlist" object for conversion object to JSON string
-            var eventlist = callist.Union(citist);*/
+            var eventlist = callist.Concat(citlist);
             JavaScriptSerializer serializer = new JavaScriptSerializer();
             serializer.MaxJsonLength = Int32.MaxValue;
-            string jsondata = serializer.Serialize(callist);
+            string jsondata = serializer.Serialize(eventlist);
             string path = Server.MapPath("~/Content/");
             // Write that JSON to txt file,  
             System.IO.File.WriteAllText(path + "calendario.json", jsondata);
