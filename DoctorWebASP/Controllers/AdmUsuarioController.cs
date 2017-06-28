@@ -30,6 +30,14 @@ namespace DoctorWebASP.Controllers
         {
             return View();
         }
+        public ActionResult eliminarpermiso()
+        {
+            return View();
+        }
+        public ActionResult crearpermiso()
+        {
+            return View();
+        } 
 
         // GET: AdmUsuario/Details/5
         public ActionResult Details(int id)

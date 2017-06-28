@@ -1,38 +1,28 @@
 ﻿
 @{
-    ViewBag.Title = "CrearPerfil";
+    ViewBag.Title = "Administracion de Perfiles";
 }
 
-<h2>CrearPerfil</h2>
+<h2>Administracion De Perfiles</h2>
 
 <body>
 
     <br />
-          <form method="get" action="/AdmUsuario/Crearp">
-       
-            <input type="submit" value="Crear Perfil" />
+    <td><a href="/AdmUsuario/Crearp" class="btn btn-block btn-primary btn-sm">Crear Perfil</a></td>
 
-       </form>
+      
 
     <br />
     <br />
-    <form method="get" action="/AdmUsuario/Asignarp">
-
-        <input type="submit" value="Asignar Perfil" />
-
-    </form>
+    <td><a href="/AdmUsuario/Asignarp" class="btn btn-block btn-primary btn-sm">Asignar Perfil</a></td>
 
     <br />
     <br />
-    <form method="get" action="/AdmUsuario/Eliminarp">
-
-        <input type="submit" value="Eliminar Perfil" />
-
-    </form>
+    <td><a href="/AdmUsuario/Eliminarp" class="btn btn-block btn-primary btn-sm">Eliminar Perfil</a></td>
 
     <br />
 
-
+    <asp:button id='btnBoton' runat='server' Text='ir atrás' />
 
       </body>
 
