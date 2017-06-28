@@ -1,0 +1,69 @@
+﻿@model IEnumerable<DoctorWebASP.Models.RecursoHospitalario>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Almacen.AlmacenId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Nombre)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Descripcion)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Tipo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Componentes)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Posologia)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Recomendaciones)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Almacen.AlmacenId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Nombre)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Descripcion)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Tipo)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Componentes)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Posologia)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Recomendaciones)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.RecursoHospitalarioId }) |
+            @Html.ActionLink("Details", "Details", new { id=item.RecursoHospitalarioId }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.RecursoHospitalarioId })
+        </td>
+    </tr>
+}
+
+</table>

@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
+using System.Web.Mvc;
 
 namespace DoctorWebASP.Models
 {
@@ -29,6 +30,16 @@ namespace DoctorWebASP.Models
 
         public virtual ApplicationUser ApplicationUser { get; set; }
 
+
+        public string ConcatUserName
+        {
+            get
+            {
+                return Nombre +" "+ Apellido;
+            }
+        }
+
+
         public string NombreCompleto
         {
             get
@@ -36,5 +47,6 @@ namespace DoctorWebASP.Models
                 return Nombre + " " + Apellido;
             }
         }
+
     }
 }

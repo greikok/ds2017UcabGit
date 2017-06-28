@@ -67,7 +67,7 @@
                         </a>
                         <ul class="treeview-menu">
                             <li class="active">
-                                <a href="/Citas/Create">
+                                <a href="/Citas/SolicitarCita">
                                     <i class="fa fa-pencil-square-o"></i> <span>Solicitar Cita</span>
                                 </a>
                             </li>
@@ -104,7 +104,7 @@
                                 <i class="fa fa-angle-left pull-right"></i>
                             </span>
                         </a>
-                    <li class="treeview @Html.AgregarClaseSi(ViewData.esPaginaActual(MenuPaginas.Reportes), "active")">
+                    <li class="treeview @Html.AgregarClaseSi(ViewData.esPaginaActual(MenuPaginas.Reportes) || ViewData.esPaginaActual(MenuPaginas.Configurados), "active")">
                         <a href="#">
                             <i class="fa fa-list-alt"></i> <span>Reportes</span>
                             <span class="pull-right-container">
@@ -117,13 +117,41 @@
                                     <i class="fa fa-table"></i> <span>Preestablecidos</span>
                                 </a>
                             </li>
-                            <li class="">
-                                <a href="#">
+                            <li class="@Html.AgregarClaseSi(ViewData.esPaginaActual(MenuPaginas.Configurados), "active")">
+                                <a href="@Url.Action("Configurados", "Reportes")">
                                     <i class="fa fa-cog"></i> <span>Configurados</span>
                                 </a>
                             </li>
                         </ul>
                     </li>
+                    <!--Modulo de Historial Medico -->
+                    <li class="treeview">
+                        <a href="#">
+                            <i class="fa fa-ambulance"></i> <span>Historial Medico</span>
+                            <span class="pull-right-container">
+                                <i class="fa fa-angle-left pull-right"></i>
+                            </span>
+                        </a>
+                        <ul class="treeview-menu">
+                            <li class="active">
+                                <a href="/HistoriaMedicas/Inicio">
+                                    <i class="fa fa-arrow-circle-right"></i> <span>Entrar</span>
+                                </a>
+                            </li>
+                           
+                        </ul>
+                    </li>
+
+
+
+
+
+
+
+
+
+                    <!--Cierre de Modulo-->
+
                     <li class="treeview">
                         <a href="/Calendarios/Index">
                             <i class="fa fa-calendar"></i> <span>Calendario</span>

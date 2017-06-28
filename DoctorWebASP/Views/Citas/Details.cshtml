@@ -4,15 +4,92 @@
     ViewBag.Title = "Details";
 }
 
-<h2>Details</h2>
+<section class="content-header">
+    <h1>
+        Cita Medica
+        <small>Detalle de su cita</small>
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li><a href="#">Cita</a></li>
+        <li class="active">Detalle de su cita</li>
+    </ol>
+</section>
 
-<div>
-    <h4>Cita</h4>
-    <hr />
-    <dl class="dl-horizontal">
-    </dl>
-</div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.CitaId }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+<section class="content">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="box box-info">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Detalles de su cita medica registrada</h3>
+                </div>
+                <div class="box-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <dl class="dl-horizontal">
+                                <dt>
+                                    @Html.DisplayName("Nombre del Doctor")
+                                </dt>
+
+                                <dd>
+                                    @Html.DisplayFor(model => model.Calendario.Medico.ConcatUserName)
+                                </dd>
+                                <dt>
+                                    @Html.DisplayName("Telefono")
+                                </dt>
+                                <dd>
+                                    @Html.DisplayFor(model => model.Calendario.Medico.Telefono)
+                                </dd>
+                                <dt>
+                                    @Html.DisplayName("Email del doctor")
+                                </dt>
+                                <dd>
+                                    @Html.DisplayFor(model => model.Calendario.Medico.Email)
+                                </dd>
+                                <dt>
+                                    @Html.DisplayName("Centro medico")
+                                </dt>
+                                <dd>
+                                    @Html.DisplayFor(model => model.CentroMedico.Nombre)
+                                </dd>
+                                <dt>
+                                    @Html.DisplayName("Fecha Inicio")
+                                </dt>
+                                <dd>
+                                    @Html.DisplayFor(model => model.Calendario.HoraInicio)
+                                </dd>
+                                <dt>
+                                    @Html.DisplayName("Fecha Fin")
+                                </dt>
+                                <dd>
+                                    @Html.DisplayFor(model => model.Calendario.HoraFin)
+                                </dd>
+
+                            </dl>
+                        </div>
+                        <div class="col-md-6" align="center">
+                            @Html.ActionLink("Cancelar Cita", "Delete", new { id = Model.CitaId }, new { @class = "btn btn-warning" }) &nbsp;
+                            @Html.ActionLink("Volver", "Index", new { }, new { @class = "btn btn-primary" })
+                        </div>
+                    </div>
+                    <div class="row">
+
+
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
+
+@section Scripts {
+
+    <script>
+        $('#myModal').on('shown.bs.modal', function () {
+            $('#myInput').focus()
+        });
+    </script>
+
+}

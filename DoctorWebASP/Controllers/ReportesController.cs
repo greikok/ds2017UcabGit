@@ -19,6 +19,9 @@ namespace DoctorWebASP.Controllers
     public class ReportesController : Controller
     {
         private ApplicationDbContext db;
+        private string lastTimeOnDay = "11:59:59 PM";
+        private string firstTimeOnDay = "12:00:00 AM";
+
 
         public ReportesController()
         {
@@ -33,13 +36,6 @@ namespace DoctorWebASP.Controllers
         // GET: Reportes
         public ActionResult Index()
         {
-            // REPORTE #1
-            /*string dateString = "02-06-2017";
-            DateTime date = DateTime.Parse(dateString);
-
-            var indexViewModel = new ReportesIndexViewModel();
-            indexViewModel.cantidadUsuariosRegistrados = getCantidadUsuariosRegistrados(date);*/
-
             var indexViewModel = new ReportesIndexViewModel();
 
             // REPORTE #2 - Promedio de edad de los pacientes
@@ -49,21 +45,21 @@ namespace DoctorWebASP.Controllers
             indexViewModel.promedioCitasPorMedico = getPromedioCitasPorMedico();
 
             // REPORTE #5 - Promedio de uso de la aplicación
+            indexViewModel.promedioUsoApp = getPromedioUsoApp();
 
             return View(indexViewModel);
         }
 
-        [HttpPost]
-        public ActionResult Prueba()
+        public ActionResult Configurados()
         {
-            return Json(new { id = 1, value = "new" });
+            return View();
         }
-
+        
         [HttpPost]
         public ActionResult getCantidadUsuariosRegistrados(string fechaInicioStr, string fechaFinStr)
         {
-            DateTime fechaInicio = DateTime.Parse(fechaInicioStr, CultureInfo.InvariantCulture);
-            DateTime fechaFin = DateTime.Parse(fechaFinStr, CultureInfo.InvariantCulture);
+            DateTime fechaInicio = DateTime.Parse(fechaInicioStr + " " + firstTimeOnDay, CultureInfo.InvariantCulture);
+            DateTime fechaFin = DateTime.Parse(fechaFinStr + " " + lastTimeOnDay, CultureInfo.InvariantCulture);
 
             var result = from p in db.Personas
                         where p.FechaCreacion >= fechaInicio & p.FechaCreacion <= fechaFin
@@ -75,8 +71,8 @@ namespace DoctorWebASP.Controllers
         public double getPromedioEdadPaciente()
         {
             var result = from p in db.Personas
-                          where (p is Paciente)
-                          select p.FechaNacimiento;
+                         where (p is Paciente)
+                         select p.FechaNacimiento;
 
             int total = 0;
 
@@ -86,7 +82,8 @@ namespace DoctorWebASP.Controllers
                 total = total + age.Years;
             }
 
-            return total/result.Count();
+            return total / result.Count();
+
         }
 
         public double getPromedioCitasPorMedico()
@@ -104,12 +101,12 @@ namespace DoctorWebASP.Controllers
         [HttpPost]
         public ActionResult getPromedioRecursosDisponibles(string fechaInicioStr, string fechaFinStr)
         {
-            DateTime dtFechaInicio = DateTime.Parse(fechaInicioStr, CultureInfo.InvariantCulture);
-            DateTime dtFechaFin = DateTime.Parse(fechaFinStr, CultureInfo.InvariantCulture);
+            DateTime dtFechaInicio = DateTime.Parse(fechaInicioStr + " " + firstTimeOnDay, CultureInfo.InvariantCulture);
+            DateTime dtFechaFin = DateTime.Parse(fechaFinStr + " " + lastTimeOnDay, CultureInfo.InvariantCulture);
 
             var result = from ur in db.UsoRecursos
                          join ci in db.Citas on ur.Cita equals ci
-                         join ca in db.Calendarios on ci.Evento equals ca
+                         join ca in db.Calendarios on ci.Calendario equals ca
                          where ca.HoraInicio >= dtFechaInicio & ca.HoraInicio <= dtFechaFin & !ca.Cancelada
                          select ur;
 
@@ -136,6 +133,39 @@ namespace DoctorWebASP.Controllers
             }
 
             return Json(new { cantidad = totalCantidadRecursos/cantidadRecursos, fechaInicio = dtFechaInicio.ToString(), fechaFin = dtFechaFin.ToString() });
+        }
+
+        [HttpPost]
+        public ActionResult getPromedioCitasCanceladasPorMedico(string fechaInicioStr, string fechaFinStr)
+        {
+            DateTime dtFechaInicio = DateTime.Parse(fechaInicioStr, CultureInfo.InvariantCulture);
+            DateTime dtFechaFin = DateTime.Parse(fechaFinStr, CultureInfo.InvariantCulture);
+
+            double cantidadCitasCanceladas = (from c in db.Calendarios
+                                    where c.Cancelada & c.Disponible == 1 & c.HoraInicio >= dtFechaInicio & c.HoraFin <= dtFechaFin
+                                    select c).Count();
+            double cantidadMedicos = (from p in db.Personas
+                                      where p is Medico
+                                      select p).Count();
+
+            return Json(new { cantidad = cantidadCitasCanceladas/cantidadMedicos, fechaInicio = dtFechaInicio.ToString(), fechaFin = dtFechaFin.ToString() });
+        }
+
+        public double getPromedioUsoApp()
+        {
+            double bitacora = (from b in db.Bitacoras
+                            select b).Count();
+
+            double usuarios = (from u in db.Users
+                            select u).Count();
+
+            return bitacora/usuarios;
+        }
+
+        public int pruebaunitaria()
+        {
+            var result = 2 + 2;
+            return result;
         }
     }
 }
