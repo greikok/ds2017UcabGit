@@ -1,10 +1,12 @@
 ﻿using DoctorWebASP.Controllers.Helpers;
 using DoctorWebASP.Models;
+using DoctorWebASP.Models.Service;
 using DoctorWebASP.ViewModels;
 using Microsoft.Reporting.WebForms;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.Data.Entity.Core;
 using System.Data.SqlClient;
 using System.Diagnostics;
 using System.Globalization;
@@ -37,21 +39,52 @@ namespace DoctorWebASP.Controllers
         public ActionResult Index()
         {
             var indexViewModel = new ReportesIndexViewModel();
+            var resultadoProcesoR2 = new ResultadoProceso();
+            var resultadoProcesoR3 = new ResultadoProceso();
+            var resultadoProcesoR5 = new ResultadoProceso();
 
-            // REPORTE #2 - Promedio de edad de los pacientes
-            indexViewModel.promedioEdadPacientes = getPromedioEdadPaciente();
+            try
+            {
+                // REPORTE #2 - Promedio de edad de los pacientes
+                indexViewModel.promedioEdadPacientes = getPromedioEdadPaciente();
+                resultadoProcesoR2.SinProblemas = true;
+            }
+            catch (Exception ex)
+            {
+                resultadoProcesoR2.Mensaje = (ex.InnerException == null) ? ex.Message : ex.InnerException.Message;
+            }
 
-            // REPORTE #3 - Promedio de citas por médico
-            indexViewModel.promedioCitasPorMedico = getPromedioCitasPorMedico();
+            try
+            {
+                // REPORTE #3 - Promedio de citas por médico
+                indexViewModel.promedioCitasPorMedico = getPromedioCitasPorMedico();
+                resultadoProcesoR3.SinProblemas = true;
+            }
+            catch (Exception ex)
+            {
+                resultadoProcesoR3.Mensaje = (ex.InnerException == null) ? ex.Message : ex.InnerException.Message;
+            }
 
-            // REPORTE #5 - Promedio de uso de la aplicación
-            indexViewModel.promedioUsoApp = getPromedioUsoApp();
+            try
+            {
+                // REPORTE #5 - Promedio de uso de la aplicación
+                indexViewModel.promedioUsoApp = getPromedioUsoApp();
+                resultadoProcesoR5.SinProblemas = true;
+            }
+            catch (Exception ex)
+            {
+                resultadoProcesoR5.Mensaje = (ex.InnerException == null) ? ex.Message : ex.InnerException.Message;
+            }
+
+            indexViewModel.resultadoProcesoR2 = resultadoProcesoR2;
+            indexViewModel.resultadoProcesoR3 = resultadoProcesoR3;
+            indexViewModel.resultadoProcesoR5 = resultadoProcesoR5;
 
             return View(indexViewModel);
         }
 
         public ActionResult Configurados()
-        {
+        {            
             return View();
         }
         
@@ -68,13 +101,22 @@ namespace DoctorWebASP.Controllers
             return Json(new { cantidad = result.Count(), fechaInicio = fechaInicio.ToString(), fechaFin = fechaFin.ToString() } );
         }
 
+        #region REPORTE #2 - Promedio de edad de los pacientes.
         public double getPromedioEdadPaciente()
         {
             var result = from p in db.Personas
-                         where (p is Paciente)
-                         select p.FechaNacimiento;
+                            where (p is Paciente)
+                            select p.FechaNacimiento;
 
-            int total = 0;
+            if (result == null)
+                throw new Exception("Hay un problema con la consulta en la base de datos.");
+
+            double total = 0;
+
+            double cantidadPacientes = result.Count();
+
+            if (cantidadPacientes == 0)
+                throw new DoctorWebException("Hay un error de división entre cero.");
 
             foreach (var r in result.ToList())
             {
@@ -82,21 +124,28 @@ namespace DoctorWebASP.Controllers
                 total = total + age.Years;
             }
 
-            return total / result.Count();
-
+            return total / cantidadPacientes;
         }
+        #endregion
 
+        #region REPORTE #3 - Promedio de citas por médico.
         public double getPromedioCitasPorMedico()
         {
-            double cantidadCitas = (from c in db.Calendarios
+            double? cantidadCitas = (from c in db.Calendarios
                                  where !c.Cancelada & c.Disponible == 0
                                  select c).Count();
-            double cantidadMedicos = (from p in db.Personas
+            double? cantidadMedicos = (from p in db.Personas
                                    where p is Medico
                                    select p).Count();
+            if (cantidadMedicos == null || cantidadCitas == null)
+                throw new DoctorWebException("Hay un problema con la consulta en la base de datos.");
 
-            return cantidadCitas / cantidadMedicos;
+            if (cantidadMedicos == 0)
+                throw new DivideByZeroException("Hay un error de división entre cero.");
+
+            return ((double) cantidadCitas / (double) cantidadMedicos);
         }
+        #endregion
 
         [HttpPost]
         public ActionResult getPromedioRecursosDisponibles(string fechaInicioStr, string fechaFinStr)

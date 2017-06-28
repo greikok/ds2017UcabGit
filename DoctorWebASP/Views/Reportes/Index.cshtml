@@ -13,7 +13,7 @@
     <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Inicio</a></li>
         <li><a href="#">Reportes</a></li>
-        <li class="active">Reportes Preestablecidos</li>
+        <li class="active">Reportes Preestablecidos @Model.resultadoProcesoR2.SinProblemas</li>
     </ol>
 </section>
 
@@ -26,11 +26,18 @@
                 <!-- Reporte #2: Promedio de edad de los pacientes. -->
                 <div class="col-md-4 col-sm-6 col-xs-12">
                     <div class="info-box">
-                        <span class="info-box-icon bg-blue"><i class="fa fa-bar-chart"></i></span>
+                        <span class="info-box-icon @( @Model.resultadoProcesoR2.SinProblemas ? "bg-blue" : "bg-red-active" )"><i class="fa fa-bar-chart"></i></span>
 
                         <div class="info-box-content">
                             <span class="info-box-text">Promedio de edad<br />de los pacientes.</span>
-                            <span class="info-box-number"><small>El promedio es de:</small> @Model.promedioEdadPacientes <small>años.</small></span>
+                            @if (Model.resultadoProcesoR2.SinProblemas)
+                            {
+                                <span class="info-box-number"><small>El promedio es de:</small> @Model.promedioEdadPacientes <small>años.</small></span>
+                            }
+                            else
+                            {
+                                <span class="info-box-number"><small style="color: #d33724;">@Model.resultadoProcesoR2.Mensaje</small></span>
+                            }
                         </div>
                     </div>
                 </div>
@@ -38,11 +45,18 @@
                 <!-- Reporte #3: Promedio de citas por médico. -->
                 <div class="col-md-4 col-sm-6 col-xs-12">
                     <div class="info-box">
-                        <span class="info-box-icon bg-blue"><i class="fa fa-stethoscope"></i></span>
+                        <span class="info-box-icon @( @Model.resultadoProcesoR3.SinProblemas ? "bg-blue" : "bg-red-active" )"><i class="fa fa-stethoscope"></i></span>
 
                         <div class="info-box-content">
                             <span class="info-box-text">Promedio de citas por médico.</span>
-                            <span class="info-box-number"><small>El promedio es de:</small> @Model.promedioCitasPorMedico <small>citas.</small></span>
+                            @if (Model.resultadoProcesoR3.SinProblemas)
+                            {
+                                <span class="info-box-number"><small>El promedio es de:</small> @Model.promedioCitasPorMedico <small>citas.</small></span>
+                            }
+                            else
+                            {
+                                <span class="info-box-number"><small style="color: #d33724;">@Model.resultadoProcesoR3.Mensaje</small></span>
+                            }
                         </div>
                     </div>
                 </div>
@@ -50,7 +64,7 @@
                 <!-- Reporte #5: Promedio uso a la aplicación. -->
                 <div class="col-md-4 col-sm-6 col-xs-12">
                     <div class="info-box">
-                        <span class="info-box-icon bg-blue"><i class="fa fa-area-chart"></i></span>
+                        <span class="info-box-icon @( @Model.resultadoProcesoR5.SinProblemas ? "bg-blue" : "bg-red-active" )"><i class="fa fa-area-chart"></i></span>
 
                         <div class="info-box-content">
                             <span class="info-box-text">Promedio uso a la aplicación.</span>
@@ -138,6 +152,8 @@
         </div>
     </div>
 </section>
+
+
 
 @section scripts
 {
