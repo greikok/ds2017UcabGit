@@ -11,6 +11,7 @@ using System.Data.SqlClient;
 using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
+using System.Reflection;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Script.Serialization;
@@ -84,10 +85,12 @@ namespace DoctorWebASP.Controllers
         }
 
         public ActionResult Configurados()
-        {            
-            return View();
+        {
+            IEnumerable<string> result = getEntities();
+
+            return View(result);
         }
-        
+
         [HttpPost]
         public ActionResult getCantidadUsuariosRegistrados(string fechaInicioStr, string fechaFinStr)
         {
@@ -95,10 +98,10 @@ namespace DoctorWebASP.Controllers
             DateTime fechaFin = DateTime.Parse(fechaFinStr + " " + lastTimeOnDay, CultureInfo.InvariantCulture);
 
             var result = from p in db.Personas
-                        where p.FechaCreacion >= fechaInicio & p.FechaCreacion <= fechaFin
-                        select p;
+                         where p.FechaCreacion >= fechaInicio & p.FechaCreacion <= fechaFin
+                         select p;
 
-            return Json(new { cantidad = result.Count(), fechaInicio = fechaInicio.ToString(), fechaFin = fechaFin.ToString() } );
+            return Json(new { cantidad = result.Count(), fechaInicio = fechaInicio.ToString(), fechaFin = fechaFin.ToString() });
         }
 
         #region REPORTE #2 - Promedio de edad de los pacientes.
@@ -181,7 +184,7 @@ namespace DoctorWebASP.Controllers
                 }
             }
 
-            return Json(new { cantidad = totalCantidadRecursos/cantidadRecursos, fechaInicio = dtFechaInicio.ToString(), fechaFin = dtFechaFin.ToString() });
+            return Json(new { cantidad = totalCantidadRecursos / cantidadRecursos, fechaInicio = dtFechaInicio.ToString(), fechaFin = dtFechaFin.ToString() });
         }
 
         [HttpPost]
@@ -191,24 +194,109 @@ namespace DoctorWebASP.Controllers
             DateTime dtFechaFin = DateTime.Parse(fechaFinStr, CultureInfo.InvariantCulture);
 
             double cantidadCitasCanceladas = (from c in db.Calendarios
-                                    where c.Cancelada & c.Disponible == 1 & c.HoraInicio >= dtFechaInicio & c.HoraFin <= dtFechaFin
-                                    select c).Count();
+                                              where c.Cancelada & c.Disponible == 1 & c.HoraInicio >= dtFechaInicio & c.HoraFin <= dtFechaFin
+                                              select c).Count();
             double cantidadMedicos = (from p in db.Personas
                                       where p is Medico
                                       select p).Count();
 
-            return Json(new { cantidad = cantidadCitasCanceladas/cantidadMedicos, fechaInicio = dtFechaInicio.ToString(), fechaFin = dtFechaFin.ToString() });
+            return Json(new { cantidad = cantidadCitasCanceladas / cantidadMedicos, fechaInicio = dtFechaInicio.ToString(), fechaFin = dtFechaFin.ToString() });
         }
 
         public double getPromedioUsoApp()
         {
             double bitacora = (from b in db.Bitacoras
-                            select b).Count();
+                               select b).Count();
 
             double usuarios = (from u in db.Users
-                            select u).Count();
+                               select u).Count();
 
-            return bitacora/usuarios;
+            return bitacora / usuarios;
+        }
+
+        public IEnumerable<string> getEntities()
+        {
+            List<string> entities = new List<string>();
+
+            entities.Add("Paciente");
+            entities.Add("Medico");
+            entities.Add("Recurso Hospitalario");
+            entities.Add("Centro Medico");
+
+            return entities;
+        }
+
+        [HttpPost]
+        public ActionResult getAttributes(List<string> selectedEntities)
+        {
+            List<string> attributes = new List<string>();
+            object entity = null;
+
+            foreach (var se in selectedEntities)
+            {
+                if (se.Equals("Paciente"))
+                {
+                    entity = new Paciente();
+
+                    foreach (PropertyInfo prop in entity.GetType().GetProperties())
+                    {
+                        if (prop.Name.Equals("Nombre") || prop.Name.Equals("Apellido") || prop.Name.Equals("TipoSangre"))
+                            attributes.Add(se + "." + prop.Name);
+                    }
+                }
+
+                if (se.Equals("Medico"))
+                {
+                    entity = new Medico();
+
+                    foreach (PropertyInfo prop in entity.GetType().GetProperties())
+                    {
+                        if (prop.Name.Equals("Nombre") || prop.Name.Equals("Apellido") || prop.Name.Equals("Sueldo"))
+                            attributes.Add(se + "." + prop.Name);
+                    }
+                }
+
+                if (se.Equals("Recurso Hospitalario"))
+                {
+                    entity = new RecursoHospitalario();
+
+                    foreach (PropertyInfo prop in entity.GetType().GetProperties())
+                    {
+                        if (prop.Name.Equals("Nombre") || prop.Name.Equals("Tipo"))
+                            attributes.Add(se + "." + prop.Name);
+                    }
+                }
+
+                if (se.Equals("Centro Medico"))
+                {
+                    entity = new CentroMedico();
+
+                    foreach (PropertyInfo prop in entity.GetType().GetProperties())
+                    {
+                        if (prop.Name.Equals("Nombre"))
+                            attributes.Add(se + "." + prop.Name);
+                    }
+                }
+            }
+
+            return Json(new { atributos = attributes });
+        }
+
+        [HttpPost]
+        public ActionResult getMetrics(List<string> selectedEntities, List<string> selectedAttributes)
+        {
+            List<string> metrics = new List<string>();
+
+            if (selectedEntities.Count() == 2)
+            {
+                if (selectedEntities.Contains("Paciente") & selectedEntities.Contains("Medico"))
+                {
+                    metrics.Add("Lista de pacientes por medico.");
+                    metrics.Add("Lista de medicos por paciente.");
+                }
+            }
+
+            return Json(new { metricas = metrics });
         }
 
         public int pruebaunitaria()

@@ -1,4 +1,6 @@
 ﻿@using DoctorWebASP.Controllers.Helpers
+@model IEnumerable<string>
+
 @{
     ViewBag.Title = "Configurados";
     ViewData.indicarPaginaActual(MenuPaginas.Configurados);
@@ -28,7 +30,6 @@
 
                             <div class="box-tools pull-right">
                                 <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
-                                <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-remove"></i></button>
                             </div>
                         </div>
                         <div class="box-body">
@@ -36,21 +37,18 @@
                                 <div class="col-xs-12">
                                     <div class="form-group">
                                         <label>Entidades</label>
-                                        <select class="form-control select2" multiple="multiple" data-placeholder="Seleccione la(s) entidad(es) que desea" style="width: 100%;">
-                                            <option>Alabama</option>
-                                            <option>Alaska</option>
-                                            <option>California</option>
-                                            <option>Delaware</option>
-                                            <option>Tennessee</option>
-                                            <option>Texas</option>
-                                            <option>Washington</option>
+                                        <select class="form-control select2" multiple="multiple" data-placeholder="Seleccione la(s) entidad(es) que desea" style="width: 100%;" id="select-entities">
+                                            @foreach (var entities in Model)
+                                            {
+                                            <option value="@entities">@entities</option>
+                                            }
                                         </select>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div class="box-footer">
-                            <button class="btn btn-primary pull-right">Siguiente</button>
+                            <input type="button" class="btn btn-primary pull-right" id="submit-entities" value="Siguiente" />
                         </div>
                     </div>
                 </div>
@@ -63,7 +61,6 @@
 
                             <div class="box-tools pull-right">
                                 <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
-                                <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-remove"></i></button>
                             </div>
                         </div>
                         <div class="box-body">
@@ -71,21 +68,13 @@
                                 <div class="col-xs-12">
                                     <div class="form-group">
                                         <label>Atributos</label>
-                                        <select class="form-control select2" multiple="multiple" data-placeholder="Seleccione el(los) atributo(s) que desea" style="width: 100%;" disabled>
-                                            <option>Alabama</option>
-                                            <option>Alaska</option>
-                                            <option>California</option>
-                                            <option>Delaware</option>
-                                            <option>Tennessee</option>
-                                            <option>Texas</option>
-                                            <option>Washington</option>
-                                        </select>
+                                        <select class="form-control select2" multiple="multiple" data-placeholder="Seleccione el(los) atributo(s) que desea" style="width: 100%;" id="select-attributes" disabled></select>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div class="box-footer">
-                            <button class="btn btn-primary pull-right" disabled>Siguiente</button>
+                            <input type="button" class="btn btn-primary pull-right" id="submit-attributes" value="Siguiente" disabled />
                         </div>
                     </div>
                 </div>
@@ -98,7 +87,6 @@
 
                             <div class="box-tools pull-right">
                                 <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
-                                <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-remove"></i></button>
                             </div>
                         </div>
                         <div class="box-body">
@@ -106,21 +94,14 @@
                                 <div class="col-xs-12">
                                     <div class="form-group">
                                         <label>Métricas</label>
-                                        <select class="form-control select2" multiple="multiple" data-placeholder="Seleccione la(s) métrica(s) que desea" style="width: 100%;" disabled>
-                                            <option>Alabama</option>
-                                            <option>Alaska</option>
-                                            <option>California</option>
-                                            <option>Delaware</option>
-                                            <option>Tennessee</option>
-                                            <option>Texas</option>
-                                            <option>Washington</option>
+                                        <select class="form-control select"  data-placeholder="Seleccione la métrica que desea" style="width: 100%;" id="select-metrics" disabled>
                                         </select>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div class="box-footer">
-                            <button class="btn btn-primary pull-right" disabled>Generar</button>
+                            <input type="button" class="btn btn-primary pull-right" id="generate-report" value="Generar" disabled/>
                         </div>
                     </div>
                 </div>
@@ -133,7 +114,6 @@
 
                             <div class="box-tools pull-right">
                                 <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
-                                <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-remove"></i></button>
                             </div>
                         </div>
                         <div class="box-body">
@@ -154,8 +134,96 @@
 @section scripts
 {
     <script>
-        $(function () {
+        $(document).ready(function () {
             $(".select2").select2();
+
+            $("#submit-entities").click(function () {
+                var selections = $('#select-entities option:selected');
+                var selectedEntities = [];
+
+                $(selections).each(function (index) {
+                    //console.log($(this).val());
+                    selectedEntities.push($(this).val())
+                });
+
+                var parameters = { selectedEntities: selectedEntities };
+
+                $.ajax({
+                    type: "POST",
+                    contentType: "application/json; charset=utf-8",
+                    url: "@Url.Action(actionName: "getAttributes", controllerName: "Reportes")",
+                    data: JSON.stringify(parameters),
+                    datatype: "application/json",
+                    success: function (result) {
+                        console.log(result.atributos);
+                        //console.log($("#select-attributes"));
+
+                        var selectAttr = $("#select-attributes");
+                        var submitAttr = $("#submit-attributes");
+
+                        selectAttr.empty();
+
+                        for (var i in result.atributos) {
+                            var newOption = new Option(result.atributos[i], result.atributos[i], true, false);
+                            selectAttr.append(newOption).trigger('change');
+                        }
+                        $(selectAttr).prop('disabled', false);
+                        $(submitAttr).prop('disabled', false);
+
+                    },
+                    error: function (xmlhttprequest, textstatus, errorthrown) {
+                        alert(" conection to the server failed ");
+                        console.log("error: " + errorthrown);
+                    }
+                });
+            });
+
+            $("#submit-attributes").click(function () {
+                var selections = $('#select-entities option:selected');
+                var selectedEntities = [];
+
+                $(selections).each(function (index) {
+                    selectedEntities.push($(this).val())
+                });
+                //console.log($(selectedEntities));
+
+                var selections2 = $('#select-attributes option:selected');
+                var selectedAttributes = [];
+
+                $(selections2).each(function (index) {
+                    selectedAttributes.push($(this).val())
+                });
+                //console.log($(selectedAttributes));
+
+                var parameters = { selectedEntities: selectedEntities, selectedAttributes: selectedAttributes };
+
+                $.ajax({
+                    type: "POST",
+                    contentType: "application/json; charset=utf-8",
+                    url: "@Url.Action(actionName: "getMetrics", controllerName: "Reportes")",
+                    data: JSON.stringify(parameters),
+                    datatype: "application/json",
+                    success: function (result) {
+                        console.log(result.metricas);
+                        
+                        var selectMet = $("#select-metrics");
+                        var submitMet = $("#generate-report");
+
+                        selectMet.empty();
+
+                        for (var i in result.metricas) {
+                            var newOption = new Option(result.metricas[i], result.metricas[i], true, false);
+                            selectMet.append(newOption).trigger('change');
+                        }
+                        $(selectMet).prop('disabled', false);
+                        $(submitMet).prop('disabled', false);
+                    },
+                    error: function (xmlhttprequest, textstatus, errorthrown) {
+                        alert(" conection to the server failed ");
+                        console.log("error: " + errorthrown);
+                    }
+                });
+            });
         });
     </script>
 }
